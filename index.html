@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Khawlah Alsudais - Artificial Intelligence Portfolio</title>
+  <title>Khawlah Alsudais — AI Portfolio</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
 
@@ -49,19 +50,9 @@
       text-decoration: none;
     }
 
-    .mono {
-      font-family: "IBM Plex Mono", monospace;
-    }
-
-    #scroll-progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 2px;
-      width: 0%;
-      background: var(--navy);
-      z-index: 1100;
-    }
+    /* =========================
+       NAVIGATION
+    ========================= */
 
     nav {
       position: fixed;
@@ -82,561 +73,622 @@
       transition: 0.3s ease;
     }
 
-    .nav-name,
-    .hamburger,
-    .nav-links,
-    .nav-social {
-      pointer-events: auto;
-    }
-
-   .nav-name {
-  font-family: "Fraunces", serif;
-  font-size: 19px;
-  font-weight: 300;
-  letter-spacing: 0.02em;
-  color: var(--navy);
-}
-
+    .nav-left,
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 14px;
+      pointer-events: auto;
     }
 
-    .nav-social {
+    .nav-left {
+      gap: 25px;
+    }
+
+    .nav-right {
+      gap: 20px;
+    }
+
+    .nav-name {
+      font-family: "Fraunces", serif;
+      font-size: 19px;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      color: var(--navy);
+    }
+
+    .linkedin-badge {
       display: flex;
       align-items: center;
-      gap: 4px;
+      justify-content: center;
 
-      transition: 0.25s ease;
+      width: 28px;
+      height: 28px;
+
+      border: 1px solid var(--navy);
+      border-radius: 4px;
+
+      color: var(--navy);
+
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      font-weight: 600;
+
+      transition: 0.3s ease;
     }
 
-    .nav-social:hover {
-      opacity: 0.7;
+    .linkedin-badge:hover {
+      background: var(--navy);
+      color: var(--white);
     }
 
-.in-badge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 17px;
-  height: 17px;
-  border-radius: 3px;
-
-  background: var(--navy);
-  color: var(--white);
-
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 9px;
-  font-weight: 600;
-}
-
-    .hamburger {
-      position: relative;
-      z-index: 1600;
+    .in-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       width: 17px;
-      height: 11px;
+      height: 17px;
 
-      background: transparent;
-      border: none;
-      cursor: pointer;
+      border-radius: 3px;
+
+      background: var(--navy);
+      color: var(--white);
+
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 9px;
+      font-weight: 600;
+    }
+
+    .hamburger {
+      width: 25px;
+      height: 18px;
 
       display: flex;
       flex-direction: column;
       justify-content: space-between;
 
-      padding: 0;
+      cursor: pointer;
     }
 
-  .hamburger span {
-  display: block;
-  height: 1px;
-  width: 100%;
-  background: var(--navy);
-  transition: 0.3s ease;
-}
-
-    .hamburger.active span:nth-child(1) {
-      transform: translateY(5px) rotate(45deg);
-    }
-
-    .hamburger.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.active span:nth-child(3) {
-      transform: translateY(-5px) rotate(-45deg);
-    }
-
-    .nav-overlay {
-      position: fixed;
-      inset: 0;
-
-      background: rgba(23,29,46,0.55);
-
-      opacity: 0;
-      visibility: hidden;
-
-      transition: 0.3s ease;
-
-      z-index: 1400;
-    }
-
-    .nav-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .nav-links {
-      position: fixed;
-      top: 0;
-      right: 0;
-      height: 100vh;
-      width: min(320px, 80vw);
+    .hamburger span {
+      display: block;
+      height: 1px;
+      width: 100%;
 
       background: var(--navy);
 
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 30px;
-
-      padding: 40px;
-
-      font-size: 16px;
-      color: var(--grey);
-
-      transform: translateX(100%);
-      transition: transform 0.4s ease;
-
-      z-index: 1500;
+      transition: 0.3s ease;
     }
 
-    .nav-links.active {
-      transform: translateX(0);
-    }
+    /* =========================
+       MENU
+    ========================= */
 
-    .nav-links a {
-      position: relative;
-      color: var(--grey-light);
-      transition: 0.25s ease;
-    }
+    .menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
 
-    .nav-links a:hover {
+      width: min(400px, 90vw);
+      height: 100vh;
+
+      background: var(--navy);
       color: var(--white);
+
+      z-index: 1400;
+
+      padding: 120px 50px;
+
+      transition: right 0.5s cubic-bezier(.77,0,.18,1);
     }
 
-    .nav-links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -6px;
-      width: 0;
-      height: 1px;
-      background: var(--white);
-      transition: 0.25s ease;
+    .menu.active {
+      right: 0;
     }
 
-    .nav-links a:hover::after {
-      width: 100%;
+    .menu ul {
+      list-style: none;
     }
+
+    .menu li {
+      margin-bottom: 25px;
+    }
+
+    .menu a {
+      font-family: "Fraunces", serif;
+      font-size: 35px;
+      font-weight: 300;
+      color: var(--white);
+
+      transition: 0.3s ease;
+    }
+
+    .menu a:hover {
+      opacity: 0.6;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
 
     .hero {
       min-height: 100vh;
-      padding: 160px 6vw 100px;
 
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      align-items: center;
+
+      padding: 140px 8vw 100px;
 
       position: relative;
-      overflow: hidden;
     }
 
     .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 1100px;
+      max-width: 950px;
     }
 
- .eyebrow {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--navy);
+    .eyebrow {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
 
-  margin-bottom: 25px;
+      color: var(--navy);
 
-  animation: fadeUp 0.8s ease both;
-}
+      margin-bottom: 25px;
 
-    h1 {
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .hero h1 {
       font-family: "Fraunces", serif;
-      font-size: clamp(68px, 13vw, 150px);
+
+      font-size: clamp(65px, 11vw, 150px);
+
+      font-weight: 300;
+      letter-spacing: -0.06em;
       line-height: 0.9;
-      font-weight: 600;
-      letter-spacing: -0.03em;
-      color: #000000;
 
-      max-width: 1200px;
+      margin-bottom: 40px;
 
-      animation: fadeUp 0.9s ease 0.1s both;
+      animation: fadeUp 0.8s 0.1s ease both;
     }
 
     .hero-description {
-      max-width: 650px;
-      margin-top: 38px;
+      max-width: 620px;
 
-      font-size: clamp(17px, 2vw, 22px);
-      line-height: 1.6;
+      font-size: 18px;
+      line-height: 1.8;
+
       color: var(--muted);
 
-      animation: fadeUp 0.9s ease 0.25s both;
+      animation: fadeUp 0.8s 0.2s ease both;
     }
+
+    /* =========================
+       GENERAL SECTIONS
+    ========================= */
 
     section {
-      padding: 120px 6vw;
+      padding: 130px 8vw;
       border-top: 1px solid var(--line);
-      scroll-margin-top: 80px;
     }
 
-    .section-inner {
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .section-label {
+    .section-number {
       font-family: "IBM Plex Mono", monospace;
+
       font-size: 11px;
-      color: var(--green);
-      text-transform: uppercase;
       letter-spacing: 0.1em;
 
-      margin-bottom: 45px;
+      color: var(--muted);
+
+      margin-bottom: 20px;
     }
 
-  .section-title {
-  font-family: "Fraunces", serif;
-  font-size: clamp(48px, 7vw, 90px);
-  font-weight: 500;
-  letter-spacing: -0.04em;
-  line-height: 1;
-  margin-bottom: 45px;
-}
+    .section-title {
+      font-family: "Fraunces", serif;
+
+      font-size: clamp(45px, 6vw, 75px);
+
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      line-height: 1;
+
+      margin-bottom: 55px;
+
+      color: var(--text);
+    }
+
+    /* About title slightly larger */
+
+    #about .section-title {
+      font-size: clamp(55px, 8vw, 100px);
+    }
+
+    /* =========================
+       ABOUT
+    ========================= */
 
     .about-grid {
       display: grid;
-      grid-template-columns: 1fr 1.7fr;
-      gap: 80px;
-      align-items: start;
+      grid-template-columns: 1fr 1fr;
+
+      gap: 10vw;
     }
 
-    .about-text {
-      font-size: 20px;
-      line-height: 1.75;
-      color: #4f554f;
-      max-width: 750px;
+    .about-text p {
+      font-size: 17px;
+      line-height: 1.9;
+
+      color: var(--muted);
+
+      margin-bottom: 25px;
     }
 
-    .about-text p + p {
-      margin-top: 25px;
+    .about-side {
+      padding-top: 5px;
     }
 
-    .projects {
-      display: grid;
-      gap: 0;
+    .about-side span {
+      display: block;
+
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+
+      letter-spacing: 0.08em;
+
+      color: var(--muted);
+
+      margin-bottom: 10px;
     }
+
+    .about-side strong {
+      font-family: "Fraunces", serif;
+
+      font-size: 26px;
+      font-weight: 400;
+    }
+
+    /* =========================
+       PROJECTS
+    ========================= */
 
     .project {
       display: grid;
-      grid-template-columns: 90px 1fr auto;
-      gap: 35px;
+
+      grid-template-columns: 80px 1fr auto;
+
       align-items: center;
+
+      gap: 30px;
 
       padding: 35px 0;
 
       border-top: 1px solid var(--line);
-
-      transition:
-        padding 0.35s ease,
-        transform 0.35s ease;
     }
 
     .project:last-child {
       border-bottom: 1px solid var(--line);
     }
 
-    .project:hover {
-      padding-left: 18px;
-      padding-right: 18px;
-      background: rgba(255,255,255,0.18);
-    }
-
     .project-number {
       font-family: "IBM Plex Mono", monospace;
-      color: var(--muted);
+
       font-size: 12px;
+
+      color: var(--muted);
     }
 
-    .project-info h3 {
+    .project-name {
       font-family: "Fraunces", serif;
-      font-size: 32px;
-      font-weight: 500;
+
+      font-size: clamp(28px, 4vw, 48px);
+
+      font-weight: 400;
+
       margin-bottom: 10px;
     }
 
-    .project-info p {
-      max-width: 650px;
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: 15px;
-    }
-
-    .project-tech {
-      margin-top: 14px;
-
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .tech {
-      border: 1px solid var(--line);
-      padding: 5px 9px;
-
+    .project-description {
       font-family: "IBM Plex Mono", monospace;
+
       font-size: 10px;
+
+      letter-spacing: 0.05em;
+
       color: var(--muted);
     }
 
     .project-link {
       font-family: "IBM Plex Mono", monospace;
-      font-size: 11px;
-      white-space: nowrap;
 
-      transition: 0.25s ease;
+      font-size: 11px;
+
+      color: var(--navy);
+
+      border-bottom: 1px solid var(--navy);
+
+      padding-bottom: 3px;
+
+      transition: 0.3s ease;
     }
 
     .project-link:hover {
-      color: var(--green);
-      transform: translateX(5px);
+      opacity: 0.5;
     }
+
+    /* =========================
+       SKILLS
+    ========================= */
 
     .skills-grid {
       display: grid;
+
       grid-template-columns: repeat(3, 1fr);
+
       gap: 60px;
     }
 
     .skill-category h3 {
-      font-family: "Fraunces", serif;
-      font-size: 27px;
-      font-weight: 500;
-      margin-bottom: 24px;
-    }
+      font-family: "IBM Plex Mono", monospace;
 
-    .skill-list {
-      list-style: none;
-    }
+      font-size: 11px;
 
-    .skill-list li {
-      padding: 12px 0;
-      border-bottom: 1px solid var(--line);
+      letter-spacing: 0.1em;
+
+      text-transform: uppercase;
 
       color: var(--muted);
-      font-size: 14px;
 
-      transition: 0.25s ease;
+      margin-bottom: 25px;
     }
 
-    .skill-list li:hover {
-      padding-left: 8px;
-      color: var(--text);
+    .skill-category p {
+      font-family: "Fraunces", serif;
+
+      font-size: 25px;
+
+      line-height: 1.7;
+
+      font-weight: 300;
     }
 
-    .experience-list {
-      display: grid;
-      gap: 0;
-    }
+    /* =========================
+       CLUBS & VOLUNTEERING
+    ========================= */
 
     .experience-item {
       display: grid;
-      grid-template-columns: 90px 1fr auto;
-      gap: 35px;
 
-      padding: 30px 0;
+      grid-template-columns: 1fr 1fr auto;
+
+      gap: 40px;
+
+      padding: 35px 0;
 
       border-top: 1px solid var(--line);
-
-      transition: 0.3s ease;
     }
 
     .experience-item:last-child {
       border-bottom: 1px solid var(--line);
     }
 
-    .experience-item:hover {
-      padding-left: 15px;
-      background: rgba(255,255,255,0.16);
-    }
-
-    .experience-number {
-      font-family: "IBM Plex Mono", monospace;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .experience-info h3 {
+    .experience-role {
       font-family: "Fraunces", serif;
-      font-size: 27px;
-      font-weight: 500;
-      margin-bottom: 7px;
+
+      font-size: 28px;
+
+      font-weight: 400;
+
+      margin-bottom: 8px;
     }
 
-    .experience-info .organization {
-      color: var(--green);
-      font-size: 14px;
-      margin-bottom: 7px;
-    }
+    .experience-company {
+      font-family: "IBM Plex Mono", monospace;
 
-    .experience-info .description {
+      font-size: 11px;
+
       color: var(--muted);
+
+      letter-spacing: 0.04em;
+    }
+
+    .experience-description {
+      color: var(--muted);
+
       font-size: 14px;
-      line-height: 1.6;
+
+      line-height: 1.7;
     }
 
     .experience-date {
       font-family: "IBM Plex Mono", monospace;
+
       font-size: 10px;
+
       color: var(--muted);
+
       white-space: nowrap;
     }
 
-    .certificates-list {
-      display: grid;
-      gap: 0;
-    }
+    /* =========================
+       CERTIFICATES
+    ========================= */
 
     .certificate-row {
       display: grid;
-      grid-template-columns: 90px 1fr auto;
-      gap: 35px;
+
+      grid-template-columns: 80px 1fr auto;
+
       align-items: center;
 
-      padding: 26px 0;
+      gap: 30px;
+
+      padding: 30px 0;
 
       border-top: 1px solid var(--line);
-
-      transition:
-        padding 0.3s ease,
-        background 0.3s ease;
     }
 
     .certificate-row:last-child {
       border-bottom: 1px solid var(--line);
     }
 
-    .certificate-row:hover {
-      padding-left: 15px;
-      padding-right: 15px;
-      background: rgba(255,255,255,0.16);
-    }
-
     .certificate-number {
       font-family: "IBM Plex Mono", monospace;
-      color: var(--muted);
+
       font-size: 12px;
-    }
 
-    .certificate-body h3 {
-      font-family: "Fraunces", serif;
-      font-size: 22px;
-      font-weight: 500;
-      margin-bottom: 6px;
-    }
-
-    .certificate-org {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 11px;
-      color: var(--green);
-    }
-
-    .certificate-link,
-    .certificate-status {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 11px;
-      white-space: nowrap;
-      color: var(--text);
-      transition: 0.25s ease;
-    }
-
-    .certificate-status {
       color: var(--muted);
+    }
+
+    .certificate-name {
+      font-family: "Fraunces", serif;
+
+      font-size: 25px;
+
+      font-weight: 400;
+
+      margin-bottom: 8px;
+    }
+
+    .certificate-issuer {
+      font-family: "IBM Plex Mono", monospace;
+
+      font-size: 10px;
+
+      color: var(--muted);
+
+      letter-spacing: 0.04em;
+    }
+
+    .certificate-link {
+      font-family: "IBM Plex Mono", monospace;
+
+      font-size: 10px;
+
+      color: var(--navy);
+
+      border-bottom: 1px solid var(--navy);
+
+      padding-bottom: 3px;
+
+      transition: 0.3s ease;
     }
 
     .certificate-link:hover {
-      color: var(--green);
-      transform: translateX(5px);
+      opacity: 0.5;
     }
+
+    .certificate-status {
+      font-family: "IBM Plex Mono", monospace;
+
+      font-size: 10px;
+
+      color: var(--muted);
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.05em;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
 
     footer {
-      border-top: 1px solid rgba(0,0,0,0.2);
-      padding: 75px 6vw 35px;
       background: var(--navy);
-      color: var(--grey-light);
-      scroll-margin-top: 20px;
+
+      color: var(--white);
+
+      padding: 120px 8vw 50px;
     }
 
-    .footer-inner {
-      max-width: 1200px;
-      margin: auto;
+    .footer-number {
+      font-family: "IBM Plex Mono", monospace;
+
+      font-size: 11px;
+
+      color: var(--grey-light);
+
+      margin-bottom: 20px;
     }
 
     .footer-title {
       font-family: "Fraunces", serif;
-      font-size: clamp(38px, 5vw, 65px);
-      font-weight: 500;
-      letter-spacing: -0.04em;
-      margin-bottom: 30px;
-      color: var(--white);
-    }
 
-    footer .section-label {
-      color: var(--grey);
+      font-size: clamp(55px, 9vw, 110px);
+
+      font-weight: 300;
+
+      letter-spacing: -0.05em;
+
+      line-height: 0.95;
+
+      margin-bottom: 70px;
     }
 
     .footer-links {
       display: flex;
-      gap: 25px;
+
       flex-wrap: wrap;
 
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 11px;
-      color: var(--grey);
+      gap: 30px;
+
+      padding-bottom: 40px;
+
+      border-bottom: 1px solid rgba(255,255,255,0.15);
     }
 
     .footer-links a {
-      transition: 0.25s ease;
+      font-family: "IBM Plex Mono", monospace;
+
+      font-size: 11px;
+
+      color: var(--grey-light);
+
+      transition: 0.3s ease;
     }
 
     .footer-links a:hover {
       color: var(--white);
     }
 
-    .copyright {
-      margin-top: 65px;
+    .footer-bottom {
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      padding-top: 25px;
 
       font-family: "IBM Plex Mono", monospace;
-      font-size: 10px;
-      color: #6b7280;
+
+      font-size: 9px;
+
+      color: var(--grey);
+    }
+
+    /* =========================
+       ANIMATION
+    ========================= */
+
+    @keyframes fadeUp {
+
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
     }
 
     .reveal {
       opacity: 0;
-      transform: translateY(45px);
+      transform: translateY(30px);
 
       transition:
         opacity 0.8s ease,
@@ -648,143 +700,99 @@
       transform: translateY(0);
     }
 
-    .project.reveal,
-    .experience-item.reveal,
-    .certificate-row.reveal {
-      transform: translateY(30px);
-      transition:
-        opacity 0.7s ease,
-        transform 0.7s ease;
-    }
+    /* =========================
+       RESPONSIVE
+    ========================= */
 
-    .project.reveal:nth-of-type(1),
-    .experience-item.reveal:nth-of-type(1),
-    .certificate-row.reveal:nth-of-type(1) {
-      transition-delay: 0s;
-    }
-
-    .project.reveal:nth-of-type(2),
-    .experience-item.reveal:nth-of-type(2),
-    .certificate-row.reveal:nth-of-type(2) {
-      transition-delay: 0.08s;
-    }
-
-    .project.reveal:nth-of-type(3),
-    .experience-item.reveal:nth-of-type(3),
-    .certificate-row.reveal:nth-of-type(3) {
-      transition-delay: 0.16s;
-    }
-
-    .project.reveal:nth-of-type(4),
-    .experience-item.reveal:nth-of-type(4),
-    .certificate-row.reveal:nth-of-type(4) {
-      transition-delay: 0.24s;
-    }
-
-    .experience-item.reveal:nth-of-type(5),
-    .certificate-row.reveal:nth-of-type(5) {
-      transition-delay: 0.32s;
-    }
-
-    .experience-item.reveal:nth-of-type(6),
-    .certificate-row.reveal:nth-of-type(6) {
-      transition-delay: 0.4s;
-    }
-
-    @keyframes fadeUp {
-
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-    }
-
-    @media (max-width: 800px) {
+    @media (max-width: 900px) {
 
       nav {
         padding: 18px 3vw;
       }
 
       .hero {
-        padding: 140px 5vw 90px;
+        padding: 130px 6vw 80px;
       }
 
       section {
-        padding: 90px 5vw;
+        padding: 100px 6vw;
       }
 
       .about-grid {
         grid-template-columns: 1fr;
-        gap: 30px;
+
+        gap: 50px;
       }
 
       .skills-grid {
         grid-template-columns: 1fr;
+
         gap: 45px;
       }
 
+      .experience-item {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+      }
+
+      .experience-date {
+        white-space: normal;
+      }
+
+    }
+
+    @media (max-width: 650px) {
+
+      .hero h1 {
+        font-size: clamp(55px, 17vw, 90px);
+      }
+
+      #about .section-title {
+        font-size: clamp(50px, 14vw, 80px);
+      }
+
+      .section-title {
+        font-size: clamp(42px, 12vw, 65px);
+      }
+
       .project {
-        grid-template-columns: 45px 1fr;
-        gap: 18px;
+        grid-template-columns: 40px 1fr;
       }
 
       .project-link {
         grid-column: 2;
-        margin-top: -10px;
-      }
-
-      .project-info h3 {
-        font-size: 27px;
-      }
-
-      .about-text {
-        font-size: 17px;
-      }
-
-      .experience-item {
-        grid-template-columns: 45px 1fr;
-        gap: 18px;
-      }
-
-      .experience-date {
-        grid-column: 2;
+        justify-self: start;
       }
 
       .certificate-row {
-        grid-template-columns: 45px 1fr;
-        gap: 18px;
+        grid-template-columns: 40px 1fr;
       }
 
       .certificate-link,
       .certificate-status {
         grid-column: 2;
-        margin-top: -6px;
+        justify-self: start;
       }
 
-    }
-
-    @media (max-width: 500px) {
-
-      .nav-name {
-        font-size: 18px;
+      .footer-links {
+        flex-direction: column;
+        gap: 18px;
       }
 
-      h1 {
-        font-size: 58px;
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 15px;
       }
 
-      .hero-description {
-        font-size: 16px;
+      .menu {
+        padding: 110px 35px;
       }
 
-      .section-title {
-        font-size: 45px;
+      .menu a {
+        font-size: 30px;
       }
 
     }
@@ -794,65 +802,84 @@
 
 <body>
 
-  <div id="scroll-progress"></div>
+  <!-- =========================
+       NAVIGATION
+  ========================= -->
 
-  <div class="nav-overlay" id="navOverlay"></div>
+  <nav>
 
-  <nav id="navbar">
+    <div class="nav-left">
 
-    <div class="nav-name">
-      Khawlah Portfolio
+      <a href="#" class="nav-name">
+        Khawlah Portfolio
+      </a>
+
     </div>
 
     <div class="nav-right">
 
       <a
-        class="nav-social"
         href="https://www.linkedin.com/in/khawlah-alsudais"
         target="_blank"
-        rel="noopener"
+        class="linkedin-badge"
         aria-label="LinkedIn"
       >
         <span class="in-badge">in</span>
       </a>
 
-      <button class="hamburger" id="hamburger" aria-label="Menu">
+      <div class="hamburger" id="hamburger">
+
         <span></span>
         <span></span>
         <span></span>
-      </button>
 
-    </div>
-
-    <div class="nav-links" id="navLinks">
-
-      <a href="#about">
-        About
-      </a>
-
-      <a href="#projects">
-        Projects
-      </a>
-
-      <a href="#skills">
-        Skills
-      </a>
-
-      <a href="#experience">
-        Experience
-      </a>
-
-      <a href="#certificates">
-        Certificates
-      </a>
-
-      <a href="#contact">
-        Contact
-      </a>
+      </div>
 
     </div>
 
   </nav>
+
+
+  <!-- =========================
+       MENU
+  ========================= -->
+
+  <div class="menu" id="menu">
+
+    <ul>
+
+      <li>
+        <a href="#about">About</a>
+      </li>
+
+      <li>
+        <a href="#projects">Projects</a>
+      </li>
+
+      <li>
+        <a href="#skills">Skills</a>
+      </li>
+
+      <li>
+        <a href="#experience">Experience</a>
+      </li>
+
+      <li>
+        <a href="#certificates">Certificates</a>
+      </li>
+
+      <li>
+        <a href="#contact">Contact</a>
+      </li>
+
+    </ul>
+
+  </div>
+
+
+  <!-- =========================
+       HERO
+  ========================= -->
 
   <header class="hero">
 
@@ -876,824 +903,729 @@
 
   </header>
 
+
+  <!-- =========================
+       ABOUT
+  ========================= -->
+
   <section id="about">
 
-    <div class="section-inner reveal">
+    <div class="section-number">
+      01. About
+    </div>
 
-      <div class="section-label">
-        01. About
+    <h2 class="section-title">
+      About Me.
+    </h2>
+
+    <div class="about-grid">
+
+      <div class="about-text">
+
+        <p>
+          I'm an Artificial Intelligence student interested in building
+          practical solutions that combine data, machine learning,
+          and technology.
+        </p>
+
+        <p>
+          I enjoy exploring how intelligent systems can solve real
+          problems, from recommendation systems and computer vision
+          to AI-powered tools and applications.
+        </p>
+
+        <p>
+          My work focuses on turning ideas into functional projects
+          while continuously developing my skills in AI, programming,
+          data analysis, and web development.
+        </p>
+
       </div>
 
-      <div class="about-grid">
+      <div class="about-side">
 
-        <h2 class="section-title">
-          About<br>
-          Me.
-        </h2>
+        <span>
+          Focus
+        </span>
 
-        <div class="about-text">
-
-          <p>
-            I'm an <strong>Artificial Intelligence</strong> student interested in
-            building practical solutions that combine data,
-            machine learning, and technology.
-          </p>
-
-          <p>
-            I enjoy exploring how intelligent systems can solve
-            real problems, from recommendation systems and
-            computer vision to AI-powered tools and applications.
-          </p>
-
-          <p>
-            My work focuses on turning ideas into functional
-            projects while continuously developing my skills in
-            AI, programming, data analysis, and web development.
-          </p>
-
-        </div>
+        <strong>
+          Artificial Intelligence
+        </strong>
 
       </div>
 
     </div>
 
   </section>
+
+
+  <!-- =========================
+       PROJECTS
+  ========================= -->
 
   <section id="projects">
 
-    <div class="section-inner reveal">
+    <div class="section-number">
+      02. Projects
+    </div>
 
-      <div class="section-label">
-        02. Selected Projects
+    <h2 class="section-title">
+      Selected Work.
+    </h2>
+
+
+    <div class="project reveal">
+
+      <div class="project-number">
+        01
       </div>
 
-      <div class="projects">
+      <div>
 
-        <article class="project reveal">
+        <div class="project-name">
+          AI Tool Finder
+        </div>
 
-          <div class="project-number">
-            01
-          </div>
-
-          <div class="project-info">
-
-            <h3>
-              AI Tool Finder
-            </h3>
-
-            <p>
-              An AI tool recommendation platform that helps
-              users discover suitable AI tools based on what
-              they want to accomplish.
-            </p>
-
-            <div class="project-tech">
-
-              <span class="tech">
-                JavaScript
-              </span>
-
-              <span class="tech">
-                AI
-              </span>
-
-              <span class="tech">
-                Web Development
-              </span>
-
-            </div>
-
-          </div>
-
-          <a
-            class="project-link"
-            href="https://ikhawlah.github.io/ai-tool-finder/"
-            target="_blank"
-          >
-            View project →
-          </a>
-
-        </article>
-
-        <article class="project reveal">
-
-          <div class="project-number">
-            02
-          </div>
-
-          <div class="project-info">
-
-            <h3>
-              SeriesMatch
-            </h3>
-
-            <p>
-              A personalized TV series recommendation system
-              that recommends shows based on genres, story
-              preferences, intensity, length, completion status,
-              and ratings.
-            </p>
-
-            <div class="project-tech">
-
-              <span class="tech">
-                Python
-              </span>
-
-              <span class="tech">
-                Machine Learning
-              </span>
-
-              <span class="tech">
-                Recommendation System
-              </span>
-
-            </div>
-
-          </div>
-
-          <a
-            class="project-link"
-            href="https://seriesmatch-ckbzgb7wwdwyxbmvpvuylu.streamlit.app/"
-            target="_blank"
-          >
-            View project →
-          </a>
-
-        </article>
-
-        <article class="project reveal">
-
-          <div class="project-number">
-            03
-          </div>
-
-          <div class="project-info">
-
-            <h3>
-              Image Classifier
-            </h3>
-
-            <p>
-              An image classification project using TensorFlow
-              and MobileNetV2 to identify and classify images.
-            </p>
-
-            <div class="project-tech">
-
-              <span class="tech">
-                Python
-              </span>
-
-              <span class="tech">
-                TensorFlow
-              </span>
-
-              <span class="tech">
-                Computer Vision
-              </span>
-
-            </div>
-
-          </div>
-
-          <a
-            class="project-link"
-            href="https://image-classifier-zibszmtqrbunfppches9vf.streamlit.app/"
-            target="_blank"
-          >
-            View project →
-          </a>
-
-        </article>
-
-        <article class="project reveal">
-
-          <div class="project-number">
-            04
-          </div>
-
-          <div class="project-info">
-
-            <h3>
-              Chess vs AI
-            </h3>
-
-            <p>
-              A web-based chess game where players can compete
-              against an AI opponent powered by Stockfish, with
-              adjustable difficulty.
-            </p>
-
-            <div class="project-tech">
-
-              <span class="tech">
-                Python
-              </span>
-
-              <span class="tech">
-                AI
-              </span>
-
-              <span class="tech">
-                Stockfish
-              </span>
-
-            </div>
-
-          </div>
-
-          <a
-            class="project-link"
-            href="https://chess-vs-ai-j8qxb8xplxj6r5vgygfyzm.streamlit.app/"
-            target="_blank"
-          >
-            View project →
-          </a>
-
-        </article>
+        <div class="project-description">
+          JavaScript / AI / Web Development
+        </div>
 
       </div>
+
+      <a
+        href="https://ikhawlah.github.io/ai-tool-finder/"
+        target="_blank"
+        class="project-link"
+      >
+        View Project →
+      </a>
+
+    </div>
+
+
+    <div class="project reveal">
+
+      <div class="project-number">
+        02
+      </div>
+
+      <div>
+
+        <div class="project-name">
+          SeriesMatch
+        </div>
+
+        <div class="project-description">
+          Python / Machine Learning / Recommendation System
+        </div>
+
+      </div>
+
+      <a
+        href="https://seriesmatch-ckbzgb7wwdwyxbmvpvuylu.streamlit.app/"
+        target="_blank"
+        class="project-link"
+      >
+        View Project →
+      </a>
+
+    </div>
+
+
+    <div class="project reveal">
+
+      <div class="project-number">
+        03
+      </div>
+
+      <div>
+
+        <div class="project-name">
+          Image Classifier
+        </div>
+
+        <div class="project-description">
+          Python / TensorFlow / Computer Vision
+        </div>
+
+      </div>
+
+      <a
+        href="https://image-classifier-zibszmtqrbunfppches9vf.streamlit.app/"
+        target="_blank"
+        class="project-link"
+      >
+        View Project →
+      </a>
+
+    </div>
+
+
+    <div class="project reveal">
+
+      <div class="project-number">
+        04
+      </div>
+
+      <div>
+
+        <div class="project-name">
+          Chess vs AI
+        </div>
+
+        <div class="project-description">
+          Python / AI / Stockfish
+        </div>
+
+      </div>
+
+      <a
+        href="https://chess-vs-ai-j8qxb8xplxj6r5vgygfyzm.streamlit.app/"
+        target="_blank"
+        class="project-link"
+      >
+        View Project →
+      </a>
 
     </div>
 
   </section>
+
+
+  <!-- =========================
+       SKILLS
+  ========================= -->
 
   <section id="skills">
 
-    <div class="section-inner reveal">
+    <div class="section-number">
+      03. Skills
+    </div>
 
-      <div class="section-label">
-        03. Skills
+    <h2 class="section-title">
+      What I Work With.
+    </h2>
+
+    <div class="skills-grid">
+
+      <div class="skill-category">
+
+        <h3>
+          Programming
+        </h3>
+
+        <p>
+          Python<br>
+          Java<br>
+          SQL<br>
+          R
+        </p>
+
       </div>
 
-      <div class="skills-grid">
 
-        <div class="skill-category">
+      <div class="skill-category">
 
-          <h3>
-            Programming
-          </h3>
+        <h3>
+          AI & Data
+        </h3>
 
-          <ul class="skill-list">
+        <p>
+          Machine Learning<br>
+          Artificial Intelligence<br>
+          Data Analysis<br>
+          Data Classification<br>
+          Recommendation Systems
+        </p>
 
-            <li>
-              Python
-            </li>
+      </div>
 
-            <li>
-              Java
-            </li>
 
-            <li>
-              SQL
-            </li>
+      <div class="skill-category">
 
-            <li>
-              R
-            </li>
+        <h3>
+          Tools & Technologies
+        </h3>
 
-          </ul>
-
-        </div>
-
-        <div class="skill-category">
-
-          <h3>
-            AI & Data
-          </h3>
-
-          <ul class="skill-list">
-
-            <li>
-              Machine Learning
-            </li>
-
-            <li>
-              Artificial Intelligence
-            </li>
-
-            <li>
-              Data Analysis
-            </li>
-
-            <li>
-              Data Classification
-            </li>
-
-            <li>
-              Recommendation Systems
-            </li>
-
-          </ul>
-
-        </div>
-
-        <div class="skill-category">
-
-          <h3>
-            Tools & Technologies
-          </h3>
-
-          <ul class="skill-list">
-
-            <li>
-              Amazon Web Services
-            </li>
-
-            <li>
-              Cloud Computing
-            </li>
-
-            <li>
-              Claude Code
-            </li>
-
-            <li>
-              IBM SPSS Statistics
-            </li>
-
-            <li>
-              Git & GitHub
-            </li>
-
-            <li>
-              TensorFlow
-            </li>
-
-            <li>
-              Streamlit
-            </li>
-
-          </ul>
-
-        </div>
+        <p>
+          Amazon Web Services<br>
+          Cloud Computing<br>
+          Claude Code<br>
+          IBM SPSS Statistics<br>
+          Git & GitHub<br>
+          TensorFlow<br>
+          Streamlit
+        </p>
 
       </div>
 
     </div>
 
   </section>
+
+
+  <!-- =========================
+       CLUBS & VOLUNTEERING
+  ========================= -->
 
   <section id="experience">
 
-    <div class="section-inner reveal">
+    <div class="section-number">
+      04. Experience
+    </div>
 
-      <div class="section-label">
-        04. Clubs and Volunteering
+    <h2 class="section-title">
+      Clubs & Volunteering.
+    </h2>
+
+
+    <div class="experience-item reveal">
+
+      <div>
+
+        <div class="experience-role">
+          Design Team Member
+        </div>
+
+        <div class="experience-company">
+          AIC UOH
+        </div>
+
       </div>
 
-      <div class="experience-list">
+      <div class="experience-description">
+        Supporting design and creative initiatives within AIC UOH.
+      </div>
 
-        <div class="experience-item reveal">
+      <div class="experience-date">
+        Feb 2026 — Present
+      </div>
 
-          <div class="experience-number">
-            01
-          </div>
+    </div>
 
-          <div class="experience-info">
 
-            <h3>
-              Design Team Member
-            </h3>
+    <div class="experience-item reveal">
 
-            <div class="organization">
-              AIC UOH
-            </div>
+      <div>
 
-            <div class="description">
-              Contributing to design and creative work within
-              the Artificial Intelligence Club at the University
-              of Hail.
-            </div>
-
-          </div>
-
-          <div class="experience-date">
-            Feb 2026 to Present
-          </div>
-
+        <div class="experience-role">
+          Operations & Execution Team Member
         </div>
 
-        <div class="experience-item reveal">
-
-          <div class="experience-number">
-            02
-          </div>
-
-          <div class="experience-info">
-
-            <h3>
-              Operations & Execution Team Member
-            </h3>
-
-            <div class="organization">
-              FabLab Hail
-            </div>
-
-            <div class="description">
-              Supporting operations, execution, and activities
-              at FabLab Hail.
-            </div>
-
-          </div>
-
-          <div class="experience-date">
-            Mar 2026 to Present
-          </div>
-
+        <div class="experience-company">
+          FabLab Hail
         </div>
 
-        <div class="experience-item reveal">
+      </div>
 
-          <div class="experience-number">
-            03
-          </div>
+      <div class="experience-description">
+        Supporting operations, execution, and activities at FabLab Hail.
+      </div>
 
-          <div class="experience-info">
+      <div class="experience-date">
+        Mar 2026 — Present
+      </div>
 
-            <h3>
-              Design Team Member
-            </h3>
+    </div>
 
-            <div class="organization">
-             CSC | University of Hail
-            </div>
 
-            <div class="description">
-              Supporting design and creative initiatives within
-              the Cyber Security Club at the University of Hail.
-            </div>
+    <div class="experience-item reveal">
 
-          </div>
+      <div>
 
-          <div class="experience-date">
-            Mar 2026 to Present
-          </div>
-
+        <div class="experience-role">
+          Design Team Member
         </div>
 
-        <div class="experience-item reveal">
-
-          <div class="experience-number">
-            04
-          </div>
-
-          <div class="experience-info">
-
-            <h3>
-              Student Ambassador
-            </h3>
-
-            <div class="organization">
-              Oracle
-            </div>
-
-            <div class="description">
-              Won first place in an Oracle competition by
-              publishing the university's project code.
-            </div>
-
-          </div>
-
-          <div class="experience-date">
-            Nov 2025 to Jun 2026
-          </div>
-
+        <div class="experience-company">
+          Cyber Security Club | University of Hail
         </div>
 
-        <div class="experience-item reveal">
+      </div>
 
-          <div class="experience-number">
-            05
-          </div>
+      <div class="experience-description">
+        Supporting design and creative initiatives within the Cyber
+        Security Club at the University of Hail.
+      </div>
 
-          <div class="experience-info">
+      <div class="experience-date">
+        Mar 2026 — Present
+      </div>
 
-            <h3>
-              AI Solutions Developer Volunteer
-            </h3>
+    </div>
 
-            <div class="organization">
-              Sakani Association
-            </div>
 
-            <div class="description">
-              Volunteering as an AI Solutions Developer,
-              contributing to technology-focused initiatives.
-            </div>
+    <div class="experience-item reveal">
 
-          </div>
+      <div>
 
-          <div class="experience-date">
-            Aug 2026 to Sep 2026
-          </div>
-
+        <div class="experience-role">
+          Student Ambassador
         </div>
 
-        <div class="experience-item reveal">
-
-          <div class="experience-number">
-            06
-          </div>
-
-          <div class="experience-info">
-
-            <h3>
-              Event Organizer Volunteer
-            </h3>
-
-            <div class="organization">
-              Culture House
-            </div>
-
-            <div class="description">
-              Supporting event organization and coordination
-              activities.
-            </div>
-
-          </div>
-
-          <div class="experience-date">
-            16 Dec 2025
-          </div>
-
+        <div class="experience-company">
+          Oracle
         </div>
 
+      </div>
+
+      <div class="experience-description">
+        Participating as a student ambassador and supporting
+        student-focused initiatives.
+      </div>
+
+      <div class="experience-date">
+        Nov 2025 — Jun 2026
+      </div>
+
+    </div>
+
+
+    <div class="experience-item reveal">
+
+      <div>
+
+        <div class="experience-role">
+          AI Solutions Developer Volunteer
+        </div>
+
+        <div class="experience-company">
+          Sakani Association
+        </div>
+
+      </div>
+
+      <div class="experience-description">
+        Developing and supporting AI-related solutions as a volunteer.
+      </div>
+
+      <div class="experience-date">
+        Aug 2026 — Sep 2026
+      </div>
+
+    </div>
+
+
+    <div class="experience-item reveal">
+
+      <div>
+
+        <div class="experience-role">
+          Event Organizer Volunteer
+        </div>
+
+        <div class="experience-company">
+          Culture House
+        </div>
+
+      </div>
+
+      <div class="experience-description">
+        Supporting event organization and coordination.
+      </div>
+
+      <div class="experience-date">
+        16 Dec 2025
       </div>
 
     </div>
 
   </section>
+
+
+  <!-- =========================
+       CERTIFICATES
+  ========================= -->
 
   <section id="certificates">
 
-    <div class="section-inner reveal">
+    <div class="section-number">
+      05. Certificates
+    </div>
 
-      <div class="section-label">
-        05. Certificates
+    <h2 class="section-title">
+      Certifications & Learning.
+    </h2>
+
+
+    <div class="certificate-row reveal">
+
+      <div class="certificate-number">
+        01
       </div>
 
-      <h2 class="section-title">
-        Certifications<br>
-        & Learning.
-      </h2>
+      <div>
 
-      <div class="certificates-list">
-
-        <div class="certificate-row reveal">
-
-          <div class="certificate-number">01</div>
-
-          <div class="certificate-body">
-            <h3>Data Analysis Using R</h3>
-            <div class="certificate-org">Tuwaiq Academy</div>
-          </div>
-
-          <a
-            class="certificate-link"
-            href="certificates/tuwaiq.png"
-            target="_blank"
-            rel="noopener"
-          >
-            View certificate →
-          </a>
-
+        <div class="certificate-name">
+          Data Analysis Using R
         </div>
 
-        <div class="certificate-row reveal">
-
-          <div class="certificate-number">02</div>
-
-          <div class="certificate-body">
-            <h3>AWS Certified AI Practitioner: Learning Path</h3>
-            <div class="certificate-org">Amazon Web Services</div>
-          </div>
-
-          <a
-            class="certificate-link"
-            href="certificates/aws.png"
-            target="_blank"
-            rel="noopener"
-          >
-            View certificate →
-          </a>
-
-        </div>
-
-        <div class="certificate-row reveal">
-
-          <div class="certificate-number">03</div>
-
-          <div class="certificate-body">
-            <h3>AI & Agentic AI for Secure Cloud Computing</h3>
-            <div class="certificate-org">National IT Academy (NITA)</div>
-          </div>
-
-          <a
-            class="certificate-link"
-            href="certificates/nita.png"
-            target="_blank"
-            rel="noopener"
-          >
-            View certificate →
-          </a>
-
-        </div>
-
-        <div class="certificate-row reveal">
-
-          <div class="certificate-number">04</div>
-
-          <div class="certificate-body">
-            <h3>Fundamentals of Artificial Intelligence</h3>
-            <div class="certificate-org">SDAIA</div>
-          </div>
-
-          <a
-            class="certificate-link"
-            href="certificates/sdaia.png"
-            target="_blank"
-            rel="noopener"
-          >
-            View certificate →
-          </a>
-
-        </div>
-
-        <div class="certificate-row reveal">
-
-          <div class="certificate-number">05</div>
-
-          <div class="certificate-body">
-            <h3>Data Classification and Summarization Using IBM Granite</h3>
-            <div class="certificate-org">IBM</div>
-          </div>
-
-          <span class="certificate-status">
-            Learning Achievement
-          </span>
-
-        </div>
-
-        <div class="certificate-row reveal">
-
-          <div class="certificate-number">06</div>
-
-          <div class="certificate-body">
-            <h3>Mastering Claude Code</h3>
-            <div class="certificate-org">Numken</div>
-          </div>
-
-          <a
-            class="certificate-link"
-            href="certificates/numken.jpg"
-            target="_blank"
-            rel="noopener"
-          >
-            View certificate →
-          </a>
-
+        <div class="certificate-issuer">
+          Tuwaiq Academy
         </div>
 
       </div>
+
+      <a
+        href="certificates/tuwaiq.png"
+        target="_blank"
+        class="certificate-link"
+      >
+        View Certificate →
+      </a>
+
+    </div>
+
+
+    <div class="certificate-row reveal">
+
+      <div class="certificate-number">
+        02
+      </div>
+
+      <div>
+
+        <div class="certificate-name">
+          AWS Certified AI Practitioner: Learning Path
+        </div>
+
+        <div class="certificate-issuer">
+          Amazon Web Services
+        </div>
+
+      </div>
+
+      <a
+        href="certificates/aws.png"
+        target="_blank"
+        class="certificate-link"
+      >
+        View Certificate →
+      </a>
+
+    </div>
+
+
+    <div class="certificate-row reveal">
+
+      <div class="certificate-number">
+        03
+      </div>
+
+      <div>
+
+        <div class="certificate-name">
+          AI & Agentic AI for Secure Cloud Computing
+        </div>
+
+        <div class="certificate-issuer">
+          National IT Academy (NITA)
+        </div>
+
+      </div>
+
+      <a
+        href="certificates/nita.png"
+        target="_blank"
+        class="certificate-link"
+      >
+        View Certificate →
+      </a>
+
+    </div>
+
+
+    <div class="certificate-row reveal">
+
+      <div class="certificate-number">
+        04
+      </div>
+
+      <div>
+
+        <div class="certificate-name">
+          Fundamentals of Artificial Intelligence
+        </div>
+
+        <div class="certificate-issuer">
+          SDAIA
+        </div>
+
+      </div>
+
+      <a
+        href="certificates/sdaia.png"
+        target="_blank"
+        class="certificate-link"
+      >
+        View Certificate →
+      </a>
+
+    </div>
+
+
+    <div class="certificate-row reveal">
+
+      <div class="certificate-number">
+        05
+      </div>
+
+      <div>
+
+        <div class="certificate-name">
+          Data Classification and Summarization Using IBM Granite
+        </div>
+
+        <div class="certificate-issuer">
+          IBM
+        </div>
+
+      </div>
+
+      <div class="certificate-status">
+        Learning Achievement
+      </div>
+
+    </div>
+
+
+    <div class="certificate-row reveal">
+
+      <div class="certificate-number">
+        06
+      </div>
+
+      <div>
+
+        <div class="certificate-name">
+          Mastering Claude Code
+        </div>
+
+        <div class="certificate-issuer">
+          Numken
+        </div>
+
+      </div>
+
+      <a
+        href="certificates/numken.jpg"
+        target="_blank"
+        class="certificate-link"
+      >
+        View Certificate →
+      </a>
 
     </div>
 
   </section>
 
+
+  <!-- =========================
+       FOOTER / CONTACT
+  ========================= -->
+
   <footer id="contact">
 
-    <div class="footer-inner reveal">
+    <div class="footer-number">
+      06. Contact
+    </div>
 
-      <div class="section-label">
-        06. Contact
-      </div>
+    <div class="footer-title">
+      Let's connect.
+    </div>
 
-      <h2 class="footer-title">
-        Let's connect.
-      </h2>
 
-      <div class="footer-links">
+    <div class="footer-links">
 
-        <a href="mailto:Khawlah996@gmail.com">
-          Email
-        </a>
+      <a href="mailto:Khawlah996@gmail.com">
+        Khawlah996@gmail.com
+      </a>
 
-        <a
-          href="https://www.linkedin.com/in/khawlah-alsudais"
-          target="_blank"
-        >
-          LinkedIn
-        </a>
+      <a
+        href="https://www.linkedin.com/in/khawlah-alsudais"
+        target="_blank"
+      >
+        LinkedIn
+      </a>
 
-        <a
-          href="https://github.com/iKhawlah"
-          target="_blank"
-        >
-          GitHub
-        </a>
+      <a
+        href="https://github.com/iKhawlah"
+        target="_blank"
+      >
+        GitHub
+      </a>
 
-      </div>
+    </div>
 
-      <div class="copyright">
+
+    <div class="footer-bottom">
+
+      <span>
         © 2026 Khawlah Alsudais
-      </div>
+      </span>
+
+      <span>
+        Artificial Intelligence
+      </span>
 
     </div>
 
   </footer>
 
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================= -->
+
   <script>
 
-    const hamburger =
-      document.getElementById("hamburger");
-
-    const navLinks =
-      document.getElementById("navLinks");
-
-    const navOverlay =
-      document.getElementById("navOverlay");
-
-    function closeMenu() {
-
-      hamburger.classList.remove("active");
-      navLinks.classList.remove("active");
-      navOverlay.classList.remove("active");
-
-    }
+    const hamburger = document.getElementById("hamburger");
+    const menu = document.getElementById("menu");
 
     hamburger.addEventListener("click", () => {
 
-      hamburger.classList.toggle("active");
-      navLinks.classList.toggle("active");
-      navOverlay.classList.toggle("active");
+      menu.classList.toggle("active");
 
     });
 
-    navOverlay.addEventListener("click", closeMenu);
 
-    navLinks.querySelectorAll("a").forEach((link) => {
+    document.querySelectorAll(".menu a").forEach(link => {
 
-      link.addEventListener("click", closeMenu);
+      link.addEventListener("click", () => {
+
+        menu.classList.remove("active");
+
+      });
 
     });
 
-    const scrollProgress =
-      document.getElementById("scroll-progress");
 
-    function updateScrollProgress() {
+    const revealElements = document.querySelectorAll(".reveal");
 
-      const scrollTop =
-        window.scrollY;
+    const revealObserver = new IntersectionObserver(
 
-      const docHeight =
-        document.documentElement.scrollHeight -
-        window.innerHeight;
+      entries => {
 
-      const percent =
-        docHeight > 0
-          ? (scrollTop / docHeight) * 100
-          : 0;
+        entries.forEach(entry => {
 
-      scrollProgress.style.width = percent + "%";
+          if (entry.isIntersecting) {
 
-    }
+            entry.target.classList.add("visible");
 
-    window.addEventListener("scroll", updateScrollProgress);
-    updateScrollProgress();
+          }
 
-    const revealElements =
-      document.querySelectorAll(".reveal");
+        });
 
-    const revealObserver =
-      new IntersectionObserver(
+      },
 
-        (entries) => {
+      {
+        threshold: 0.12
+      }
 
-          entries.forEach((entry) => {
+    );
 
-            if (entry.isIntersecting) {
 
-              entry.target.classList.add("visible");
-
-              revealObserver.unobserve(
-                entry.target
-              );
-
-            }
-
-          });
-
-        },
-
-        {
-          threshold: 0.15
-        }
-
-      );
-
-    revealElements.forEach((element) => {
+    revealElements.forEach(element => {
 
       revealObserver.observe(element);
 
