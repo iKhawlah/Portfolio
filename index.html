@@ -4,22 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Khawlah Alsudais - AI Portfolio</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23171d2e'/%3E%3Ctext x='50' y='67' text-anchor='middle' font-family='Georgia,serif' font-size='62' fill='%23f4f1e8'%3EK%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23171d2e'/%3E%3Ctext x='50' y='67' text-anchor='middle' font-family='Georgia,serif' font-size='62' fill='%23f9f6f0'%3EK%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #171d2e;
-      --text: #f4f1e8;
+      --text: #ffffff;
       --muted: #a3abbd;
       --line: #2a3757;
-      --green: #e4d8b4;
+      --green: #f9f6f0;
       --white: #ffffff;
-      --navy: #f4f1e8;
+      --navy: #ffffff;
       --grey: #8a93a8;
       --grey-light: #cdd1d9;
-      --hover-bg: rgba(244, 241, 232, 0.03);
+      --hover-bg: rgba(255, 255, 255, 0.03);
     }
     * {
       margin: 0;
@@ -28,7 +28,6 @@
     }
     html {
       scroll-behavior: smooth;
-      cursor: none;
     }
     body {
       background: var(--bg);
@@ -39,7 +38,6 @@
     a, button {
       color: inherit;
       text-decoration: none;
-      cursor: none;
     }
     .mono {
       font-family: "IBM Plex Mono", monospace;
@@ -90,37 +88,23 @@
       50% { transform: translate(5%, 10%) scale(1.1); }
       100% { transform: translate(-5%, 5%) scale(0.9); }
     }
-    .cursor-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--green);
-      border-radius: 50%;
+    .project-preview {
       position: fixed;
+      width: 350px;
+      height: 250px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 12px;
       pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: width 0.2s, height 0.2s, background 0.2s;
+      z-index: 9990;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.8);
+      transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
     }
-    .cursor-outline {
-      width: 40px;
-      height: 40px;
-      border: 1px solid var(--green);
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: width 0.2s, height 0.2s, background 0.2s;
-    }
-    .cursor-hover .cursor-dot {
-      width: 0;
-      height: 0;
-    }
-    .cursor-hover .cursor-outline {
-      width: 60px;
-      height: 60px;
-      background: rgba(228, 216, 180, 0.1);
-      border-color: transparent;
+    .project-preview.active {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
     }
     #scroll-progress {
       position: fixed;
@@ -203,6 +187,7 @@
       flex-direction: column;
       justify-content: space-between;
       padding: 0;
+      cursor: pointer;
     }
     .hamburger span {
       display: block;
@@ -332,32 +317,6 @@
       max-width: 1200px;
       margin: auto;
     }
-    .stats-section {
-      padding: 60px 6vw;
-      border-top: none;
-      background: linear-gradient(90deg, rgba(42,55,87,0) 0%, rgba(42,55,87,0.2) 50%, rgba(42,55,87,0) 100%);
-    }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 30px;
-      text-align: center;
-      max-width: 1200px;
-      margin: auto;
-    }
-    .stat-item h3 {
-      font-family: "Fraunces", serif;
-      font-size: clamp(40px, 6vw, 65px);
-      color: var(--text);
-      margin-bottom: 5px;
-    }
-    .stat-item p {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 12px;
-      color: var(--green);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
     .section-label {
       font-family: "IBM Plex Mono", monospace;
       font-size: 11px;
@@ -462,7 +421,7 @@
       transition: 0.3s ease;
     }
     .project:hover .tech {
-      border-color: rgba(228, 216, 180, 0.3);
+      border-color: rgba(249, 246, 240, 0.3);
       color: var(--text);
     }
     .project-link, .certificate-link, .certificate-status {
@@ -522,6 +481,51 @@
       font-size: 10px;
       color: var(--muted);
       white-space: nowrap;
+    }
+    .stats-section {
+      padding: 60px 6vw 80px;
+      border-top: 1px solid var(--line);
+      background: linear-gradient(180deg, transparent 0%, rgba(23,29,46,0.5) 100%);
+      position: relative;
+      z-index: 2;
+    }
+    .stats-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 60px;
+      text-align: center;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .stat-item {
+      min-width: 130px;
+    }
+    .stat-item h3 {
+      font-family: "Fraunces", serif;
+      font-size: clamp(32px, 5vw, 45px);
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .stat-item p {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    @keyframes pulse-inf {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); color: var(--green); }
+      100% { transform: scale(1); }
+    }
+    .inf-sign {
+      display: inline-block;
+      animation: pulse-inf 2.5s infinite ease-in-out;
     }
     footer {
       border-top: 1px solid rgba(255,255,255,0.05);
@@ -585,6 +589,9 @@
     .project.reveal:nth-of-type(2), .experience-item.reveal:nth-of-type(2), .certificate-row.reveal:nth-of-type(2) { transition-delay: 0.1s; }
     .project.reveal:nth-of-type(3), .experience-item.reveal:nth-of-type(3), .certificate-row.reveal:nth-of-type(3) { transition-delay: 0.2s; }
     .project.reveal:nth-of-type(4), .experience-item.reveal:nth-of-type(4), .certificate-row.reveal:nth-of-type(4) { transition-delay: 0.3s; }
+    .project.reveal:nth-of-type(5) { transition-delay: 0.4s; }
+    .project.reveal:nth-of-type(6) { transition-delay: 0.5s; }
+    .project.reveal:nth-of-type(7) { transition-delay: 0.6s; }
     .experience-item.reveal:nth-of-type(5), .certificate-row.reveal:nth-of-type(5) { transition-delay: 0.4s; }
     .experience-item.reveal:nth-of-type(6), .certificate-row.reveal:nth-of-type(6) { transition-delay: 0.5s; }
     .certificate-row.reveal:nth-of-type(7) { transition-delay: 0.6s; }
@@ -595,13 +602,11 @@
     }
 
     @media (max-width: 800px) {
-      html { cursor: auto; }
-      a, button { cursor: pointer; }
-      .cursor-dot, .cursor-outline { display: none; }
+      .project-preview { display: none; }
       nav { padding: 18px 3vw; }
       .hero { padding: 140px 5vw 90px; }
       section { padding: 90px 5vw; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+      .stats-grid { gap: 30px; }
       .about-grid { grid-template-columns: 1fr; gap: 30px; }
       .skills-grid { grid-template-columns: 1fr; gap: 45px; }
       .project, .experience-item, .certificate-row { grid-template-columns: 45px 1fr; gap: 18px; }
@@ -615,14 +620,13 @@
       h1 { font-size: 58px; }
       .hero-description { font-size: 16px; }
       .section-title { font-size: 45px; }
-      .stats-grid { grid-template-columns: 1fr; }
+      .stats-grid { flex-direction: column; gap: 40px; }
     }
   </style>
 </head>
 <body>
 
-  <div class="cursor-dot"></div>
-  <div class="cursor-outline"></div>
+  <div class="project-preview"></div>
 
   <div class="bg-shapes">
     <div class="blob blob-1"></div>
@@ -636,22 +640,22 @@
   <nav id="navbar">
     <div class="nav-name">Khawlah Portfolio</div>
     <div class="nav-right">
-      <a class="nav-social hover-target" href="https://www.linkedin.com/in/khawlah-alsudais" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <a class="nav-social" href="https://www.linkedin.com/in/khawlah-alsudais" target="_blank" rel="noopener" aria-label="LinkedIn">
         <span class="in-badge">in</span>
       </a>
-      <button class="hamburger hover-target" id="hamburger" aria-label="Menu">
+      <button class="hamburger" id="hamburger" aria-label="Menu">
         <span></span>
         <span></span>
         <span></span>
       </button>
     </div>
     <div class="nav-links" id="navLinks">
-      <a href="#about" class="hover-target">About</a>
-      <a href="#projects" class="hover-target">Projects</a>
-      <a href="#skills" class="hover-target">Skills</a>
-      <a href="#experience" class="hover-target">Experience</a>
-      <a href="#certificates" class="hover-target">Certificates</a>
-      <a href="#contact" class="hover-target">Contact</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#certificates">Certificates</a>
+      <a href="#contact">Contact</a>
     </div>
   </nav>
 
@@ -665,27 +669,6 @@
       </p>
     </div>
   </header>
-
-  <section class="stats-section reveal">
-    <div class="stats-grid">
-      <div class="stat-item">
-        <h3 class="counter" data-target="4">0</h3>
-        <p>Projects</p>
-      </div>
-      <div class="stat-item">
-        <h3 class="counter" data-target="7">0</h3>
-        <p>Certifications</p>
-      </div>
-      <div class="stat-item">
-        <h3 class="counter" data-target="6">0</h3>
-        <p>Experiences</p>
-      </div>
-      <div class="stat-item">
-        <h3 class="counter" data-target="16">0</h3>
-        <p>Technologies</p>
-      </div>
-    </div>
-  </section>
 
   <section id="about">
     <div class="section-inner reveal">
@@ -718,7 +701,8 @@
       <div class="section-label">02. Projects</div>
       <h2 class="section-title">Selected<br>Work.</h2>
       <div class="projects">
-        <article class="project reveal hover-target">
+
+        <article class="project reveal" data-image="image1.png">
           <div class="project-number">01</div>
           <div class="project-info">
             <h3>AI Tool Finder</h3>
@@ -732,7 +716,7 @@
           <a class="project-link" href="https://ikhawlah.github.io/ai-tool-finder/" target="_blank">View project →</a>
         </article>
 
-        <article class="project reveal hover-target">
+        <article class="project reveal" data-image="image2.png">
           <div class="project-number">02</div>
           <div class="project-info">
             <h3>SeriesMatch</h3>
@@ -746,7 +730,7 @@
           <a class="project-link" href="https://seriesmatch-ckbzgb7wwdwyxbmvpvuylu.streamlit.app/" target="_blank">View project →</a>
         </article>
 
-        <article class="project reveal hover-target">
+        <article class="project reveal" data-image="image3.png">
           <div class="project-number">03</div>
           <div class="project-info">
             <h3>Image Classifier</h3>
@@ -760,7 +744,7 @@
           <a class="project-link" href="https://image-classifier-zibszmtqrbunfppches9vf.streamlit.app/" target="_blank">View project →</a>
         </article>
 
-        <article class="project reveal hover-target">
+        <article class="project reveal" data-image="image4.png">
           <div class="project-number">04</div>
           <div class="project-info">
             <h3>Chess vs AI</h3>
@@ -773,6 +757,49 @@
           </div>
           <a class="project-link" href="https://chess-vs-ai-j8qxb8xplxj6r5vgygfyzm.streamlit.app/" target="_blank">View project →</a>
         </article>
+
+        <article class="project reveal" data-image="figma1.png">
+          <div class="project-number">05</div>
+          <div class="project-info">
+            <h3>Trainers Task Management UI</h3>
+            <p>Low-fidelity wireframes and interface descriptions designed in Figma for a robust trainers task management platform.</p>
+            <div class="project-tech">
+              <span class="tech">Figma</span>
+              <span class="tech">UI/UX Design</span>
+              <span class="tech">Wireframing</span>
+            </div>
+          </div>
+          <a class="project-link" href="#" target="_blank">View design →</a>
+        </article>
+
+        <article class="project reveal" data-image="figma2.png">
+          <div class="project-number">06</div>
+          <div class="project-info">
+            <h3>Monogram & Brand Identity</h3>
+            <p>Custom graphic design assets including monogram logos and wide tech banners themed around AI initiatives.</p>
+            <div class="project-tech">
+              <span class="tech">Figma</span>
+              <span class="tech">Graphic Design</span>
+              <span class="tech">Branding</span>
+            </div>
+          </div>
+          <a class="project-link" href="#" target="_blank">View design →</a>
+        </article>
+
+        <article class="project reveal" data-image="figma3.png">
+          <div class="project-number">07</div>
+          <div class="project-info">
+            <h3>App Interface Prototype</h3>
+            <p>Interactive mobile application prototype highlighting modern user experience principles and intuitive navigation.</p>
+            <div class="project-tech">
+              <span class="tech">Figma</span>
+              <span class="tech">Prototyping</span>
+              <span class="tech">Visual Design</span>
+            </div>
+          </div>
+          <a class="project-link" href="#" target="_blank">View design →</a>
+        </article>
+
       </div>
     </div>
   </section>
@@ -806,9 +833,9 @@
           <ul class="skill-list">
             <li>Amazon Web Services</li>
             <li>Cloud Computing</li>
+            <li>Figma</li>
             <li>Claude Code</li>
             <li>IBM SPSS Statistics</li>
-            <li>Git & GitHub</li>
             <li>TensorFlow</li>
             <li>Streamlit</li>
           </ul>
@@ -822,7 +849,7 @@
       <div class="section-label">04. Experience</div>
       <h2 class="section-title">Clubs &<br>Volunteering.</h2>
       <div class="experience-list">
-        <div class="experience-item reveal hover-target">
+        <div class="experience-item reveal">
           <div class="experience-number">01</div>
           <div class="experience-info">
             <h3>Design Team Member</h3>
@@ -832,7 +859,7 @@
           <div class="experience-date">Feb 2026 to Present</div>
         </div>
 
-        <div class="experience-item reveal hover-target">
+        <div class="experience-item reveal">
           <div class="experience-number">02</div>
           <div class="experience-info">
             <h3>Operations & Execution Team Member</h3>
@@ -842,7 +869,7 @@
           <div class="experience-date">Mar 2026 to Present</div>
         </div>
 
-        <div class="experience-item reveal hover-target">
+        <div class="experience-item reveal">
           <div class="experience-number">03</div>
           <div class="experience-info">
             <h3>Design Team Member</h3>
@@ -852,7 +879,7 @@
           <div class="experience-date">Mar 2026 to Present</div>
         </div>
 
-        <div class="experience-item reveal hover-target">
+        <div class="experience-item reveal">
           <div class="experience-number">04</div>
           <div class="experience-info">
             <h3>Student Ambassador</h3>
@@ -862,7 +889,7 @@
           <div class="experience-date">Nov 2025 to Jun 2026</div>
         </div>
 
-        <div class="experience-item reveal hover-target">
+        <div class="experience-item reveal">
           <div class="experience-number">05</div>
           <div class="experience-info">
             <h3>AI Solutions Developer Volunteer</h3>
@@ -872,7 +899,7 @@
           <div class="experience-date">Aug 2026 to Sep 2026</div>
         </div>
 
-        <div class="experience-item reveal hover-target">
+        <div class="experience-item reveal">
           <div class="experience-number">06</div>
           <div class="experience-info">
             <h3>Event Organizer Volunteer</h3>
@@ -890,7 +917,7 @@
       <div class="section-label">05. Certificates</div>
       <h2 class="section-title">Certifications<br>& Learning.</h2>
       <div class="certificates-list">
-        <div class="certificate-row reveal hover-target">
+        <div class="certificate-row reveal">
           <div class="certificate-number">01</div>
           <div class="certificate-body">
             <h3>Data Analysis Using R</h3>
@@ -899,7 +926,7 @@
           <a class="certificate-link" href="certificates/tuwaiq.png" target="_blank" rel="noopener">View certificate →</a>
         </div>
 
-        <div class="certificate-row reveal hover-target">
+        <div class="certificate-row reveal">
           <div class="certificate-number">02</div>
           <div class="certificate-body">
             <h3>AWS Certified AI Practitioner: Learning Path</h3>
@@ -908,7 +935,7 @@
           <a class="certificate-link" href="certificates/aws.png" target="_blank" rel="noopener">View certificate →</a>
         </div>
 
-        <div class="certificate-row reveal hover-target">
+        <div class="certificate-row reveal">
           <div class="certificate-number">03</div>
           <div class="certificate-body">
             <h3>AI & Agentic AI for Secure Cloud Computing</h3>
@@ -917,7 +944,7 @@
           <a class="certificate-link" href="certificates/nita.png" target="_blank" rel="noopener">View certificate →</a>
         </div>
 
-        <div class="certificate-row reveal hover-target">
+        <div class="certificate-row reveal">
           <div class="certificate-number">04</div>
           <div class="certificate-body">
             <h3>Fundamentals of Artificial Intelligence</h3>
@@ -926,7 +953,7 @@
           <a class="certificate-link" href="certificates/sdaia.png" target="_blank" rel="noopener">View certificate →</a>
         </div>
 
-        <div class="certificate-row reveal hover-target">
+        <div class="certificate-row reveal">
           <div class="certificate-number">05</div>
           <div class="certificate-body">
             <h3>Data Classification and Summarization Using IBM Granite</h3>
@@ -935,7 +962,7 @@
           <span class="certificate-status">Learning Achievement</span>
         </div>
 
-        <div class="certificate-row reveal hover-target">
+        <div class="certificate-row reveal">
           <div class="certificate-number">06</div>
           <div class="certificate-body">
             <h3>Mastering Claude Code</h3>
@@ -944,7 +971,7 @@
           <a class="certificate-link" href="certificates/numken.jpg" target="_blank" rel="noopener">View certificate →</a>
         </div>
 
-        <div class="certificate-row reveal hover-target">
+        <div class="certificate-row reveal">
           <div class="certificate-number">07</div>
           <div class="certificate-body">
             <h3>Building and Training Large Language Models</h3>
@@ -956,43 +983,81 @@
     </div>
   </section>
 
+  <section class="stats-section reveal">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <h3><span class="counter" data-target="7">0</span>+</h3>
+        <p>Projects</p>
+      </div>
+      <div class="stat-item">
+        <h3><span class="counter" data-target="7">0</span>+</h3>
+        <p>Certifications</p>
+      </div>
+      <div class="stat-item">
+        <h3><span class="counter" data-target="6">0</span>+</h3>
+        <p>Experiences</p>
+      </div>
+      <div class="stat-item">
+        <h3><span class="counter" data-target="16">0</span>+</h3>
+        <p>Technologies</p>
+      </div>
+      <div class="stat-item">
+        <h3><span class="inf-sign">∞</span></h3>
+        <p>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+            <line x1="6" y1="1" x2="6" y2="4"></line>
+            <line x1="10" y1="1" x2="10" y2="4"></line>
+            <line x1="14" y1="1" x2="14" y2="4"></line>
+          </svg>
+          Cups of Coffee
+        </p>
+      </div>
+    </div>
+  </section>
+
   <footer id="contact">
     <div class="footer-inner reveal">
       <div class="section-label">06. Contact</div>
       <h2 class="footer-title">Let's connect.</h2>
       <div class="footer-links">
-        <a href="mailto:Khawlah996@gmail.com" class="hover-target">Email</a>
-        <a href="https://www.linkedin.com/in/khawlah-alsudais" target="_blank" class="hover-target">LinkedIn</a>
-        <a href="https://github.com/iKhawlah" target="_blank" class="hover-target">GitHub</a>
+        <a href="mailto:Khawlah996@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/khawlah-alsudais" target="_blank">LinkedIn</a>
+        <a href="https://github.com/iKhawlah" target="_blank">GitHub</a>
       </div>
       <div class="copyright">© 2026 Khawlah Alsudais</div>
     </div>
   </footer>
 
   <script>
-    const cursorDot = document.querySelector(".cursor-dot");
-    const cursorOutline = document.querySelector(".cursor-outline");
+    const projectPreview = document.querySelector(".project-preview");
+    let mouseX = 0;
+    let mouseY = 0;
     
     window.addEventListener("mousemove", (e) => {
-      const posX = e.clientX;
-      const posY = e.clientY;
-      
-      cursorDot.style.left = `${posX}px`;
-      cursorDot.style.top = `${posY}px`;
-      
-      cursorOutline.animate({
-        left: `${posX}px`,
-        top: `${posY}px`
-      }, { duration: 500, fill: "forwards" });
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      if (projectPreview.classList.contains("active")) {
+        projectPreview.style.left = `${mouseX}px`;
+        projectPreview.style.top = `${mouseY}px`;
+      }
     });
 
-    const hoverTargets = document.querySelectorAll(".hover-target, a, button");
-    hoverTargets.forEach(target => {
-      target.addEventListener("mouseenter", () => {
-        document.body.classList.add("cursor-hover");
+    const projects = document.querySelectorAll(".project");
+    projects.forEach(project => {
+      project.addEventListener("mouseenter", () => {
+        const imageUrl = project.getAttribute("data-image");
+        if (imageUrl) {
+          projectPreview.style.backgroundImage = `url(${imageUrl})`;
+          projectPreview.style.left = `${mouseX}px`;
+          projectPreview.style.top = `${mouseY}px`;
+          projectPreview.classList.add("active");
+        }
       });
-      target.addEventListener("mouseleave", () => {
-        document.body.classList.remove("cursor-hover");
+      project.addEventListener("mouseleave", () => {
+        projectPreview.classList.remove("active");
       });
     });
 
