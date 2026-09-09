@@ -17,18 +17,18 @@
   <style>
 
     :root {
-      --bg: #f4f1e8;
-      --text: #212d4a;
-      --muted: #747970;
-      --line: #d9d7cd;
-      --green: #212d4a;
-      --light-green: #e4e8df;
-      --white: #faf9f4;
-
-      --navy: #212d4a;
-      --navy-2: #2a3757;
-      --grey: #9aa0ab;
+      /* Inverted Colors: Dark Navy Background, Beige Text */
+      --bg: #171d2e;
+      --text: #f4f1e8;
+      --muted: #a3abbd;
+      --line: #2a3757;
+      --green: #e4d8b4; /* Warm beige/gold for accents */
+      --white: #ffffff;
+      
+      --navy: #f4f1e8; /* Repurposed for light text */
+      --grey: #8a93a8;
       --grey-light: #cdd1d9;
+      --hover-bg: rgba(244, 241, 232, 0.05); /* Soft highlight for dark mode */
     }
 
     * {
@@ -61,10 +61,11 @@
       position: fixed;
       top: 0;
       left: 0;
-      height: 2px;
+      height: 3px;
       width: 0%;
-      background: var(--navy);
+      background: var(--green);
       z-index: 1100;
+      box-shadow: 0 0 10px var(--green);
     }
 
     nav {
@@ -73,17 +74,20 @@
       left: 0;
       width: 100%;
       z-index: 1450;
-
       display: flex;
       justify-content: space-between;
       align-items: center;
-
       padding: 22px 2.5vw;
-
       background: transparent;
       pointer-events: none;
-
       transition: 0.3s ease;
+    }
+
+    /* Scrolled Nav Background Animation */
+    nav.scrolled {
+      background: rgba(23, 29, 46, 0.9);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     }
 
     .nav-name,
@@ -93,13 +97,18 @@
       pointer-events: auto;
     }
 
-   .nav-name {
-  font-family: "Fraunces", serif;
-  font-size: 19px;
-  font-weight: 300;
-  letter-spacing: 0.02em;
-  color: var(--navy);
-}
+    .nav-name {
+      font-family: "Fraunces", serif;
+      font-size: 19px;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      transition: transform 0.3s ease;
+    }
+    
+    .nav-name:hover {
+      transform: scale(1.05);
+    }
 
     .nav-right {
       display: flex;
@@ -111,56 +120,49 @@
       display: flex;
       align-items: center;
       gap: 4px;
-
       transition: 0.25s ease;
     }
 
     .nav-social:hover {
       opacity: 0.7;
+      transform: translateY(-2px);
     }
 
-.in-badge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 17px;
-  height: 17px;
-  border-radius: 3px;
-
-  background: var(--navy);
-  color: var(--white);
-
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 9px;
-  font-weight: 600;
-}
+    .in-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 17px;
+      height: 17px;
+      border-radius: 3px;
+      background: var(--text);
+      color: var(--bg);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 9px;
+      font-weight: 600;
+    }
 
     .hamburger {
       position: relative;
       z-index: 1600;
-
       width: 17px;
       height: 11px;
-
       background: transparent;
       border: none;
       cursor: pointer;
-
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-
       padding: 0;
     }
 
-  .hamburger span {
-  display: block;
-  height: 1px;
-  width: 100%;
-  background: var(--navy);
-  transition: 0.3s ease;
-}
+    .hamburger span {
+      display: block;
+      height: 1px;
+      width: 100%;
+      background: var(--text);
+      transition: 0.3s ease;
+    }
 
     .hamburger.active span:nth-child(1) {
       transform: translateY(5px) rotate(45deg);
@@ -177,14 +179,11 @@
     .nav-overlay {
       position: fixed;
       inset: 0;
-
-      background: rgba(23,29,46,0.55);
-
+      background: rgba(15, 20, 35, 0.7);
+      backdrop-filter: blur(5px);
       opacity: 0;
       visibility: hidden;
-
       transition: 0.3s ease;
-
       z-index: 1400;
     }
 
@@ -199,22 +198,17 @@
       right: 0;
       height: 100vh;
       width: min(320px, 80vw);
-
-      background: var(--navy);
-
+      background: var(--bg);
+      border-left: 1px solid var(--line);
       display: flex;
       flex-direction: column;
       justify-content: center;
       gap: 30px;
-
       padding: 40px;
-
       font-size: 16px;
       color: var(--grey);
-
       transform: translateX(100%);
-      transition: transform 0.4s ease;
-
+      transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
       z-index: 1500;
     }
 
@@ -224,12 +218,14 @@
 
     .nav-links a {
       position: relative;
-      color: var(--grey-light);
+      color: var(--muted);
       transition: 0.25s ease;
+      width: fit-content;
     }
 
     .nav-links a:hover {
-      color: var(--white);
+      color: var(--text);
+      transform: translateX(10px);
     }
 
     .nav-links a::after {
@@ -239,8 +235,8 @@
       bottom: -6px;
       width: 0;
       height: 1px;
-      background: var(--white);
-      transition: 0.25s ease;
+      background: var(--text);
+      transition: 0.3s ease;
     }
 
     .nav-links a:hover::after {
@@ -250,11 +246,9 @@
     .hero {
       min-height: 100vh;
       padding: 160px 6vw 100px;
-
       display: flex;
       flex-direction: column;
       justify-content: center;
-
       position: relative;
       overflow: hidden;
     }
@@ -265,17 +259,15 @@
       max-width: 1100px;
     }
 
- .eyebrow {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--navy);
-
-  margin-bottom: 25px;
-
-  animation: fadeUp 0.8s ease both;
-}
+    .eyebrow {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 25px;
+      animation: fadeUp 0.8s ease both;
+    }
 
     h1 {
       font-family: "Fraunces", serif;
@@ -283,21 +275,17 @@
       line-height: 0.9;
       font-weight: 600;
       letter-spacing: -0.03em;
-      color: var(--navy);
-
+      color: var(--text);
       max-width: 1200px;
-
       animation: fadeUp 0.9s ease 0.1s both;
     }
 
     .hero-description {
       max-width: 650px;
       margin-top: 38px;
-
       font-size: clamp(17px, 2vw, 22px);
       line-height: 1.6;
       color: var(--muted);
-
       animation: fadeUp 0.9s ease 0.25s both;
     }
 
@@ -318,18 +306,17 @@
       color: var(--green);
       text-transform: uppercase;
       letter-spacing: 0.1em;
-
       margin-bottom: 45px;
     }
 
-  .section-title {
-  font-family: "Fraunces", serif;
-  font-size: clamp(48px, 7vw, 90px);
-  font-weight: 500;
-  letter-spacing: -0.04em;
-  line-height: 1;
-  margin-bottom: 45px;
-}
+    .section-title {
+      font-family: "Fraunces", serif;
+      font-size: clamp(48px, 7vw, 90px);
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 45px;
+    }
 
     .about-grid {
       display: grid;
@@ -341,8 +328,12 @@
     .about-text {
       font-size: 20px;
       line-height: 1.75;
-      color: #4f554f;
+      color: var(--muted);
       max-width: 750px;
+    }
+
+    .about-text strong {
+      color: var(--text);
     }
 
     .about-text p + p {
@@ -359,30 +350,33 @@
       grid-template-columns: 90px 1fr auto;
       gap: 35px;
       align-items: center;
-
-      padding: 35px 0;
-
+      padding: 40px 0;
       border-top: 1px solid var(--line);
-
-      transition:
-        padding 0.35s ease,
-        transform 0.35s ease;
+      transition: padding 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), background 0.4s ease, border-left 0.4s ease;
+      border-left: 0px solid var(--green);
     }
 
     .project:last-child {
       border-bottom: 1px solid var(--line);
     }
 
+    /* Enhanced Hover Animations */
     .project:hover {
-      padding-left: 18px;
-      padding-right: 18px;
-      background: rgba(255,255,255,0.18);
+      padding-left: 30px;
+      padding-right: 20px;
+      background: var(--hover-bg);
+      border-left: 5px solid var(--green);
     }
 
     .project-number {
       font-family: "IBM Plex Mono", monospace;
       color: var(--muted);
       font-size: 12px;
+      transition: color 0.3s ease;
+    }
+
+    .project:hover .project-number {
+      color: var(--green);
     }
 
     .project-info h3 {
@@ -401,7 +395,6 @@
 
     .project-tech {
       margin-top: 14px;
-
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
@@ -410,23 +403,29 @@
     .tech {
       border: 1px solid var(--line);
       padding: 5px 9px;
-
       font-family: "IBM Plex Mono", monospace;
       font-size: 10px;
       color: var(--muted);
+      border-radius: 4px;
+      transition: 0.3s ease;
+    }
+    
+    .project:hover .tech {
+      border-color: rgba(228, 216, 180, 0.3);
+      color: var(--text);
     }
 
     .project-link {
       font-family: "IBM Plex Mono", monospace;
       font-size: 11px;
       white-space: nowrap;
-
       transition: 0.25s ease;
+      display: inline-block;
     }
 
     .project-link:hover {
       color: var(--green);
-      transform: translateX(5px);
+      transform: translateX(5px) scale(1.05);
     }
 
     .skills-grid {
@@ -449,16 +448,16 @@
     .skill-list li {
       padding: 12px 0;
       border-bottom: 1px solid var(--line);
-
       color: var(--muted);
       font-size: 14px;
-
-      transition: 0.25s ease;
+      transition: 0.3s ease;
+      position: relative;
     }
 
     .skill-list li:hover {
-      padding-left: 8px;
+      padding-left: 15px;
       color: var(--text);
+      background: linear-gradient(90deg, var(--hover-bg) 0%, transparent 100%);
     }
 
     .experience-list {
@@ -470,12 +469,10 @@
       display: grid;
       grid-template-columns: 90px 1fr auto;
       gap: 35px;
-
-      padding: 30px 0;
-
+      padding: 35px 0;
       border-top: 1px solid var(--line);
-
-      transition: 0.3s ease;
+      transition: padding 0.4s ease, background 0.4s ease;
+      border-left: 0px solid var(--green);
     }
 
     .experience-item:last-child {
@@ -483,8 +480,10 @@
     }
 
     .experience-item:hover {
-      padding-left: 15px;
-      background: rgba(255,255,255,0.16);
+      padding-left: 30px;
+      padding-right: 15px;
+      background: var(--hover-bg);
+      border-left: 3px solid var(--green);
     }
 
     .experience-number {
@@ -529,14 +528,10 @@
       grid-template-columns: 90px 1fr auto;
       gap: 35px;
       align-items: center;
-
-      padding: 26px 0;
-
+      padding: 30px 0;
       border-top: 1px solid var(--line);
-
-      transition:
-        padding 0.3s ease,
-        background 0.3s ease;
+      transition: padding 0.4s ease, background 0.4s ease;
+      border-left: 0px solid var(--green);
     }
 
     .certificate-row:last-child {
@@ -544,9 +539,10 @@
     }
 
     .certificate-row:hover {
-      padding-left: 15px;
-      padding-right: 15px;
-      background: rgba(255,255,255,0.16);
+      padding-left: 30px;
+      padding-right: 20px;
+      background: var(--hover-bg);
+      border-left: 3px solid var(--green);
     }
 
     .certificate-number {
@@ -575,6 +571,7 @@
       white-space: nowrap;
       color: var(--text);
       transition: 0.25s ease;
+      display: inline-block;
     }
 
     .certificate-status {
@@ -583,14 +580,14 @@
 
     .certificate-link:hover {
       color: var(--green);
-      transform: translateX(5px);
+      transform: translateX(5px) scale(1.05);
     }
 
     footer {
-      border-top: 1px solid rgba(0,0,0,0.2);
+      border-top: 1px solid rgba(255,255,255,0.05);
       padding: 75px 6vw 35px;
-      background: var(--navy);
-      color: var(--grey-light);
+      background: #0d121c; /* Even darker for the footer */
+      color: var(--muted);
       scroll-margin-top: 20px;
     }
 
@@ -605,7 +602,7 @@
       font-weight: 500;
       letter-spacing: -0.04em;
       margin-bottom: 30px;
-      color: var(--white);
+      color: var(--text);
     }
 
     footer .section-label {
@@ -616,10 +613,9 @@
       display: flex;
       gap: 25px;
       flex-wrap: wrap;
-
       font-family: "IBM Plex Mono", monospace;
       font-size: 11px;
-      color: var(--grey);
+      color: var(--muted);
     }
 
     .footer-links a {
@@ -627,24 +623,21 @@
     }
 
     .footer-links a:hover {
-      color: var(--white);
+      color: var(--green);
+      transform: translateY(-2px);
     }
 
     .copyright {
       margin-top: 65px;
-
       font-family: "IBM Plex Mono", monospace;
       font-size: 10px;
-      color: #6b7280;
+      color: #555e70;
     }
 
     .reveal {
       opacity: 0;
       transform: translateY(45px);
-
-      transition:
-        opacity 0.8s ease,
-        transform 0.8s ease;
+      transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
 
     .reveal.visible {
@@ -655,144 +648,61 @@
     .project.reveal,
     .experience-item.reveal,
     .certificate-row.reveal {
-      transform: translateY(30px);
-      transition:
-        opacity 0.7s ease,
-        transform 0.7s ease;
+      transform: translateY(40px);
+      transition: opacity 0.7s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
 
-    .project.reveal:nth-of-type(1),
-    .experience-item.reveal:nth-of-type(1),
-    .certificate-row.reveal:nth-of-type(1) {
-      transition-delay: 0s;
-    }
-
-    .project.reveal:nth-of-type(2),
-    .experience-item.reveal:nth-of-type(2),
-    .certificate-row.reveal:nth-of-type(2) {
-      transition-delay: 0.08s;
-    }
-
-    .project.reveal:nth-of-type(3),
-    .experience-item.reveal:nth-of-type(3),
-    .certificate-row.reveal:nth-of-type(3) {
-      transition-delay: 0.16s;
-    }
-
-    .project.reveal:nth-of-type(4),
-    .experience-item.reveal:nth-of-type(4),
-    .certificate-row.reveal:nth-of-type(4) {
-      transition-delay: 0.24s;
-    }
-
-    .experience-item.reveal:nth-of-type(5),
-    .certificate-row.reveal:nth-of-type(5) {
-      transition-delay: 0.32s;
-    }
-
-    .experience-item.reveal:nth-of-type(6),
-    .certificate-row.reveal:nth-of-type(6) {
-      transition-delay: 0.4s;
-    }
+    /* Staggered reveal delays */
+    .project.reveal:nth-of-type(1), .experience-item.reveal:nth-of-type(1), .certificate-row.reveal:nth-of-type(1) { transition-delay: 0s; }
+    .project.reveal:nth-of-type(2), .experience-item.reveal:nth-of-type(2), .certificate-row.reveal:nth-of-type(2) { transition-delay: 0.1s; }
+    .project.reveal:nth-of-type(3), .experience-item.reveal:nth-of-type(3), .certificate-row.reveal:nth-of-type(3) { transition-delay: 0.2s; }
+    .project.reveal:nth-of-type(4), .experience-item.reveal:nth-of-type(4), .certificate-row.reveal:nth-of-type(4) { transition-delay: 0.3s; }
+    .experience-item.reveal:nth-of-type(5), .certificate-row.reveal:nth-of-type(5) { transition-delay: 0.4s; }
+    .experience-item.reveal:nth-of-type(6), .certificate-row.reveal:nth-of-type(6) { transition-delay: 0.5s; }
+    .certificate-row.reveal:nth-of-type(7) { transition-delay: 0.6s; } /* For the new certificate */
 
     @keyframes fadeUp {
-
       from {
         opacity: 0;
         transform: translateY(30px);
       }
-
       to {
         opacity: 1;
         transform: translateY(0);
       }
-
     }
 
     @media (max-width: 800px) {
-
-      nav {
-        padding: 18px 3vw;
-      }
-
-      .hero {
-        padding: 140px 5vw 90px;
-      }
-
-      section {
-        padding: 90px 5vw;
-      }
-
-      .about-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-      }
-
-      .skills-grid {
-        grid-template-columns: 1fr;
-        gap: 45px;
-      }
-
-      .project {
+      nav { padding: 18px 3vw; }
+      .hero { padding: 140px 5vw 90px; }
+      section { padding: 90px 5vw; }
+      .about-grid { grid-template-columns: 1fr; gap: 30px; }
+      .skills-grid { grid-template-columns: 1fr; gap: 45px; }
+      
+      .project, .experience-item, .certificate-row {
         grid-template-columns: 45px 1fr;
         gap: 18px;
       }
+      
+      .project:hover, .experience-item:hover, .certificate-row:hover {
+        padding-left: 15px;
+      }
 
-      .project-link {
+      .project-link, .experience-date, .certificate-link, .certificate-status {
         grid-column: 2;
         margin-top: -10px;
       }
 
-      .project-info h3 {
-        font-size: 27px;
-      }
-
-      .about-text {
-        font-size: 17px;
-      }
-
-      .experience-item {
-        grid-template-columns: 45px 1fr;
-        gap: 18px;
-      }
-
-      .experience-date {
-        grid-column: 2;
-      }
-
-      .certificate-row {
-        grid-template-columns: 45px 1fr;
-        gap: 18px;
-      }
-
-      .certificate-link,
-      .certificate-status {
-        grid-column: 2;
-        margin-top: -6px;
-      }
-
+      .project-info h3 { font-size: 27px; }
+      .about-text { font-size: 17px; }
     }
 
     @media (max-width: 500px) {
-
-      .nav-name {
-        font-size: 18px;
-      }
-
-      h1 {
-        font-size: 58px;
-      }
-
-      .hero-description {
-        font-size: 16px;
-      }
-
-      .section-title {
-        font-size: 45px;
-      }
-
+      .nav-name { font-size: 18px; }
+      h1 { font-size: 58px; }
+      .hero-description { font-size: 16px; }
+      .section-title { font-size: 45px; }
     }
-
   </style>
 </head>
 
@@ -803,921 +713,445 @@
   <div class="nav-overlay" id="navOverlay"></div>
 
   <nav id="navbar">
-
     <div class="nav-name">
       Khawlah Portfolio
     </div>
-
     <div class="nav-right">
-
-      <a
-        class="nav-social"
-        href="https://www.linkedin.com/in/khawlah-alsudais"
-        target="_blank"
-        rel="noopener"
-        aria-label="LinkedIn"
-      >
+      <a class="nav-social" href="https://www.linkedin.com/in/khawlah-alsudais" target="_blank" rel="noopener" aria-label="LinkedIn">
         <span class="in-badge">in</span>
       </a>
-
       <button class="hamburger" id="hamburger" aria-label="Menu">
         <span></span>
         <span></span>
         <span></span>
       </button>
-
     </div>
-
     <div class="nav-links" id="navLinks">
-
-      <a href="#about">
-        About
-      </a>
-
-      <a href="#projects">
-        Projects
-      </a>
-
-      <a href="#skills">
-        Skills
-      </a>
-
-      <a href="#experience">
-        Experience
-      </a>
-
-      <a href="#certificates">
-        Certificates
-      </a>
-
-      <a href="#contact">
-        Contact
-      </a>
-
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#certificates">Certificates</a>
+      <a href="#contact">Contact</a>
     </div>
-
   </nav>
 
   <header class="hero">
-
     <div class="hero-content">
-
-      <div class="eyebrow">
-        Artificial Intelligence
-      </div>
-
-      <h1>
-        Khawlah<br>
-        Alsudais
-      </h1>
-
+      <div class="eyebrow">Artificial Intelligence</div>
+      <h1>Khawlah<br>Alsudais</h1>
       <p class="hero-description">
         Building practical AI solutions through machine learning,
         data, and intelligent applications.
       </p>
-
     </div>
-
   </header>
 
   <section id="about">
-
     <div class="section-inner reveal">
-
-      <div class="section-label">
-        01. About
-      </div>
-
+      <div class="section-label">01. About</div>
       <div class="about-grid">
-
-        <h2 class="section-title">
-          About<br>
-          Me.
-        </h2>
-
+        <h2 class="section-title">About<br>Me.</h2>
         <div class="about-text">
-
           <p>
             I'm an <strong>Artificial Intelligence</strong> student interested in
             building practical solutions that combine data,
             machine learning, and technology.
           </p>
-
           <p>
             I enjoy exploring how intelligent systems can solve
             real problems, from recommendation systems and
             computer vision to AI-powered tools and applications.
           </p>
-
           <p>
             My work focuses on turning ideas into functional
             projects while continuously developing my skills in
             AI, programming, data analysis, and web development.
           </p>
-
         </div>
-
       </div>
-
     </div>
-
   </section>
 
   <section id="projects">
-
     <div class="section-inner reveal">
-
-      <div class="section-label">
-        02. Projects
-      </div>
-
-      <h2 class="section-title">
-        Selected<br>
-        Work.
-      </h2>
-
+      <div class="section-label">02. Projects</div>
+      <h2 class="section-title">Selected<br>Work.</h2>
       <div class="projects">
 
         <article class="project reveal">
-
-          <div class="project-number">
-            01
-          </div>
-
+          <div class="project-number">01</div>
           <div class="project-info">
-
-            <h3>
-              AI Tool Finder
-            </h3>
-
+            <h3>AI Tool Finder</h3>
             <p>
               An AI tool recommendation platform that helps
               users discover suitable AI tools based on what
               they want to accomplish.
             </p>
-
             <div class="project-tech">
-
-              <span class="tech">
-                JavaScript
-              </span>
-
-              <span class="tech">
-                AI
-              </span>
-
-              <span class="tech">
-                Web Development
-              </span>
-
+              <span class="tech">JavaScript</span>
+              <span class="tech">AI</span>
+              <span class="tech">Web Development</span>
             </div>
-
           </div>
-
-          <a
-            class="project-link"
-            href="https://ikhawlah.github.io/ai-tool-finder/"
-            target="_blank"
-          >
+          <a class="project-link" href="https://ikhawlah.github.io/ai-tool-finder/" target="_blank">
             View project →
           </a>
-
         </article>
 
         <article class="project reveal">
-
-          <div class="project-number">
-            02
-          </div>
-
+          <div class="project-number">02</div>
           <div class="project-info">
-
-            <h3>
-              SeriesMatch
-            </h3>
-
+            <h3>SeriesMatch</h3>
             <p>
               A personalized TV series recommendation system
               that recommends shows based on genres, story
               preferences, intensity, length, completion status,
               and ratings.
             </p>
-
             <div class="project-tech">
-
-              <span class="tech">
-                Python
-              </span>
-
-              <span class="tech">
-                Machine Learning
-              </span>
-
-              <span class="tech">
-                Recommendation System
-              </span>
-
+              <span class="tech">Python</span>
+              <span class="tech">Machine Learning</span>
+              <span class="tech">Recommendation System</span>
             </div>
-
           </div>
-
-          <a
-            class="project-link"
-            href="https://seriesmatch-ckbzgb7wwdwyxbmvpvuylu.streamlit.app/"
-            target="_blank"
-          >
+          <a class="project-link" href="https://seriesmatch-ckbzgb7wwdwyxbmvpvuylu.streamlit.app/" target="_blank">
             View project →
           </a>
-
         </article>
 
         <article class="project reveal">
-
-          <div class="project-number">
-            03
-          </div>
-
+          <div class="project-number">03</div>
           <div class="project-info">
-
-            <h3>
-              Image Classifier
-            </h3>
-
+            <h3>Image Classifier</h3>
             <p>
               An image classification project using TensorFlow
               and MobileNetV2 to identify and classify images.
             </p>
-
             <div class="project-tech">
-
-              <span class="tech">
-                Python
-              </span>
-
-              <span class="tech">
-                TensorFlow
-              </span>
-
-              <span class="tech">
-                Computer Vision
-              </span>
-
+              <span class="tech">Python</span>
+              <span class="tech">TensorFlow</span>
+              <span class="tech">Computer Vision</span>
             </div>
-
           </div>
-
-          <a
-            class="project-link"
-            href="https://image-classifier-zibszmtqrbunfppches9vf.streamlit.app/"
-            target="_blank"
-          >
+          <a class="project-link" href="https://image-classifier-zibszmtqrbunfppches9vf.streamlit.app/" target="_blank">
             View project →
           </a>
-
         </article>
 
         <article class="project reveal">
-
-          <div class="project-number">
-            04
-          </div>
-
+          <div class="project-number">04</div>
           <div class="project-info">
-
-            <h3>
-              Chess vs AI
-            </h3>
-
+            <h3>Chess vs AI</h3>
             <p>
               A web-based chess game where players can compete
               against an AI opponent powered by Stockfish, with
               adjustable difficulty.
             </p>
-
             <div class="project-tech">
-
-              <span class="tech">
-                Python
-              </span>
-
-              <span class="tech">
-                AI
-              </span>
-
-              <span class="tech">
-                Stockfish
-              </span>
-
+              <span class="tech">Python</span>
+              <span class="tech">AI</span>
+              <span class="tech">Stockfish</span>
             </div>
-
           </div>
-
-          <a
-            class="project-link"
-            href="https://chess-vs-ai-j8qxb8xplxj6r5vgygfyzm.streamlit.app/"
-            target="_blank"
-          >
+          <a class="project-link" href="https://chess-vs-ai-j8qxb8xplxj6r5vgygfyzm.streamlit.app/" target="_blank">
             View project →
           </a>
-
         </article>
 
       </div>
-
     </div>
-
   </section>
 
   <section id="skills">
-
     <div class="section-inner reveal">
-
-      <div class="section-label">
-        03. Skills
-      </div>
-
-      <h2 class="section-title">
-        What I<br>
-        Work With.
-      </h2>
-
+      <div class="section-label">03. Skills</div>
+      <h2 class="section-title">What I<br>Work With.</h2>
       <div class="skills-grid">
-
         <div class="skill-category">
-
-          <h3>
-            Programming
-          </h3>
-
+          <h3>Programming</h3>
           <ul class="skill-list">
-
-            <li>
-              Python
-            </li>
-
-            <li>
-              Java
-            </li>
-
-            <li>
-              SQL
-            </li>
-
-            <li>
-              R
-            </li>
-
+            <li>Python</li>
+            <li>Java</li>
+            <li>SQL</li>
+            <li>R</li>
           </ul>
-
         </div>
-
         <div class="skill-category">
-
-          <h3>
-            AI & Data
-          </h3>
-
+          <h3>AI & Data</h3>
           <ul class="skill-list">
-
-            <li>
-              Machine Learning
-            </li>
-
-            <li>
-              Artificial Intelligence
-            </li>
-
-            <li>
-              Data Analysis
-            </li>
-
-            <li>
-              Data Classification
-            </li>
-
-            <li>
-              Recommendation Systems
-            </li>
-
+            <li>Machine Learning</li>
+            <li>Artificial Intelligence</li>
+            <li>Data Analysis</li>
+            <li>Data Classification</li>
+            <li>Recommendation Systems</li>
           </ul>
-
         </div>
-
         <div class="skill-category">
-
-          <h3>
-            Tools & Technologies
-          </h3>
-
+          <h3>Tools & Technologies</h3>
           <ul class="skill-list">
-
-            <li>
-              Amazon Web Services
-            </li>
-
-            <li>
-              Cloud Computing
-            </li>
-
-            <li>
-              Claude Code
-            </li>
-
-            <li>
-              IBM SPSS Statistics
-            </li>
-
-            <li>
-              Git & GitHub
-            </li>
-
-            <li>
-              TensorFlow
-            </li>
-
-            <li>
-              Streamlit
-            </li>
-
+            <li>Amazon Web Services</li>
+            <li>Cloud Computing</li>
+            <li>Claude Code</li>
+            <li>IBM SPSS Statistics</li>
+            <li>Git & GitHub</li>
+            <li>TensorFlow</li>
+            <li>Streamlit</li>
           </ul>
-
         </div>
-
       </div>
-
     </div>
-
   </section>
 
   <section id="experience">
-
     <div class="section-inner reveal">
-
-      <div class="section-label">
-        04. Experience
-      </div>
-
-      <h2 class="section-title">
-        Clubs &<br>
-        Volunteering.
-      </h2>
-
+      <div class="section-label">04. Experience</div>
+      <h2 class="section-title">Clubs &<br>Volunteering.</h2>
       <div class="experience-list">
 
         <div class="experience-item reveal">
-
-          <div class="experience-number">
-            01
-          </div>
-
+          <div class="experience-number">01</div>
           <div class="experience-info">
-
-            <h3>
-              Design Team Member
-            </h3>
-
-            <div class="organization">
-              AIC UOH
-            </div>
-
+            <h3>Design Team Member</h3>
+            <div class="organization">AIC UOH</div>
             <div class="description">
               Contributing to design and creative work within
               the Artificial Intelligence Club at the University
               of Hail.
             </div>
-
           </div>
-
-          <div class="experience-date">
-            Feb 2026 to Present
-          </div>
-
+          <div class="experience-date">Feb 2026 to Present</div>
         </div>
 
         <div class="experience-item reveal">
-
-          <div class="experience-number">
-            02
-          </div>
-
+          <div class="experience-number">02</div>
           <div class="experience-info">
-
-            <h3>
-              Operations & Execution Team Member
-            </h3>
-
-            <div class="organization">
-              FabLab Hail
-            </div>
-
+            <h3>Operations & Execution Team Member</h3>
+            <div class="organization">FabLab Hail</div>
             <div class="description">
               Supporting operations, execution, and activities
               at FabLab Hail.
             </div>
-
           </div>
-
-          <div class="experience-date">
-            Mar 2026 to Present
-          </div>
-
+          <div class="experience-date">Mar 2026 to Present</div>
         </div>
 
         <div class="experience-item reveal">
-
-          <div class="experience-number">
-            03
-          </div>
-
+          <div class="experience-number">03</div>
           <div class="experience-info">
-
-            <h3>
-              Design Team Member
-            </h3>
-
-            <div class="organization">
-             CSC | University of Hail
-            </div>
-
+            <h3>Design Team Member</h3>
+            <div class="organization">CSC | University of Hail</div>
             <div class="description">
               Supporting design and creative initiatives within
               the Cyber Security Club at the University of Hail.
             </div>
-
           </div>
-
-          <div class="experience-date">
-            Mar 2026 to Present
-          </div>
-
+          <div class="experience-date">Mar 2026 to Present</div>
         </div>
 
         <div class="experience-item reveal">
-
-          <div class="experience-number">
-            04
-          </div>
-
+          <div class="experience-number">04</div>
           <div class="experience-info">
-
-            <h3>
-              Student Ambassador
-            </h3>
-
-            <div class="organization">
-              Oracle
-            </div>
-
+            <h3>Student Ambassador</h3>
+            <div class="organization">Oracle</div>
             <div class="description">
               Won first place in an Oracle competition by
               publishing the university's project code.
             </div>
-
           </div>
-
-          <div class="experience-date">
-            Nov 2025 to Jun 2026
-          </div>
-
+          <div class="experience-date">Nov 2025 to Jun 2026</div>
         </div>
 
         <div class="experience-item reveal">
-
-          <div class="experience-number">
-            05
-          </div>
-
+          <div class="experience-number">05</div>
           <div class="experience-info">
-
-            <h3>
-              AI Solutions Developer Volunteer
-            </h3>
-
-            <div class="organization">
-              Sakani Association
-            </div>
-
+            <h3>AI Solutions Developer Volunteer</h3>
+            <div class="organization">Sakani Association</div>
             <div class="description">
               Volunteering as an AI Solutions Developer,
               contributing to technology-focused initiatives.
             </div>
-
           </div>
-
-          <div class="experience-date">
-            Aug 2026 to Sep 2026
-          </div>
-
+          <div class="experience-date">Aug 2026 to Sep 2026</div>
         </div>
 
         <div class="experience-item reveal">
-
-          <div class="experience-number">
-            06
-          </div>
-
+          <div class="experience-number">06</div>
           <div class="experience-info">
-
-            <h3>
-              Event Organizer Volunteer
-            </h3>
-
-            <div class="organization">
-              Culture House
-            </div>
-
+            <h3>Event Organizer Volunteer</h3>
+            <div class="organization">Culture House</div>
             <div class="description">
               Supporting event organization and coordination
               activities.
             </div>
-
           </div>
-
-          <div class="experience-date">
-            16 Dec 2025
-          </div>
-
+          <div class="experience-date">16 Dec 2025</div>
         </div>
 
       </div>
-
     </div>
-
   </section>
 
   <section id="certificates">
-
     <div class="section-inner reveal">
-
-      <div class="section-label">
-        05. Certificates
-      </div>
-
-      <h2 class="section-title">
-        Certifications<br>
-        & Learning.
-      </h2>
-
+      <div class="section-label">05. Certificates</div>
+      <h2 class="section-title">Certifications<br>& Learning.</h2>
       <div class="certificates-list">
 
         <div class="certificate-row reveal">
-
           <div class="certificate-number">01</div>
-
           <div class="certificate-body">
             <h3>Data Analysis Using R</h3>
             <div class="certificate-org">Tuwaiq Academy</div>
           </div>
-
-          <a
-            class="certificate-link"
-            href="certificates/tuwaiq.png"
-            target="_blank"
-            rel="noopener"
-          >
+          <a class="certificate-link" href="certificates/tuwaiq.png" target="_blank" rel="noopener">
             View certificate →
           </a>
-
         </div>
 
         <div class="certificate-row reveal">
-
           <div class="certificate-number">02</div>
-
           <div class="certificate-body">
             <h3>AWS Certified AI Practitioner: Learning Path</h3>
             <div class="certificate-org">Amazon Web Services</div>
           </div>
-
-          <a
-            class="certificate-link"
-            href="certificates/aws.png"
-            target="_blank"
-            rel="noopener"
-          >
+          <a class="certificate-link" href="certificates/aws.png" target="_blank" rel="noopener">
             View certificate →
           </a>
-
         </div>
 
         <div class="certificate-row reveal">
-
           <div class="certificate-number">03</div>
-
           <div class="certificate-body">
             <h3>AI & Agentic AI for Secure Cloud Computing</h3>
             <div class="certificate-org">National IT Academy (NITA)</div>
           </div>
-
-          <a
-            class="certificate-link"
-            href="certificates/nita.png"
-            target="_blank"
-            rel="noopener"
-          >
+          <a class="certificate-link" href="certificates/nita.png" target="_blank" rel="noopener">
             View certificate →
           </a>
-
         </div>
 
         <div class="certificate-row reveal">
-
           <div class="certificate-number">04</div>
-
           <div class="certificate-body">
             <h3>Fundamentals of Artificial Intelligence</h3>
             <div class="certificate-org">SDAIA</div>
           </div>
-
-          <a
-            class="certificate-link"
-            href="certificates/sdaia.png"
-            target="_blank"
-            rel="noopener"
-          >
+          <a class="certificate-link" href="certificates/sdaia.png" target="_blank" rel="noopener">
             View certificate →
           </a>
-
         </div>
 
         <div class="certificate-row reveal">
-
           <div class="certificate-number">05</div>
-
           <div class="certificate-body">
             <h3>Data Classification and Summarization Using IBM Granite</h3>
             <div class="certificate-org">IBM</div>
           </div>
-
-          <span class="certificate-status">
-            Learning Achievement
-          </span>
-
+          <span class="certificate-status">Learning Achievement</span>
         </div>
 
         <div class="certificate-row reveal">
-
           <div class="certificate-number">06</div>
-
           <div class="certificate-body">
             <h3>Mastering Claude Code</h3>
             <div class="certificate-org">Numken</div>
           </div>
-
-          <a
-            class="certificate-link"
-            href="certificates/numken.jpg"
-            target="_blank"
-            rel="noopener"
-          >
+          <a class="certificate-link" href="certificates/numken.jpg" target="_blank" rel="noopener">
             View certificate →
           </a>
+        </div>
 
+        <!-- أضفت شهادة ساعي هنا زي ما طلبتي -->
+        <div class="certificate-row reveal">
+          <div class="certificate-number">07</div>
+          <div class="certificate-body">
+            <h3>Building and Training Large Language Models</h3>
+            <div class="certificate-org">SAAI</div>
+          </div>
+          <a class="certificate-link" href="certificates/saai.png" target="_blank" rel="noopener">
+            View certificate →
+          </a>
         </div>
 
       </div>
-
     </div>
-
   </section>
 
   <footer id="contact">
-
     <div class="footer-inner reveal">
-
-      <div class="section-label">
-        06. Contact
-      </div>
-
-      <h2 class="footer-title">
-        Let's connect.
-      </h2>
-
+      <div class="section-label">06. Contact</div>
+      <h2 class="footer-title">Let's connect.</h2>
       <div class="footer-links">
-
-        <a href="mailto:Khawlah996@gmail.com">
-          Email
-        </a>
-
-        <a
-          href="https://www.linkedin.com/in/khawlah-alsudais"
-          target="_blank"
-        >
-          LinkedIn
-        </a>
-
-        <a
-          href="https://github.com/iKhawlah"
-          target="_blank"
-        >
-          GitHub
-        </a>
-
+        <a href="mailto:Khawlah996@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/khawlah-alsudais" target="_blank">LinkedIn</a>
+        <a href="https://github.com/iKhawlah" target="_blank">GitHub</a>
       </div>
-
-      <div class="copyright">
-        © 2026 Khawlah Alsudais
-      </div>
-
+      <div class="copyright">© 2026 Khawlah Alsudais</div>
     </div>
-
   </footer>
 
   <script>
-
-    const hamburger =
-      document.getElementById("hamburger");
-
-    const navLinks =
-      document.getElementById("navLinks");
-
-    const navOverlay =
-      document.getElementById("navOverlay");
+    const hamburger = document.getElementById("hamburger");
+    const navLinks = document.getElementById("navLinks");
+    const navOverlay = document.getElementById("navOverlay");
+    const navbar = document.getElementById("navbar");
 
     function closeMenu() {
-
       hamburger.classList.remove("active");
       navLinks.classList.remove("active");
       navOverlay.classList.remove("active");
-
     }
 
     hamburger.addEventListener("click", () => {
-
       hamburger.classList.toggle("active");
       navLinks.classList.toggle("active");
       navOverlay.classList.toggle("active");
-
     });
 
     navOverlay.addEventListener("click", closeMenu);
 
     navLinks.querySelectorAll("a").forEach((link) => {
-
       link.addEventListener("click", closeMenu);
-
     });
 
-    const scrollProgress =
-      document.getElementById("scroll-progress");
+    const scrollProgress = document.getElementById("scroll-progress");
 
     function updateScrollProgress() {
-
-      const scrollTop =
-        window.scrollY;
-
-      const docHeight =
-        document.documentElement.scrollHeight -
-        window.innerHeight;
-
-      const percent =
-        docHeight > 0
-          ? (scrollTop / docHeight) * 100
-          : 0;
-
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
       scrollProgress.style.width = percent + "%";
-
+      
+      // حركة الشريط العلوي لما ننزل
+      if (scrollTop > 50) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
     }
 
     window.addEventListener("scroll", updateScrollProgress);
     updateScrollProgress();
 
-    const revealElements =
-      document.querySelectorAll(".reveal");
+    const revealElements = document.querySelectorAll(".reveal");
 
-    const revealObserver =
-      new IntersectionObserver(
-
-        (entries) => {
-
-          entries.forEach((entry) => {
-
-            if (entry.isIntersecting) {
-
-              entry.target.classList.add("visible");
-
-              revealObserver.unobserve(
-                entry.target
-              );
-
-            }
-
-          });
-
-        },
-
-        {
-          threshold: 0.15
-        }
-
-      );
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            // فك المراقبة عشان ما يتكرر التأثير
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
 
     revealElements.forEach((element) => {
-
       revealObserver.observe(element);
-
     });
-
   </script>
 
 </body>
