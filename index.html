@@ -87,15 +87,17 @@
       position: fixed;
       width: 320px;
       height: 220px;
+      background-color: #171d2e;
       background-size: cover;
       background-position: center;
       border-radius: 12px;
+      border: 1px solid var(--line);
       pointer-events: none;
       z-index: 9990;
       opacity: 0;
       transform: translate(-50%, -50%) scale(0.8);
       transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
     }
     .project-preview.active {
       opacity: 1;
@@ -481,7 +483,7 @@
       min-width: 100px;
     }
     .stat-item h3 {
-      font-family: "Fraunces", serif;
+      font-family: "IBM Plex Mono", monospace;
       font-size: clamp(28px, 4vw, 36px);
       color: var(--text);
       margin-bottom: 6px;
@@ -571,12 +573,10 @@
     .project.reveal:nth-of-type(5) { transition-delay: 0.4s; }
     .project.reveal:nth-of-type(6) { transition-delay: 0.5s; }
     .project.reveal:nth-of-type(7) { transition-delay: 0.6s; }
-
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     @media (max-width: 800px) {
       .project-preview { display: none; }
       nav { padding: 15px 4vw; }
@@ -746,7 +746,6 @@
               <span class="tech">Mobile App</span>
             </div>
           </div>
-          <a class="project-link" href="#" target="_blank">View design →</a>
         </article>
 
         <article class="project reveal" data-image="signUp.png">
@@ -760,7 +759,6 @@
               <span class="tech">Prototyping</span>
             </div>
           </div>
-          <a class="project-link" href="#" target="_blank">View design →</a>
         </article>
 
         <article class="project reveal" data-image="sofa.png">
@@ -774,7 +772,6 @@
               <span class="tech">E-commerce</span>
             </div>
           </div>
-          <a class="project-link" href="#" target="_blank">View design →</a>
         </article>
 
       </div>
@@ -963,11 +960,11 @@
   <section class="stats-section reveal">
     <div class="stats-grid">
       <div class="stat-item">
-        <h3><span class="counter" data-target="7">0</span>+</h3>
+        <h3><span class="scramble-text" data-target="7">0</span>+</h3>
         <p>Projects</p>
       </div>
       <div class="stat-item">
-        <h3><span class="counter" data-target="16">0</span>+</h3>
+        <h3><span class="scramble-text" data-target="16">0</span>+</h3>
         <p>Technologies</p>
       </div>
       <div class="stat-item">
@@ -1019,7 +1016,7 @@
       project.addEventListener("mouseenter", () => {
         const imageUrl = project.getAttribute("data-image");
         if (imageUrl) {
-          projectPreview.style.backgroundImage = `url(${imageUrl})`;
+          projectPreview.style.backgroundImage = `url('${imageUrl}')`;
           projectPreview.style.left = `${mouseX}px`;
           projectPreview.style.top = `${mouseY}px`;
           projectPreview.classList.add("active");
@@ -1071,28 +1068,33 @@
     window.addEventListener("scroll", updateScrollProgress);
     updateScrollProgress();
 
-    const counters = document.querySelectorAll(".counter");
-    let hasCounted = false;
-
-    function startCounters() {
-      if(hasCounted) return;
-      counters.forEach(counter => {
-        const target = +counter.getAttribute("data-target");
-        const increment = target / 30;
-        
-        const updateCount = () => {
-          const count = +counter.innerText;
-          if (count < target) {
-            counter.innerText = Math.ceil(count + increment);
-            setTimeout(updateCount, 40);
-          } else {
-            counter.innerText = target;
-          }
-        };
-        updateCount();
-      });
-      hasCounted = true;
+    const scrambleChars = "0123456789!@#$%^&*";
+    function runScrambleEffect(element, finalValue, duration = 1200) {
+      let startTime = Date.now();
+      let interval = setInterval(() => {
+        let now = Date.now();
+        if (now - startTime >= duration) {
+          clearInterval(interval);
+          element.innerText = finalValue;
+          return;
+        }
+        let randomStr = "";
+        for (let i = 0; i < finalValue.length; i++) {
+          randomStr += scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+        }
+        element.innerText = randomStr;
+      }, 50);
     }
+
+    function triggerAllScrambles() {
+      const targets = document.querySelectorAll(".scramble-text");
+      targets.forEach(target => {
+        const finalVal = target.getAttribute("data-target");
+        runScrambleEffect(target, finalVal);
+      });
+    }
+
+    setInterval(triggerAllScrambles, 6000);
 
     const revealElements = document.querySelectorAll(".reveal, .stats-section");
 
@@ -1102,7 +1104,7 @@
           if (entry.isIntersecting) {
             entry.target.classList.add("visible");
             if(entry.target.classList.contains("stats-section")) {
-              startCounters();
+              triggerAllScrambles();
             }
             revealObserver.unobserve(entry.target);
           }
