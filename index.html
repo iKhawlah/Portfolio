@@ -53,10 +53,6 @@
       
       --nav-scroll: rgba(28, 35, 51, 0.9);
       --overlay-bg: rgba(28, 35, 51, 0.7);
-
-      /* إعدادات الكروت المتراكبة */
-      --section-bg: rgba(28, 35, 51, 0.5);
-      --section-shadow: 0 -20px 50px rgba(0,0,0,0.3);
     }
 
     [data-theme="light"] {
@@ -78,9 +74,6 @@
       
       --nav-scroll: rgba(246, 243, 235, 0.9);
       --overlay-bg: rgba(246, 243, 235, 0.7);
-
-      --section-bg: rgba(246, 243, 235, 0.6);
-      --section-shadow: 0 -20px 50px rgba(0,0,0,0.06);
     }
 
     * {
@@ -110,8 +103,6 @@
     .mono {
       font-family: "IBM Plex Mono", monospace;
     }
-    
-    /* الخلفية (Blobs) */
     .bg-shapes {
       position: fixed;
       top: 0;
@@ -159,7 +150,6 @@
       50% { transform: translate(5%, 10%) scale(1.1); }
       100% { transform: translate(-5%, 5%) scale(0.9); }
     }
-
     img.project-preview {
       position: fixed;
       width: auto;
@@ -190,8 +180,6 @@
       box-shadow: 0 0 10px var(--glow);
       transition: background 0.4s ease, box-shadow 0.4s ease;
     }
-
-    /* Navbar */
     nav {
       position: fixed;
       top: 0;
@@ -360,17 +348,14 @@
       color: var(--inv-text);
       transform: translateX(10px);
     }
-
-    /* Hero Section */
     .hero {
       min-height: 100vh;
-      padding: 140px 6vw 120px; /* Added bottom padding to account for overlap */
+      padding: 140px 6vw 80px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       position: relative;
       overflow: hidden;
-      z-index: 1;
     }
     .hero-content {
       position: relative;
@@ -409,7 +394,7 @@
     }
     .scroll-indicator {
       position: absolute;
-      bottom: 60px;
+      bottom: 40px;
       left: 50%;
       transform: translateX(-50%);
       width: 24px;
@@ -438,36 +423,18 @@
       0% { transform: translate(-50%, 0); opacity: 1; }
       100% { transform: translate(-50%, 18px); opacity: 0; }
     }
-
-    /* Stacking Sections Effect (تأثير تراكب الصفحات) */
     section {
-      position: relative;
-      background: var(--section-bg);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border-radius: 40px 40px 0 0;
-      box-shadow: var(--section-shadow);
-      margin-top: -60px; /* يسحب القسم الجديد فوق القديم */
-      padding: 120px 6vw 100px; /* مسافة لحماية المحتوى */
+      padding: 100px 6vw;
       border-top: 1px solid var(--line);
-      transition: background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+      scroll-margin-top: 80px;
+      position: relative;
+      z-index: 2;
+      transition: border-color 0.4s ease;
     }
-    
-    /* ترتيب الـ Z-index عشان كل قسم يغطي اللي قبله */
-    section:nth-of-type(1) { z-index: 10; }
-    section:nth-of-type(2) { z-index: 11; }
-    section:nth-of-type(3) { z-index: 12; }
-    section:nth-of-type(4) { z-index: 13; }
-    section:nth-of-type(5) { z-index: 14; }
-    section:nth-of-type(6) { z-index: 15; }
-    
     .section-inner {
       max-width: 1200px;
       margin: auto;
-      will-change: transform, opacity;
-      transform-origin: top center;
     }
-    
     .section-label {
       font-family: "IBM Plex Mono", monospace;
       font-size: 11px;
@@ -731,16 +698,13 @@
       transform: translateY(-5px);
     }
     footer {
-      position: relative;
-      z-index: 16;
-      padding: 80px 6vw 30px;
+      padding: 60px 6vw 30px;
       background: var(--inv-bg);
       color: var(--inv-text);
-      border-radius: 40px 40px 0 0;
-      margin-top: -60px;
-      box-shadow: var(--section-shadow);
       scroll-margin-top: 20px;
-      transition: background 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+      position: relative;
+      z-index: 2;
+      transition: background 0.4s ease, color 0.4s ease;
     }
     .footer-inner {
       max-width: 1200px;
@@ -787,10 +751,23 @@
       transition: color 0.4s ease;
     }
     
-    /* حركات الظهور الأساسية */
+    /* حركة طي الصفحة (Book Fold Reveal) للأقسام الرئيسية */
+    .reveal-book {
+      opacity: 0;
+      transform: perspective(1500px) rotateX(-20deg) translateY(60px);
+      transform-origin: top;
+      transition: opacity 1s cubic-bezier(0.165, 0.84, 0.44, 1), transform 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+      will-change: opacity, transform;
+    }
+    .reveal-book.visible {
+      opacity: 1;
+      transform: perspective(1500px) rotateX(0deg) translateY(0);
+    }
+
+    /* الحركات الداخلية */
     .reveal-up {
       opacity: 0;
-      transform: translateY(35px);
+      transform: translateY(35px) rotateX(-10deg);
       transition: opacity 0.7s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
     .reveal-left {
@@ -810,7 +787,7 @@
     }
     .reveal-up.visible, .reveal-left.visible, .reveal-right.visible, .reveal-scale.visible {
       opacity: 1;
-      transform: translate(0) scale(1);
+      transform: translate(0) rotateX(0) scale(1);
     }
     .project.reveal-up { transition-delay: 0.05s; }
     .experience-item.reveal-left:nth-of-type(1) { transition-delay: 0s; }
@@ -834,8 +811,7 @@
       .project-preview { display: none; }
       nav { padding: 15px 4vw; }
       .hero { padding: 120px 5vw 80px; }
-      section { padding: 80px 5vw; margin-top: -40px; border-radius: 30px 30px 0 0;}
-      footer { margin-top: -40px; border-radius: 30px 30px 0 0; padding: 60px 5vw 30px; }
+      section { padding: 80px 5vw; }
       .about-stats { margin-top: 60px; padding-top: 50px; }
       .stats-grid { gap: 40px; flex-direction: column; align-items: center;}
       .about-grid { grid-template-columns: 1fr; gap: 30px; }
@@ -944,9 +920,9 @@
     <div class="scroll-indicator"></div>
   </header>
 
-  <section id="about">
-    <div class="section-inner reveal-left">
-      <div class="section-label">01. About</div>
+  <section id="about" class="reveal-book">
+    <div class="section-inner">
+      <div class="section-label reveal-left">01. About</div>
       <div class="about-grid">
         <h2 class="section-title">About<br>Me.</h2>
         <div class="about-text reveal-right">
@@ -997,7 +973,7 @@
     </div>
   </section>
 
-  <section id="education">
+  <section id="education" class="reveal-book">
     <div class="section-inner">
       <div class="section-label reveal-left">02. Education</div>
       <h2 class="section-title reveal-left">Academic<br>Background.</h2>
@@ -1015,7 +991,7 @@
     </div>
   </section>
 
-  <section id="projects">
+  <section id="projects" class="reveal-book">
     <div class="section-inner">
       <div class="section-label reveal-up">03. Projects</div>
       <h2 class="section-title reveal-up">Selected<br>Work.</h2>
@@ -1133,7 +1109,7 @@
     </div>
   </section>
 
-  <section id="skills">
+  <section id="skills" class="reveal-book">
     <div class="section-inner reveal-scale">
       <div class="section-label">04. Skills</div>
       <h2 class="section-title">What I<br>Work With.</h2>
@@ -1173,7 +1149,7 @@
     </div>
   </section>
 
-  <section id="experience">
+  <section id="experience" class="reveal-book">
     <div class="section-inner">
       <div class="section-label reveal-left">05. Experience</div>
       <h2 class="section-title reveal-left">Clubs &<br>Volunteering.</h2>
@@ -1231,7 +1207,7 @@
     </div>
   </section>
 
-  <section id="certificates">
+  <section id="certificates" class="reveal-book">
     <div class="section-inner">
       <div class="section-label reveal-up">06. Certificates</div>
       <h2 class="section-title reveal-up">Certifications<br>& Learning.</h2>
@@ -1304,7 +1280,7 @@
     </div>
   </section>
 
-  <footer id="contact">
+  <footer id="contact" class="reveal-book">
     <div class="footer-inner reveal-up">
       <div class="section-label">07. Contact</div>
       <h2 class="footer-title">Let's connect.</h2>
@@ -1392,7 +1368,6 @@
     const blob2 = document.querySelector(".blob-2");
     const blob3 = document.querySelector(".blob-3");
     const backToTopBtn = document.getElementById("backToTop");
-    const stackSections = document.querySelectorAll('section');
 
     function updateScrollProgress() {
       const scrollTop = window.scrollY;
@@ -1415,20 +1390,6 @@
       blob1.style.transform = `translateY(${scrollTop * 0.15}px)`;
       blob2.style.transform = `translateY(${scrollTop * 0.1}px)`;
       blob3.style.transform = `translate(-50%, ${scrollTop * 0.2}px)`;
-
-      /* حركة غرق القسم السابق تحت الجديد */
-      stackSections.forEach((sec) => {
-        const rect = sec.getBoundingClientRect();
-        const inner = sec.querySelector('.section-inner');
-        if(inner && rect.top < 0) {
-            const distance = Math.abs(rect.top);
-            inner.style.transform = `translateY(${distance * 0.35}px)`;
-            inner.style.opacity = 1 - (distance / (rect.height * 0.6));
-        } else if (inner) {
-            inner.style.transform = `translateY(0)`;
-            inner.style.opacity = 1;
-        }
-      });
     }
 
     window.addEventListener("scroll", updateScrollProgress);
@@ -1466,7 +1427,7 @@
 
     setInterval(triggerAllScrambles, 6000);
 
-    const revealElements = document.querySelectorAll(".reveal-up, .reveal-left, .reveal-right, .reveal-scale, .about-stats");
+    const revealElements = document.querySelectorAll(".reveal-up, .reveal-left, .reveal-right, .reveal-scale, .reveal-book, .about-stats");
 
     const revealObserver = new IntersectionObserver(
       (entries) => {
