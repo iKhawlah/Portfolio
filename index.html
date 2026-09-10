@@ -28,7 +28,7 @@
   }
   </script>
 
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23171d2e'/%3E%3Ctext x='50' y='67' text-anchor='middle' font-family='Georgia,serif' font-size='62' fill='%23f4eee1'%3EK%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%231c2333'/%3E%3Ctext x='50' y='67' text-anchor='middle' font-family='Georgia,serif' font-size='62' fill='%23e6d5b8'%3EK%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -36,11 +36,46 @@
   <style>
     :root {
       --bg: #1c2333; 
-      --text: #f4eee1;
-      --muted: rgba(244, 238, 225, 0.85);
-      --line: rgba(244, 238, 225, 0.15);
-      --hover-bg: rgba(244, 238, 225, 0.05);
+      --text: #e6d5b8;
+      --muted: rgba(230, 213, 184, 0.85);
+      --line: rgba(230, 213, 184, 0.15);
+      --hover-bg: rgba(230, 213, 184, 0.05);
+      --glow: rgba(230, 213, 184, 0.5);
+
+      --inv-bg: #e6d5b8;
+      --inv-text: #1c2333;
+      --inv-muted: rgba(28, 35, 51, 0.85);
+      --inv-line: rgba(28, 35, 51, 0.15);
+
+      --blob-1: #314063;
+      --blob-2: #202d47;
+      --blob-3: rgba(49, 64, 99, 0.5);
+      
+      --nav-scroll: rgba(28, 35, 51, 0.9);
+      --overlay-bg: rgba(28, 35, 51, 0.7);
     }
+
+    [data-theme="light"] {
+      --bg: #e6d5b8;
+      --text: #1c2333;
+      --muted: rgba(28, 35, 51, 0.85);
+      --line: rgba(28, 35, 51, 0.15);
+      --hover-bg: rgba(28, 35, 51, 0.05);
+      --glow: rgba(28, 35, 51, 0.5);
+
+      --inv-bg: #1c2333;
+      --inv-text: #e6d5b8;
+      --inv-muted: rgba(230, 213, 184, 0.85);
+      --inv-line: rgba(230, 213, 184, 0.15);
+
+      --blob-1: #d8c3a1;
+      --blob-2: #d1b88e;
+      --blob-3: rgba(216, 195, 161, 0.5);
+      
+      --nav-scroll: rgba(230, 213, 184, 0.9);
+      --overlay-bg: rgba(230, 213, 184, 0.7);
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -54,6 +89,7 @@
       color: var(--text);
       font-family: "Inter", sans-serif;
       overflow-x: hidden;
+      transition: background 0.4s ease, color 0.4s ease;
     }
     a, button {
       color: inherit;
@@ -78,21 +114,21 @@
       filter: blur(90px);
       opacity: 0.4;
       animation: float 20s infinite ease-in-out alternate;
-      transition: transform 0.1s linear;
+      transition: transform 0.1s linear, background 0.4s ease;
     }
     .blob-1 {
       top: -10%;
       left: -10%;
       width: 40vw;
       height: 40vw;
-      background: #314063;
+      background: var(--blob-1);
     }
     .blob-2 {
       bottom: -20%;
       right: -10%;
       width: 45vw;
       height: 45vw;
-      background: #202d47;
+      background: var(--blob-2);
       animation-delay: -5s;
     }
     .blob-3 {
@@ -100,7 +136,7 @@
       left: 50%;
       width: 30vw;
       height: 30vw;
-      background: rgba(49, 64, 99, 0.5);
+      background: var(--blob-3);
       animation-delay: -10s;
       transform: translateX(-50%);
     }
@@ -136,7 +172,8 @@
       width: 0%;
       background: var(--text);
       z-index: 1100;
-      box-shadow: 0 0 10px rgba(244, 238, 225, 0.5);
+      box-shadow: 0 0 10px var(--glow);
+      transition: background 0.4s ease, box-shadow 0.4s ease;
     }
     nav {
       position: fixed;
@@ -150,14 +187,14 @@
       padding: 15px 3vw;
       background: transparent;
       pointer-events: none;
-      transition: 0.3s ease;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
     }
     nav.scrolled {
-      background: rgba(28, 35, 51, 0.9);
+      background: var(--nav-scroll);
       backdrop-filter: blur(12px);
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     }
-    .nav-name, .hamburger, .nav-links, .nav-social {
+    .nav-name, .hamburger, .nav-links, .nav-social, .theme-toggle {
       pointer-events: auto;
     }
     .nav-name {
@@ -166,7 +203,7 @@
       font-weight: 400;
       letter-spacing: 0.02em;
       color: var(--text);
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, color 0.4s ease;
     }
     .nav-name:hover {
       transform: scale(1.05);
@@ -176,6 +213,34 @@
       align-items: center;
       gap: 14px;
     }
+    .theme-toggle {
+      background: transparent;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      transition: transform 0.3s ease, color 0.4s ease;
+    }
+    .theme-toggle:hover {
+      transform: rotate(15deg) scale(1.1);
+    }
+    .theme-toggle svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .sun-icon { display: block; }
+    .moon-icon { display: none; }
+    [data-theme="light"] .sun-icon { display: none; }
+    [data-theme="light"] .moon-icon { display: block; }
+
     .nav-social {
       display: flex;
       align-items: center;
@@ -196,6 +261,7 @@
       font-family: "IBM Plex Mono", monospace;
       font-size: 9px;
       font-weight: 600;
+      transition: background 0.4s ease, color 0.4s ease;
     }
     .hamburger {
       position: relative;
@@ -216,10 +282,10 @@
       height: 1px;
       width: 100%;
       background: var(--text);
-      transition: 0.3s ease;
+      transition: 0.3s ease, background 0.4s ease;
     }
     .hamburger.active span {
-      background: var(--bg);
+      background: var(--inv-text);
     }
     .hamburger.active span:nth-child(1) {
       transform: translateY(5px) rotate(45deg);
@@ -233,11 +299,11 @@
     .nav-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(28, 35, 51, 0.7);
+      background: var(--overlay-bg);
       backdrop-filter: blur(5px);
       opacity: 0;
       visibility: hidden;
-      transition: 0.3s ease;
+      transition: opacity 0.3s ease, visibility 0.3s ease, background 0.4s ease;
       z-index: 1400;
     }
     .nav-overlay.active {
@@ -250,7 +316,7 @@
       right: 0;
       height: 100vh;
       width: min(280px, 80vw);
-      background: rgba(244, 238, 225, 0.98);
+      background: var(--inv-bg);
       backdrop-filter: blur(10px);
       display: flex;
       flex-direction: column;
@@ -258,9 +324,9 @@
       gap: 30px;
       padding: 40px;
       font-size: 15px;
-      color: var(--bg);
+      color: var(--inv-muted);
       transform: translateX(100%);
-      transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+      transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1), background 0.4s ease;
       z-index: 1500;
       box-shadow: -10px 0 30px rgba(0,0,0,0.1);
     }
@@ -269,12 +335,12 @@
     }
     .nav-links a {
       position: relative;
-      color: rgba(28, 35, 51, 0.7);
-      transition: 0.25s ease;
+      color: var(--inv-muted);
+      transition: 0.25s ease, color 0.4s ease;
       width: fit-content;
     }
     .nav-links a:hover {
-      color: var(--bg);
+      color: var(--inv-text);
       transform: translateX(10px);
     }
     .hero {
@@ -299,6 +365,7 @@
       color: var(--text);
       margin-bottom: 25px;
       animation: fadeUp 0.8s ease both;
+      transition: color 0.4s ease;
     }
     h1 {
       font-family: "Fraunces", serif;
@@ -309,6 +376,7 @@
       color: var(--text);
       max-width: 1200px;
       animation: fadeUp 0.9s ease 0.1s both;
+      transition: color 0.4s ease;
     }
     .hero-description {
       max-width: 650px;
@@ -317,6 +385,7 @@
       line-height: 1.6;
       color: var(--muted);
       animation: fadeUp 0.9s ease 0.25s both;
+      transition: color 0.4s ease;
     }
     .scroll-indicator {
       position: absolute;
@@ -330,6 +399,7 @@
       opacity: 0;
       animation: fadeUp 1s ease 1s forwards;
       z-index: 5;
+      transition: border-color 0.4s ease;
     }
     .scroll-indicator::before {
       content: "";
@@ -342,6 +412,7 @@
       background: var(--text);
       border-radius: 50%;
       animation: scrollDot 2s infinite cubic-bezier(0.15, 0.41, 0.69, 0.94);
+      transition: background 0.4s ease;
     }
     @keyframes scrollDot {
       0% { transform: translate(-50%, 0); opacity: 1; }
@@ -353,6 +424,7 @@
       scroll-margin-top: 80px;
       position: relative;
       z-index: 2;
+      transition: border-color 0.4s ease;
     }
     .section-inner {
       max-width: 1200px;
@@ -365,6 +437,7 @@
       text-transform: uppercase;
       letter-spacing: 0.1em;
       margin-bottom: 40px;
+      transition: color 0.4s ease;
     }
     .section-title {
       font-family: "Fraunces", serif;
@@ -374,6 +447,7 @@
       line-height: 1;
       margin-bottom: 40px;
       color: var(--text);
+      transition: color 0.4s ease;
     }
     .about-grid {
       display: grid;
@@ -386,9 +460,11 @@
       line-height: 1.75;
       color: var(--muted);
       max-width: 750px;
+      transition: color 0.4s ease;
     }
     .about-text strong {
       color: var(--text);
+      transition: color 0.4s ease;
     }
     .about-text p + p {
       margin-top: 25px;
@@ -397,6 +473,7 @@
       margin-top: 80px;
       padding-top: 60px;
       border-top: 1px solid var(--line);
+      transition: border-color 0.4s ease;
     }
     .stats-grid {
       display: flex;
@@ -416,6 +493,7 @@
       font-size: clamp(28px, 4vw, 36px);
       color: var(--text);
       margin-bottom: 6px;
+      transition: color 0.4s ease;
     }
     .stat-item p {
       font-family: "IBM Plex Mono", monospace;
@@ -427,6 +505,7 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
+      transition: color 0.4s ease;
     }
     @keyframes pulse-inf {
       0% { transform: scale(1); opacity: 0.8; }
@@ -448,7 +527,7 @@
       align-items: center;
       padding: 35px 0;
       border-top: 1px solid var(--line);
-      transition: padding 0.3s ease, background 0.3s ease;
+      transition: padding 0.3s ease, background 0.3s ease, border-color 0.4s ease;
       position: relative;
     }
     .project:last-child, .experience-item:last-child, .certificate-row:last-child {
@@ -463,6 +542,7 @@
       font-family: "IBM Plex Mono", monospace;
       color: var(--text);
       font-size: 12px;
+      transition: color 0.4s ease;
     }
     .project-type-label {
       font-family: "IBM Plex Mono", monospace;
@@ -471,6 +551,7 @@
       text-transform: uppercase;
       letter-spacing: 0.1em;
       margin-bottom: 6px;
+      transition: color 0.4s ease;
     }
     .project-info h3, .experience-info h3 {
       font-family: "Fraunces", serif;
@@ -478,6 +559,7 @@
       font-weight: 500;
       margin-bottom: 10px;
       color: var(--text);
+      transition: color 0.4s ease;
     }
     .experience-info h3 {
       font-size: 25px;
@@ -489,12 +571,14 @@
       font-weight: 500;
       margin-bottom: 6px;
       color: var(--text);
+      transition: color 0.4s ease;
     }
     .project-info p {
       max-width: 650px;
       color: var(--muted);
       line-height: 1.6;
       font-size: 15px;
+      transition: color 0.4s ease;
     }
     .mobile-project-img {
       display: none;
@@ -512,7 +596,7 @@
       font-size: 10px;
       color: var(--text);
       border-radius: 4px;
-      transition: 0.3s ease;
+      transition: 0.3s ease, color 0.4s ease, border-color 0.4s ease;
     }
     .project:hover .tech {
       border-color: var(--text);
@@ -521,7 +605,7 @@
       font-family: "IBM Plex Mono", monospace;
       font-size: 11px;
       white-space: nowrap;
-      transition: 0.25s ease;
+      transition: 0.25s ease, color 0.4s ease;
       display: inline-block;
       color: var(--text);
       cursor: pointer;
@@ -540,6 +624,7 @@
       font-weight: 500;
       margin-bottom: 20px;
       color: var(--text);
+      transition: color 0.4s ease;
     }
     .skill-list {
       list-style: none;
@@ -549,18 +634,18 @@
       border-bottom: 1px solid var(--line);
       color: var(--muted);
       font-size: 14px;
-      transition: 0.3s ease;
+      transition: 0.3s ease, color 0.4s ease, border-color 0.4s ease;
     }
     .skill-list li:hover {
       padding-left: 10px;
       color: var(--text);
-      background: linear-gradient(90deg, var(--hover-bg) 0%, transparent 100%);
     }
     .experience-info .organization, .certificate-org {
       font-family: "IBM Plex Mono", monospace;
       color: var(--text);
       font-size: 13px;
       margin-bottom: 7px;
+      transition: color 0.4s ease;
     }
     .certificate-org {
       font-size: 11px;
@@ -569,12 +654,14 @@
       color: var(--muted);
       font-size: 14px;
       line-height: 1.6;
+      transition: color 0.4s ease;
     }
     .experience-date {
       font-family: "IBM Plex Mono", monospace;
       font-size: 10px;
       color: var(--muted);
       white-space: nowrap;
+      transition: color 0.4s ease;
     }
     #backToTop {
       position: fixed;
@@ -591,7 +678,7 @@
       opacity: 0;
       visibility: hidden;
       transform: translateY(20px);
-      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), background 0.4s ease, color 0.4s ease;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -607,11 +694,12 @@
     }
     footer {
       padding: 60px 6vw 30px;
-      background: var(--text);
-      color: var(--bg);
+      background: var(--inv-bg);
+      color: var(--inv-text);
       scroll-margin-top: 20px;
       position: relative;
       z-index: 2;
+      transition: background 0.4s ease, color 0.4s ease;
     }
     .footer-inner {
       max-width: 1200px;
@@ -623,10 +711,14 @@
       font-weight: 500;
       letter-spacing: -0.04em;
       margin-bottom: 25px;
-      color: var(--bg);
+      color: var(--inv-text);
+      transition: color 0.4s ease;
     }
     footer .section-label {
-      color: rgba(28, 35, 51, 0.6);
+      color: var(--inv-muted);
+      transition: color 0.4s ease;
+      border: none;
+      margin-bottom: 40px;
     }
     .footer-links {
       display: flex;
@@ -635,20 +727,23 @@
       align-items: center;
       font-family: "IBM Plex Mono", monospace;
       font-size: 11px;
-      color: rgba(28, 35, 51, 0.8);
+      color: var(--inv-muted);
+      transition: color 0.4s ease;
     }
     .footer-links a {
-      transition: 0.25s ease;
+      transition: 0.25s ease, color 0.4s ease;
     }
     .footer-links a:hover {
-      color: var(--bg);
+      color: var(--inv-text);
       transform: translateY(-2px);
     }
     .copyright {
       margin-top: 50px;
       font-family: "IBM Plex Mono", monospace;
       font-size: 10px;
-      color: rgba(28, 35, 51, 0.5);
+      color: var(--inv-muted);
+      opacity: 0.8;
+      transition: color 0.4s ease;
     }
     .reveal-up {
       opacity: 0;
@@ -754,6 +849,22 @@
   <nav id="navbar">
     <div class="nav-name">Khawlah Portfolio</div>
     <div class="nav-right">
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+        <svg class="sun-icon" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" viewBox="0 0 24 24">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
       <a class="nav-social" href="https://www.linkedin.com/in/khawlah-alsudais" target="_blank" rel="noopener" aria-label="LinkedIn">
         <span class="nav-badge">in</span>
       </a>
@@ -1164,6 +1275,19 @@
   </footer>
 
   <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const root = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    
+    root.setAttribute('data-theme', savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = root.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+
     const projectPreview = document.getElementById("projectPreview");
     let mouseX = 0;
     let mouseY = 0;
