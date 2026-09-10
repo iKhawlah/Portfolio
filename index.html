@@ -113,13 +113,13 @@
       position: fixed;
       width: auto;
       height: auto;
-      max-width: 350px;
+      max-width: 320px;
       max-height: 450px;
-      border-radius: 32px;
+      border-radius: 36px;
+      overflow: hidden;
       pointer-events: none;
       z-index: 9990;
       opacity: 0;
-      object-fit: cover;
       transform: translate(-50%, -50%) scale(0.8);
       transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
       box-shadow: 0 20px 50px rgba(0,0,0,0.6);
@@ -715,12 +715,12 @@
         width: auto;
         max-width: 100%;
         height: auto;
-        max-height: 500px;
-        object-fit: contain;
-        border-radius: 16px;
-        border: 1px solid var(--line);
+        max-height: 450px;
+        border-radius: 36px;
+        overflow: hidden;
         margin-top: 20px;
         margin-bottom: 10px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.3);
       }
 
       .project-info h3 { font-size: 24px; }
