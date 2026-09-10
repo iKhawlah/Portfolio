@@ -750,9 +750,24 @@
       opacity: 0.8;
       transition: color 0.4s ease;
     }
+    
+    /* حركة طي الصفحة (Book Fold Reveal) للأقسام الرئيسية */
+    .reveal-book {
+      opacity: 0;
+      transform: perspective(1500px) rotateX(-20deg) translateY(60px);
+      transform-origin: top;
+      transition: opacity 1s cubic-bezier(0.165, 0.84, 0.44, 1), transform 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+      will-change: opacity, transform;
+    }
+    .reveal-book.visible {
+      opacity: 1;
+      transform: perspective(1500px) rotateX(0deg) translateY(0);
+    }
+
+    /* الحركات الداخلية */
     .reveal-up {
       opacity: 0;
-      transform: translateY(35px);
+      transform: translateY(35px) rotateX(-10deg);
       transition: opacity 0.7s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
     .reveal-left {
@@ -772,7 +787,7 @@
     }
     .reveal-up.visible, .reveal-left.visible, .reveal-right.visible, .reveal-scale.visible {
       opacity: 1;
-      transform: translate(0) scale(1);
+      transform: translate(0) rotateX(0) scale(1);
     }
     .project.reveal-up { transition-delay: 0.05s; }
     .experience-item.reveal-left:nth-of-type(1) { transition-delay: 0s; }
@@ -905,9 +920,9 @@
     <div class="scroll-indicator"></div>
   </header>
 
-  <section id="about">
-    <div class="section-inner reveal-left">
-      <div class="section-label">01. About</div>
+  <section id="about" class="reveal-book">
+    <div class="section-inner">
+      <div class="section-label reveal-left">01. About</div>
       <div class="about-grid">
         <h2 class="section-title">About<br>Me.</h2>
         <div class="about-text reveal-right">
@@ -958,7 +973,7 @@
     </div>
   </section>
 
-  <section id="education">
+  <section id="education" class="reveal-book">
     <div class="section-inner">
       <div class="section-label reveal-left">02. Education</div>
       <h2 class="section-title reveal-left">Academic<br>Background.</h2>
@@ -976,7 +991,7 @@
     </div>
   </section>
 
-  <section id="projects">
+  <section id="projects" class="reveal-book">
     <div class="section-inner">
       <div class="section-label reveal-up">03. Projects</div>
       <h2 class="section-title reveal-up">Selected<br>Work.</h2>
@@ -1094,7 +1109,7 @@
     </div>
   </section>
 
-  <section id="skills">
+  <section id="skills" class="reveal-book">
     <div class="section-inner reveal-scale">
       <div class="section-label">04. Skills</div>
       <h2 class="section-title">What I<br>Work With.</h2>
@@ -1134,7 +1149,7 @@
     </div>
   </section>
 
-  <section id="experience">
+  <section id="experience" class="reveal-book">
     <div class="section-inner">
       <div class="section-label reveal-left">05. Experience</div>
       <h2 class="section-title reveal-left">Clubs &<br>Volunteering.</h2>
@@ -1192,7 +1207,7 @@
     </div>
   </section>
 
-  <section id="certificates">
+  <section id="certificates" class="reveal-book">
     <div class="section-inner">
       <div class="section-label reveal-up">06. Certificates</div>
       <h2 class="section-title reveal-up">Certifications<br>& Learning.</h2>
@@ -1265,7 +1280,7 @@
     </div>
   </section>
 
-  <footer id="contact">
+  <footer id="contact" class="reveal-book">
     <div class="footer-inner reveal-up">
       <div class="section-label">07. Contact</div>
       <h2 class="footer-title">Let's connect.</h2>
@@ -1412,7 +1427,7 @@
 
     setInterval(triggerAllScrambles, 6000);
 
-    const revealElements = document.querySelectorAll(".reveal-up, .reveal-left, .reveal-right, .reveal-scale, .about-stats");
+    const revealElements = document.querySelectorAll(".reveal-up, .reveal-left, .reveal-right, .reveal-scale, .reveal-book, .about-stats");
 
     const revealObserver = new IntersectionObserver(
       (entries) => {
