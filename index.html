@@ -8,7 +8,7 @@
   <meta name="description" content="Khawlah Alsudais - Artificial Intelligence student and developer based in Hail, building practical AI solutions, machine learning models, and UI/UX designs." />
   <meta property="og:title" content="Khawlah Alsudais - AI Portfolio" />
   <meta property="og:description" content="Artificial Intelligence student and developer building practical AI solutions, machine learning models, and intuitive UI/UX designs." />
-  <meta property="og:image" content="certificates/app.png" />
+  <meta property="og:image" content="https://ikhawlah.github.io/portfolio/certificates/app.png" />
   <meta property="og:type" content="website" />
   
   <script type="application/ld+json">
@@ -390,6 +390,50 @@
     .about-text p + p {
       margin-top: 25px;
     }
+    .about-stats {
+      margin-top: 80px;
+      padding-top: 60px;
+      border-top: 1px solid var(--line);
+    }
+    .stats-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 70px;
+      text-align: center;
+      max-width: 1000px;
+      margin: auto;
+      position: relative;
+    }
+    .stat-item {
+      min-width: 100px;
+    }
+    .stat-item h3 {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: clamp(28px, 4vw, 36px);
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .stat-item p {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    @keyframes pulse-inf {
+      0% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.8; }
+    }
+    .inf-sign {
+      display: inline-block;
+      animation: pulse-inf 2.5s infinite ease-in-out;
+    }
     .projects {
       display: grid;
       gap: 0;
@@ -529,54 +573,6 @@
       color: var(--muted);
       white-space: nowrap;
     }
-    .stats-section {
-      padding: 50px 6vw;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      background: var(--bg);
-      position: relative;
-      z-index: 2;
-    }
-    .stats-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 70px;
-      text-align: center;
-      max-width: 1000px;
-      margin: auto;
-      position: relative;
-    }
-    .stat-item {
-      min-width: 100px;
-    }
-    .stat-item h3 {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: clamp(28px, 4vw, 36px);
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-    .stat-item p {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 10px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-    @keyframes pulse-inf {
-      0% { transform: scale(1); opacity: 0.8; }
-      50% { transform: scale(1.1); opacity: 1; }
-      100% { transform: scale(1); opacity: 0.8; }
-    }
-    .inf-sign {
-      display: inline-block;
-      animation: pulse-inf 2.5s infinite ease-in-out;
-    }
-    
     #backToTop {
       position: fixed;
       bottom: 30px;
@@ -606,7 +602,6 @@
     #backToTop:hover {
       transform: translateY(-5px);
     }
-
     footer {
       border-top: 1px solid var(--line);
       padding: 60px 6vw 30px;
@@ -701,7 +696,7 @@
       nav { padding: 15px 4vw; }
       .hero { padding: 120px 5vw 80px; }
       section { padding: 80px 5vw; }
-      .stats-section { padding: 40px 5vw; }
+      .about-stats { margin-top: 60px; padding-top: 50px; }
       .stats-grid { gap: 40px; flex-direction: column; align-items: center;}
       .about-grid { grid-template-columns: 1fr; gap: 30px; }
       .skills-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -816,6 +811,33 @@
           </p>
         </div>
       </div>
+      
+      <div class="about-stats reveal-scale">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <h3><span class="scramble-text" data-target="7">0</span>+</h3>
+            <p>Projects</p>
+          </div>
+          <div class="stat-item">
+            <h3><span class="scramble-text" data-target="16">0</span>+</h3>
+            <p>Technologies</p>
+          </div>
+          <div class="stat-item">
+            <h3><span class="inf-sign">∞</span></h3>
+            <p>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                <line x1="6" y1="1" x2="6" y2="4"></line>
+                <line x1="10" y1="1" x2="10" y2="4"></line>
+                <line x1="14" y1="1" x2="14" y2="4"></line>
+              </svg>
+              Cups of Coffee
+            </p>
+          </div>
+        </div>
+      </div>
+      
     </div>
   </section>
 
@@ -847,7 +869,7 @@
           <div class="project-number">01</div>
           <div class="project-info">
             <h3>AI Tool Finder</h3>
-            <img src="certificates/AiTool.png" alt="AI Tool Finder" class="mobile-project-img" loading="lazy" />
+            <img src="certificates/AiTool.png" alt="Screenshot of the AI Tool Finder web platform interface showing search and recommendation features" class="mobile-project-img" loading="lazy" />
             <p>An AI tool recommendation platform that helps users discover suitable AI tools based on what they want to accomplish.</p>
             <div class="project-tech">
               <span class="tech">JavaScript</span>
@@ -862,7 +884,7 @@
           <div class="project-number">02</div>
           <div class="project-info">
             <h3>SeriesMatch</h3>
-            <img src="certificates/series.png" alt="SeriesMatch" class="mobile-project-img" loading="lazy" />
+            <img src="certificates/series.png" alt="Dashboard view of the SeriesMatch TV series recommendation system" class="mobile-project-img" loading="lazy" />
             <p>A personalized TV series recommendation system that recommends shows based on genres, story preferences, intensity, length, completion status, and ratings.</p>
             <div class="project-tech">
               <span class="tech">Python</span>
@@ -877,7 +899,7 @@
           <div class="project-number">03</div>
           <div class="project-info">
             <h3>Image Classifier</h3>
-            <img src="certificates/image.png" alt="Image Classifier" class="mobile-project-img" loading="lazy" />
+            <img src="certificates/image.png" alt="User interface of the TensorFlow-based Image Classifier application identifying a sample image" class="mobile-project-img" loading="lazy" />
             <p>An image classification project using TensorFlow and MobileNetV2 to identify and classify images.</p>
             <div class="project-tech">
               <span class="tech">Python</span>
@@ -892,7 +914,7 @@
           <div class="project-number">04</div>
           <div class="project-info">
             <h3>Chess vs AI</h3>
-            <img src="certificates/chess.png" alt="Chess vs AI" class="mobile-project-img" loading="lazy" />
+            <img src="certificates/chess.png" alt="Web-based chessboard interface for playing against Stockfish AI" class="mobile-project-img" loading="lazy" />
             <p>A web-based chess game where players can compete against an AI opponent powered by Stockfish, with adjustable difficulty.</p>
             <div class="project-tech">
               <span class="tech">Python</span>
@@ -908,7 +930,7 @@
           <div class="project-info">
             <div class="project-type-label">UI/UX</div>
             <h3>Saudi Wonders Travel App</h3>
-            <img src="certificates/app.png" alt="Saudi Wonders Travel App" class="mobile-project-img" loading="lazy" />
+            <img src="certificates/app.png" alt="Mobile app UI design concept for Saudi Wonders showing visual travel storytelling elements" class="mobile-project-img" loading="lazy" />
             <p>A mobile application interface designed to explore iconic places in Saudi Arabia with a focus on visual storytelling.</p>
             <div class="project-tech">
               <span class="tech">Figma</span>
@@ -924,7 +946,7 @@
           <div class="project-info">
             <div class="project-type-label">UI/UX</div>
             <h3>Authentication UI Design</h3>
-            <img src="certificates/signUp.png" alt="Authentication UI Design" class="mobile-project-img" loading="lazy" />
+            <img src="certificates/signUp.png" alt="Clean and modern authentication and sign-up interface design layout" class="mobile-project-img" loading="lazy" />
             <p>A clean and modern sign-up interface design focusing on user experience and accessibility.</p>
             <div class="project-tech">
               <span class="tech">Figma</span>
@@ -940,7 +962,7 @@
           <div class="project-info">
             <div class="project-type-label">UI/UX</div>
             <h3>E-commerce Cart Interface</h3>
-            <img src="certificates/sofa.png" alt="E-commerce Cart Interface" class="mobile-project-img" loading="lazy" />
+            <img src="certificates/sofa.png" alt="Minimalist e-commerce shopping cart mobile screen design showing order summary" class="mobile-project-img" loading="lazy" />
             <p>A minimalist shopping cart screen design for a furniture app, featuring order summaries and intuitive checkout flows.</p>
             <div class="project-tech">
               <span class="tech">Figma</span>
@@ -1126,32 +1148,6 @@
     </div>
   </section>
 
-  <section class="stats-section reveal-scale">
-    <div class="stats-grid">
-      <div class="stat-item">
-        <h3><span class="scramble-text" data-target="7">0</span>+</h3>
-        <p>Projects</p>
-      </div>
-      <div class="stat-item">
-        <h3><span class="scramble-text" data-target="16">0</span>+</h3>
-        <p>Technologies</p>
-      </div>
-      <div class="stat-item">
-        <h3><span class="inf-sign">∞</span></h3>
-        <p>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
-            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
-            <line x1="6" y1="1" x2="6" y2="4"></line>
-            <line x1="10" y1="1" x2="10" y2="4"></line>
-            <line x1="14" y1="1" x2="14" y2="4"></line>
-          </svg>
-          Cups of Coffee
-        </p>
-      </div>
-    </div>
-  </section>
-
   <footer id="contact">
     <div class="footer-inner reveal-up">
       <div class="section-label">07. Contact</div>
@@ -1286,14 +1282,14 @@
 
     setInterval(triggerAllScrambles, 6000);
 
-    const revealElements = document.querySelectorAll(".reveal-up, .reveal-left, .reveal-right, .reveal-scale, .stats-section");
+    const revealElements = document.querySelectorAll(".reveal-up, .reveal-left, .reveal-right, .reveal-scale, .about-stats");
 
     const revealObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("visible");
-            if(entry.target.classList.contains("stats-section")) {
+            if(entry.target.classList.contains("about-stats")) {
               triggerAllScrambles();
             }
             revealObserver.unobserve(entry.target);
