@@ -3,16 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- SEO & Open Graph Tags -->
   <title>Khawlah Alsudais - AI Portfolio</title>
+  <meta name="description" content="Khawlah Alsudais - Artificial Intelligence student and developer based in Hail, building practical AI solutions, machine learning models, and UI/UX designs." />
+  <meta property="og:title" content="Khawlah Alsudais - AI Portfolio" />
+  <meta property="og:description" content="Artificial Intelligence student and developer building practical AI solutions, machine learning models, and intuitive UI/UX designs." />
+  <meta property="og:image" content="certificates/app.png" />
+  <meta property="og:type" content="website" />
+  
+  <!-- JSON-LD Structured Data for Person -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "Person",
+    "name": "Khawlah Alsudais",
+    "jobTitle": "Artificial Intelligence Student & Developer",
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "University of Hail"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/in/khawlah-alsudais",
+      "https://github.com/iKhawlah"
+    ]
+  }
+  </script>
+
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23171d2e'/%3E%3Ctext x='50' y='67' text-anchor='middle' font-family='Georgia,serif' font-size='62' fill='%23f4eee1'%3EK%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Optimized Google Fonts (Loading only necessary weights) -->
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  
   <style>
     :root {
       --bg: #1c2333; 
       --text: #f4eee1;
-      --muted: rgba(244, 238, 225, 0.7);
+      /* Increased contrast from 0.7 to 0.85 for better readability */
+      --muted: rgba(244, 238, 225, 0.85);
       --line: rgba(244, 238, 225, 0.15);
       --hover-bg: rgba(244, 238, 225, 0.05);
     }
@@ -132,7 +161,7 @@
       backdrop-filter: blur(12px);
       box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
     }
-    .nav-name, .hamburger, .nav-links, .nav-social {
+    .nav-name, .hamburger, .nav-links, .nav-social, .btn-resume {
       pointer-events: auto;
     }
     .nav-name {
@@ -149,7 +178,7 @@
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 18px;
     }
     .nav-social {
       display: flex;
@@ -172,6 +201,21 @@
       font-family: "IBM Plex Mono", monospace;
       font-size: 9px;
       font-weight: 600;
+    }
+    .btn-resume {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      color: var(--bg);
+      background: var(--text);
+      padding: 6px 14px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-resume:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(244, 238, 225, 0.2);
     }
     .hamburger {
       position: relative;
@@ -424,6 +468,9 @@
       line-height: 1.6;
       font-size: 15px;
     }
+    .mobile-project-img {
+      display: none;
+    }
     .project-tech {
       margin-top: 14px;
       display: flex;
@@ -548,6 +595,38 @@
       display: inline-block;
       animation: pulse-inf 2.5s infinite ease-in-out;
     }
+    
+    /* Back to Top Button */
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 45px;
+      height: 45px;
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    #backToTop.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    #backToTop:hover {
+      transform: translateY(-5px);
+    }
+
     footer {
       border-top: 1px solid var(--line);
       padding: 60px 6vw 30px;
@@ -576,6 +655,7 @@
       display: flex;
       gap: 20px;
       flex-wrap: wrap;
+      align-items: center;
       font-family: "IBM Plex Mono", monospace;
       font-size: 11px;
       color: var(--muted);
@@ -627,10 +707,15 @@
     .certificate-row.reveal-up:nth-of-type(1) { transition-delay: 0s; }
     .certificate-row.reveal-up:nth-of-type(2) { transition-delay: 0.1s; }
     .certificate-row.reveal-up:nth-of-type(3) { transition-delay: 0.2s; }
+    .certificate-row.reveal-up:nth-of-type(4) { transition-delay: 0.3s; }
+    .certificate-row.reveal-up:nth-of-type(5) { transition-delay: 0.4s; }
+    .certificate-row.reveal-up:nth-of-type(6) { transition-delay: 0.5s; }
+    .certificate-row.reveal-up:nth-of-type(7) { transition-delay: 0.6s; }
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    
     @media (max-width: 800px) {
       .project-preview { display: none; }
       nav { padding: 15px 4vw; }
@@ -640,14 +725,29 @@
       .stats-grid { gap: 40px; flex-direction: column; align-items: center;}
       .about-grid { grid-template-columns: 1fr; gap: 30px; }
       .skills-grid { grid-template-columns: 1fr; gap: 40px; }
+      
       .project, .experience-item, .certificate-row { grid-template-columns: 45px 1fr; gap: 15px; }
       .project:hover, .experience-item:hover, .certificate-row:hover { padding-left: 10px; }
       .project-link, .experience-date, .certificate-link, .certificate-status { grid-column: 2; margin-top: -8px; }
+      
+      .mobile-project-img {
+        display: block;
+        width: 100%;
+        max-height: 250px;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+
       .project-info h3 { font-size: 24px; }
       .about-text { font-size: 16px; }
+      #backToTop { bottom: 20px; right: 20px; width: 40px; height: 40px; }
     }
     @media (max-width: 500px) {
       .nav-name { font-size: 16px; }
+      .btn-resume { padding: 5px 10px; font-size: 10px; }
       h1 { font-size: 50px; }
       .hero-description { font-size: 15px; }
       .section-title { font-size: 38px; }
@@ -657,7 +757,15 @@
 </head>
 <body>
 
+  <!-- Floating Image Preview for Desktop -->
   <img class="project-preview" id="projectPreview" src="" alt="" />
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 15l-6-6-6 6"/>
+    </svg>
+  </button>
 
   <div class="bg-shapes">
     <div class="blob blob-1"></div>
@@ -674,7 +782,8 @@
       <a class="nav-social" href="https://www.linkedin.com/in/khawlah-alsudais" target="_blank" rel="noopener" aria-label="LinkedIn">
         <span class="in-badge">in</span>
       </a>
-      <button class="hamburger" id="hamburger" aria-label="Menu">
+      <a href="resume.pdf" target="_blank" class="btn-resume">Resume</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
@@ -682,6 +791,7 @@
     </div>
     <div class="nav-links" id="navLinks">
       <a href="#about">About</a>
+      <a href="#education">Education</a>
       <a href="#projects">Projects</a>
       <a href="#skills">Skills</a>
       <a href="#experience">Experience</a>
@@ -728,9 +838,28 @@
     </div>
   </section>
 
+  <!-- New Education Section -->
+  <section id="education">
+    <div class="section-inner">
+      <div class="section-label reveal-left">02. Education</div>
+      <h2 class="section-title reveal-left">Academic<br>Background.</h2>
+      <div class="experience-list">
+        <div class="experience-item reveal-left">
+          <div class="experience-number">01</div>
+          <div class="experience-info">
+            <h3>Bachelor of Science in Artificial Intelligence</h3>
+            <div class="organization">University of Hail</div>
+            <div class="description">Focusing on machine learning, data structures, algorithms, and intelligent systems design.</div>
+          </div>
+          <div class="experience-date">Expected Graduation: 2028</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="projects">
     <div class="section-inner">
-      <div class="section-label reveal-up">02. Projects</div>
+      <div class="section-label reveal-up">03. Projects</div>
       <h2 class="section-title reveal-up">Selected<br>Work.</h2>
       <div class="projects">
 
@@ -738,6 +867,7 @@
           <div class="project-number">01</div>
           <div class="project-info">
             <h3>AI Tool Finder</h3>
+            <img src="certificates/AiTool.png" alt="AI Tool Finder" class="mobile-project-img" loading="lazy" />
             <p>An AI tool recommendation platform that helps users discover suitable AI tools based on what they want to accomplish.</p>
             <div class="project-tech">
               <span class="tech">JavaScript</span>
@@ -752,6 +882,7 @@
           <div class="project-number">02</div>
           <div class="project-info">
             <h3>SeriesMatch</h3>
+            <img src="certificates/series.png" alt="SeriesMatch" class="mobile-project-img" loading="lazy" />
             <p>A personalized TV series recommendation system that recommends shows based on genres, story preferences, intensity, length, completion status, and ratings.</p>
             <div class="project-tech">
               <span class="tech">Python</span>
@@ -766,6 +897,7 @@
           <div class="project-number">03</div>
           <div class="project-info">
             <h3>Image Classifier</h3>
+            <img src="certificates/image.png" alt="Image Classifier" class="mobile-project-img" loading="lazy" />
             <p>An image classification project using TensorFlow and MobileNetV2 to identify and classify images.</p>
             <div class="project-tech">
               <span class="tech">Python</span>
@@ -780,6 +912,7 @@
           <div class="project-number">04</div>
           <div class="project-info">
             <h3>Chess vs AI</h3>
+            <img src="certificates/chess.png" alt="Chess vs AI" class="mobile-project-img" loading="lazy" />
             <p>A web-based chess game where players can compete against an AI opponent powered by Stockfish, with adjustable difficulty.</p>
             <div class="project-tech">
               <span class="tech">Python</span>
@@ -795,6 +928,7 @@
           <div class="project-info">
             <div class="project-type-label">UI/UX</div>
             <h3>Saudi Wonders Travel App</h3>
+            <img src="certificates/app.png" alt="Saudi Wonders Travel App" class="mobile-project-img" loading="lazy" />
             <p>A mobile application interface designed to explore iconic places in Saudi Arabia with a focus on visual storytelling.</p>
             <div class="project-tech">
               <span class="tech">Figma</span>
@@ -802,7 +936,7 @@
               <span class="tech">Mobile App</span>
             </div>
           </div>
-          <span class="project-link preview-trigger" data-image="certificates/app.png">View design →</span>
+          <a class="project-link preview-trigger" href="#" target="_blank" data-image="certificates/app.png">View design →</a>
         </article>
 
         <article class="project reveal-up">
@@ -810,6 +944,7 @@
           <div class="project-info">
             <div class="project-type-label">UI/UX</div>
             <h3>Authentication UI Design</h3>
+            <img src="certificates/signUp.png" alt="Authentication UI Design" class="mobile-project-img" loading="lazy" />
             <p>A clean and modern sign-up interface design focusing on user experience and accessibility.</p>
             <div class="project-tech">
               <span class="tech">Figma</span>
@@ -817,7 +952,7 @@
               <span class="tech">Prototyping</span>
             </div>
           </div>
-          <span class="project-link preview-trigger" data-image="certificates/signUp.png">View design →</span>
+          <a class="project-link preview-trigger" href="#" target="_blank" data-image="certificates/signUp.png">View design →</a>
         </article>
 
         <article class="project reveal-up">
@@ -825,6 +960,7 @@
           <div class="project-info">
             <div class="project-type-label">UI/UX</div>
             <h3>E-commerce Cart Interface</h3>
+            <img src="certificates/sofa.png" alt="E-commerce Cart Interface" class="mobile-project-img" loading="lazy" />
             <p>A minimalist shopping cart screen design for a furniture app, featuring order summaries and intuitive checkout flows.</p>
             <div class="project-tech">
               <span class="tech">Figma</span>
@@ -832,7 +968,7 @@
               <span class="tech">E-commerce</span>
             </div>
           </div>
-          <span class="project-link preview-trigger" data-image="certificates/sofa.png">View design →</span>
+          <a class="project-link preview-trigger" href="#" target="_blank" data-image="certificates/sofa.png">View design →</a>
         </article>
 
       </div>
@@ -841,7 +977,7 @@
 
   <section id="skills">
     <div class="section-inner reveal-scale">
-      <div class="section-label">03. Skills</div>
+      <div class="section-label">04. Skills</div>
       <h2 class="section-title">What I<br>Work With.</h2>
       <div class="skills-grid">
         <div class="skill-category">
@@ -881,7 +1017,7 @@
 
   <section id="experience">
     <div class="section-inner">
-      <div class="section-label reveal-left">04. Experience</div>
+      <div class="section-label reveal-left">05. Experience</div>
       <h2 class="section-title reveal-left">Clubs &<br>Volunteering.</h2>
       <div class="experience-list">
         <div class="experience-item reveal-left">
@@ -939,7 +1075,7 @@
 
   <section id="certificates">
     <div class="section-inner">
-      <div class="section-label reveal-up">05. Certificates</div>
+      <div class="section-label reveal-up">06. Certificates</div>
       <h2 class="section-title reveal-up">Certifications<br>& Learning.</h2>
       <div class="certificates-list">
         <div class="certificate-row reveal-up">
@@ -967,6 +1103,42 @@
             <div class="certificate-org">National IT Academy (NITA)</div>
           </div>
           <a class="certificate-link" href="certificates/nita.png" target="_blank" rel="noopener">View certificate →</a>
+        </div>
+
+        <div class="certificate-row reveal-up">
+          <div class="certificate-number">04</div>
+          <div class="certificate-body">
+            <h3>Fundamentals of Artificial Intelligence</h3>
+            <div class="certificate-org">SDAIA</div>
+          </div>
+          <a class="certificate-link" href="certificates/sdaia.png" target="_blank" rel="noopener">View certificate →</a>
+        </div>
+
+        <div class="certificate-row reveal-up">
+          <div class="certificate-number">05</div>
+          <div class="certificate-body">
+            <h3>Data Classification and Summarization Using IBM Granite</h3>
+            <div class="certificate-org">IBM</div>
+          </div>
+          <span class="certificate-status">Learning Achievement</span>
+        </div>
+
+        <div class="certificate-row reveal-up">
+          <div class="certificate-number">06</div>
+          <div class="certificate-body">
+            <h3>Mastering Claude Code</h3>
+            <div class="certificate-org">Numken</div>
+          </div>
+          <a class="certificate-link" href="certificates/numken.jpg" target="_blank" rel="noopener">View certificate →</a>
+        </div>
+
+        <div class="certificate-row reveal-up">
+          <div class="certificate-number">07</div>
+          <div class="certificate-body">
+            <h3>Building and Training Large Language Models</h3>
+            <div class="certificate-org">SAAI</div>
+          </div>
+          <a class="certificate-link" href="certificates/saai.png" target="_blank" rel="noopener">View certificate →</a>
         </div>
 
       </div>
@@ -1001,12 +1173,13 @@
 
   <footer id="contact">
     <div class="footer-inner reveal-up">
-      <div class="section-label">06. Contact</div>
+      <div class="section-label">07. Contact</div>
       <h2 class="footer-title">Let's connect.</h2>
       <div class="footer-links">
         <a href="mailto:Khawlah996@gmail.com">Email</a>
         <a href="https://www.linkedin.com/in/khawlah-alsudais" target="_blank">LinkedIn</a>
         <a href="https://github.com/iKhawlah" target="_blank">GitHub</a>
+        <a href="resume.pdf" target="_blank">Download Resume</a>
       </div>
       <div class="copyright">© 2026 Khawlah Alsudais</div>
     </div>
@@ -1050,12 +1223,14 @@
 
     function closeMenu() {
       hamburger.classList.remove("active");
+      hamburger.setAttribute("aria-expanded", "false");
       navLinks.classList.remove("active");
       navOverlay.classList.remove("active");
     }
 
     hamburger.addEventListener("click", () => {
-      hamburger.classList.toggle("active");
+      const isActive = hamburger.classList.toggle("active");
+      hamburger.setAttribute("aria-expanded", isActive);
       navLinks.classList.toggle("active");
       navOverlay.classList.toggle("active");
     });
@@ -1070,6 +1245,7 @@
     const blob1 = document.querySelector(".blob-1");
     const blob2 = document.querySelector(".blob-2");
     const blob3 = document.querySelector(".blob-3");
+    const backToTopBtn = document.getElementById("backToTop");
 
     function updateScrollProgress() {
       const scrollTop = window.scrollY;
@@ -1083,6 +1259,12 @@
         navbar.classList.remove("scrolled");
       }
 
+      if (scrollTop > 500) {
+        backToTopBtn.classList.add("show");
+      } else {
+        backToTopBtn.classList.remove("show");
+      }
+
       blob1.style.transform = `translateY(${scrollTop * 0.15}px)`;
       blob2.style.transform = `translateY(${scrollTop * 0.1}px)`;
       blob3.style.transform = `translate(-50%, ${scrollTop * 0.2}px)`;
@@ -1090,6 +1272,10 @@
 
     window.addEventListener("scroll", updateScrollProgress);
     updateScrollProgress();
+
+    backToTopBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
 
     const scrambleChars = "0123456789!@#$%^&*";
     function runScrambleEffect(element, finalValue, duration = 1200) {
