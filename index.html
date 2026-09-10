@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <!-- SEO & Open Graph Tags -->
   <title>Khawlah Alsudais - AI Portfolio</title>
   <meta name="description" content="Khawlah Alsudais - Artificial Intelligence student and developer based in Hail, building practical AI solutions, machine learning models, and UI/UX designs." />
   <meta property="og:title" content="Khawlah Alsudais - AI Portfolio" />
@@ -12,7 +11,6 @@
   <meta property="og:image" content="certificates/app.png" />
   <meta property="og:type" content="website" />
   
-  <!-- JSON-LD Structured Data for Person -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org/",
@@ -159,7 +157,7 @@
       backdrop-filter: blur(12px);
       box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
     }
-    .nav-name, .hamburger, .nav-links, .nav-social, .btn-resume {
+    .nav-name, .hamburger, .nav-links, .nav-social {
       pointer-events: auto;
     }
     .nav-name {
@@ -176,44 +174,28 @@
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 14px;
     }
     .nav-social {
       display: flex;
       align-items: center;
-      gap: 4px;
       transition: 0.25s ease;
     }
     .nav-social:hover {
       transform: translateY(-2px);
     }
-    .in-badge {
+    .nav-badge {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 17px;
-      height: 17px;
-      border-radius: 3px;
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
       background: var(--text);
       color: var(--bg);
       font-family: "IBM Plex Mono", monospace;
       font-size: 9px;
       font-weight: 600;
-    }
-    .btn-resume {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 11px;
-      color: var(--bg);
-      background: var(--text);
-      padding: 6px 14px;
-      border-radius: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .btn-resume:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(244, 238, 225, 0.2);
     }
     .hamburger {
       position: relative;
@@ -226,6 +208,7 @@
       flex-direction: column;
       justify-content: space-between;
       padding: 0;
+      margin-left: 6px;
       cursor: pointer;
     }
     .hamburger span {
@@ -594,7 +577,6 @@
       animation: pulse-inf 2.5s infinite ease-in-out;
     }
     
-    /* Back to Top Button */
     #backToTop {
       position: fixed;
       bottom: 30px;
@@ -745,7 +727,6 @@
     }
     @media (max-width: 500px) {
       .nav-name { font-size: 16px; }
-      .btn-resume { padding: 5px 10px; font-size: 10px; }
       h1 { font-size: 50px; }
       .hero-description { font-size: 15px; }
       .section-title { font-size: 38px; }
@@ -755,10 +736,8 @@
 </head>
 <body>
 
-  <!-- Floating Image Preview for Desktop -->
   <img class="project-preview" id="projectPreview" src="" alt="" />
 
-  <!-- Back to Top Button -->
   <button id="backToTop" aria-label="Back to top">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M18 15l-6-6-6 6"/>
@@ -778,9 +757,11 @@
     <div class="nav-name">Khawlah Portfolio</div>
     <div class="nav-right">
       <a class="nav-social" href="https://www.linkedin.com/in/khawlah-alsudais" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <span class="in-badge">in</span>
+        <span class="nav-badge">in</span>
       </a>
-      <a href="resume.pdf" target="_blank" class="btn-resume">Resume</a>
+      <a class="nav-social" href="resume.pdf" target="_blank" rel="noopener" aria-label="Resume">
+        <span class="nav-badge">CV</span>
+      </a>
       <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
         <span></span>
         <span></span>
@@ -836,7 +817,6 @@
     </div>
   </section>
 
-  <!-- New Education Section -->
   <section id="education">
     <div class="section-inner">
       <div class="section-label reveal-left">02. Education</div>
@@ -845,7 +825,7 @@
         <div class="experience-item reveal-left">
           <div class="experience-number">01</div>
           <div class="experience-info">
-            <h3>Bachelor of Science in Artificial Intelligence</h3>
+            <h3>Bachelor in Artificial Intelligence</h3>
             <div class="organization">University of Hail</div>
             <div class="description">Focusing on machine learning, data structures, algorithms, and intelligent systems design.</div>
           </div>
@@ -934,7 +914,7 @@
               <span class="tech">Mobile App</span>
             </div>
           </div>
-          <a class="project-link preview-trigger" href="#" target="_blank" data-image="certificates/app.png">View design →</a>
+          <span class="project-link preview-trigger" data-image="certificates/app.png">View design →</span>
         </article>
 
         <article class="project reveal-up">
@@ -950,7 +930,7 @@
               <span class="tech">Prototyping</span>
             </div>
           </div>
-          <a class="project-link preview-trigger" href="#" target="_blank" data-image="certificates/signUp.png">View design →</a>
+          <span class="project-link preview-trigger" data-image="certificates/signUp.png">View design →</span>
         </article>
 
         <article class="project reveal-up">
@@ -966,7 +946,7 @@
               <span class="tech">E-commerce</span>
             </div>
           </div>
-          <a class="project-link preview-trigger" href="#" target="_blank" data-image="certificates/sofa.png">View design →</a>
+          <span class="project-link preview-trigger" data-image="certificates/sofa.png">View design →</span>
         </article>
 
       </div>
