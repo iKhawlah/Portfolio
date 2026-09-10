@@ -84,23 +84,24 @@
       50% { transform: translate(5%, 10%) scale(1.1); }
       100% { transform: translate(-5%, 5%) scale(0.9); }
     }
-    .project-preview {
+    img.project-preview {
       position: fixed;
-      width: 320px;
-      height: 220px;
+      width: auto;
+      height: auto;
+      max-width: 350px;
+      max-height: 450px;
       background-color: var(--bg);
-      background-size: cover;
-      background-position: center;
       border-radius: 12px;
       border: 1px solid var(--line);
       pointer-events: none;
       z-index: 9990;
       opacity: 0;
+      object-fit: contain;
       transform: translate(-50%, -50%) scale(0.8);
       transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
       box-shadow: 0 20px 40px rgba(0,0,0,0.5);
     }
-    .project-preview.active {
+    img.project-preview.active {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1);
     }
@@ -450,6 +451,7 @@
       transition: 0.25s ease;
       display: inline-block;
       color: var(--text);
+      cursor: pointer;
     }
     .project-link:hover, .certificate-link:hover {
       transform: translateX(5px);
@@ -657,7 +659,7 @@
 </head>
 <body>
 
-  <div class="project-preview"></div>
+  <img class="project-preview" id="projectPreview" src="" alt="" />
 
   <div class="bg-shapes">
     <div class="blob blob-1"></div>
@@ -734,7 +736,7 @@
       <h2 class="section-title reveal-up">Selected<br>Work.</h2>
       <div class="projects">
 
-        <article class="project reveal-up" data-image="certificates/AiTool.png">
+        <article class="project reveal-up">
           <div class="project-number">01</div>
           <div class="project-info">
             <h3>AI Tool Finder</h3>
@@ -745,10 +747,10 @@
               <span class="tech">Web Development</span>
             </div>
           </div>
-          <a class="project-link" href="https://ikhawlah.github.io/ai-tool-finder/" target="_blank">View project →</a>
+          <a class="project-link preview-trigger" href="https://ikhawlah.github.io/ai-tool-finder/" target="_blank" data-image="certificates/AiTool.png">View project →</a>
         </article>
 
-        <article class="project reveal-up" data-image="certificates/series.png">
+        <article class="project reveal-up">
           <div class="project-number">02</div>
           <div class="project-info">
             <h3>SeriesMatch</h3>
@@ -759,10 +761,10 @@
               <span class="tech">Recommendation System</span>
             </div>
           </div>
-          <a class="project-link" href="https://seriesmatch-ckbzgb7wwdwyxbmvpvuylu.streamlit.app/" target="_blank">View project →</a>
+          <a class="project-link preview-trigger" href="https://seriesmatch-ckbzgb7wwdwyxbmvpvuylu.streamlit.app/" target="_blank" data-image="certificates/series.png">View project →</a>
         </article>
 
-        <article class="project reveal-up" data-image="certificates/image.png">
+        <article class="project reveal-up">
           <div class="project-number">03</div>
           <div class="project-info">
             <h3>Image Classifier</h3>
@@ -773,10 +775,10 @@
               <span class="tech">Computer Vision</span>
             </div>
           </div>
-          <a class="project-link" href="https://image-classifier-zibszmtqrbunfppches9vf.streamlit.app/" target="_blank">View project →</a>
+          <a class="project-link preview-trigger" href="https://image-classifier-zibszmtqrbunfppches9vf.streamlit.app/" target="_blank" data-image="certificates/image.png">View project →</a>
         </article>
 
-        <article class="project reveal-up" data-image="certificates/chess.png">
+        <article class="project reveal-up">
           <div class="project-number">04</div>
           <div class="project-info">
             <h3>Chess vs AI</h3>
@@ -787,10 +789,10 @@
               <span class="tech">Stockfish</span>
             </div>
           </div>
-          <a class="project-link" href="https://chess-vs-ai-j8qxb8xplxj6r5vgygfyzm.streamlit.app/" target="_blank">View project →</a>
+          <a class="project-link preview-trigger" href="https://chess-vs-ai-j8qxb8xplxj6r5vgygfyzm.streamlit.app/" target="_blank" data-image="certificates/chess.png">View project →</a>
         </article>
 
-        <article class="project reveal-up" data-image="certificates/app.png">
+        <article class="project reveal-up">
           <div class="project-number">05</div>
           <div class="project-info">
             <div class="project-type-label">UI/UX</div>
@@ -802,9 +804,10 @@
               <span class="tech">Mobile App</span>
             </div>
           </div>
+          <span class="project-link preview-trigger" data-image="certificates/app.png">View design →</span>
         </article>
 
-        <article class="project reveal-up" data-image="certificates/signUp.png">
+        <article class="project reveal-up">
           <div class="project-number">06</div>
           <div class="project-info">
             <div class="project-type-label">UI/UX</div>
@@ -816,9 +819,10 @@
               <span class="tech">Prototyping</span>
             </div>
           </div>
+          <span class="project-link preview-trigger" data-image="certificates/signUp.png">View design →</span>
         </article>
 
-        <article class="project reveal-up" data-image="certificates/sofa.png">
+        <article class="project reveal-up">
           <div class="project-number">07</div>
           <div class="project-info">
             <div class="project-type-label">UI/UX</div>
@@ -830,6 +834,7 @@
               <span class="tech">E-commerce</span>
             </div>
           </div>
+          <span class="project-link preview-trigger" data-image="certificates/sofa.png">View design →</span>
         </article>
 
       </div>
@@ -1010,7 +1015,7 @@
   </footer>
 
   <script>
-    const projectPreview = document.querySelector(".project-preview");
+    const projectPreview = document.getElementById("projectPreview");
     let mouseX = 0;
     let mouseY = 0;
     
@@ -1024,18 +1029,18 @@
       }
     });
 
-    const projects = document.querySelectorAll(".project");
-    projects.forEach(project => {
-      project.addEventListener("mouseenter", () => {
-        const imageUrl = project.getAttribute("data-image");
+    const previewTriggers = document.querySelectorAll(".preview-trigger");
+    previewTriggers.forEach(trigger => {
+      trigger.addEventListener("mouseenter", () => {
+        const imageUrl = trigger.getAttribute("data-image");
         if (imageUrl) {
-          projectPreview.style.backgroundImage = `url('${imageUrl}')`;
+          projectPreview.src = imageUrl;
           projectPreview.style.left = `${mouseX}px`;
           projectPreview.style.top = `${mouseY}px`;
           projectPreview.classList.add("active");
         }
       });
-      project.addEventListener("mouseleave", () => {
+      trigger.addEventListener("mouseleave", () => {
         projectPreview.classList.remove("active");
       });
     });
