@@ -829,7 +829,7 @@
       localStorage.setItem('theme', targetTheme);
     });
 
-    // Mobile Navigation
+    // Mobile Navigation Drawer
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
     const navOverlay = document.getElementById('navOverlay');
@@ -874,7 +874,7 @@
     }
     typeWriter();
 
-    // Image Preview Follow Mouse
+    // Image Preview Follow Mouse for Projects
     const projectPreview = document.getElementById("projectPreview");
     let mouseX = 0, mouseY = 0;
     window.addEventListener("mousemove", (e) => {
@@ -900,7 +900,7 @@
       });
     });
 
-    // Back to Top Button
+    // Back to Top Button Logic
     const backToTopBtn = document.getElementById("backToTop");
     window.addEventListener("scroll", () => {
       if (window.scrollY > 400) {
@@ -913,7 +913,7 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    // Smooth Scroll Reveal
+    // Smooth Scroll Reveal Engine
     const smoothElements = document.querySelectorAll('.smooth-reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -923,6 +923,36 @@
       });
     }, { threshold: 0.12 });
     smoothElements.forEach(el => observer.observe(el));
+
+    // Scramble Text Logic (للأرقام في قسم About)
+    const scrambleChars = "0123456789!@#$%^&*";
+    function runScrambleEffect(element, finalValue, duration = 1200) {
+      let startTime = Date.now();
+      let interval = setInterval(() => {
+        let now = Date.now();
+        if (now - startTime >= duration) {
+          clearInterval(interval);
+          element.innerText = finalValue;
+          return;
+        }
+        let randomStr = "";
+        for (let i = 0; i < finalValue.length; i++) {
+          randomStr += scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+        }
+        element.innerText = randomStr;
+      }, 50);
+    }
+
+    function triggerAllScrambles() {
+      const targets = document.querySelectorAll(".scramble-text");
+      targets.forEach(target => {
+        const finalVal = target.getAttribute("data-target");
+        runScrambleEffect(target, finalVal);
+      });
+    }
+
+    triggerAllScrambles();
+    setInterval(triggerAllScrambles, 6000);
 
     // Dynamic Skills Marquee Generator
     const skillIcons = [
