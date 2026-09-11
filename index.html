@@ -175,8 +175,9 @@
     .education-left .desc { font-size: 15px; line-height: 1.6; color: var(--muted); margin-bottom: 20px; }
     .education-left .date { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); }
     
-    .uni-logo-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; }
-    .uni-logo-img { width: 160px; height: auto; transition: background-color 0.3s ease; }
+    .uni-logo-wrapper { display: flex; flex-direction: column; align-items: center; gap: 12px; flex-shrink: 0; }
+    .uni-logo-img { width: 140px; height: auto; transition: background-color 0.3s ease; }
+    .uni-logo-text { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: center; }
 
     /* Projects Preview Logic */
     img.project-preview {
@@ -202,7 +203,7 @@
     .project-link:hover { transform: translateX(5px); }
     .mobile-project-img { display: none; }
 
-    /* --- Skills Section --- */
+    /* --- Skills Section (Original Lists Layout + Infinite Marquee Scroll) --- */
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -460,8 +461,9 @@
           <div class="date">Expected Graduation: 2028</div>
         </div>
         <div class="uni-logo-wrapper">
-          <!-- الشعار المحلي لجامعة حائل وبدون الاسم تحته -->
-          <img src="certificates/image_18.png" alt="University of Hail Logo" class="uni-logo-img transparent-bg-img" />
+          <!-- الشعار المحلي مع العزل الذكي للخلفية -->
+          <img src="certificates/uoh-logo.png" alt="University of Hail Logo" class="uni-logo-img transparent-bg-img" />
+          <div class="uni-logo-text">University of Hail</div>
         </div>
       </div>
 
@@ -497,7 +499,7 @@
               <span class="tech">JavaScript</span><span class="tech">AI</span><span class="tech">Web Development</span>
             </div>
           </div>
-          <!-- الهوفر صار مرتبط بالرابط فقط -->
+          <!-- تم نقل الـ preview-trigger للرابط فقط -->
           <a class="project-link preview-trigger" href="https://ikhawlah.github.io/ai-tool-finder/" target="_blank" data-image="certificates/AiTool.png">View project →</a>
         </article>
 
@@ -551,6 +553,7 @@
               <span class="tech">Figma</span><span class="tech">UI/UX Design</span><span class="tech">Mobile App</span>
             </div>
           </div>
+          <!-- إزالة السهم من الديزاين -->
           <span class="project-link preview-trigger" data-image="certificates/app.png">View design</span>
         </article>
 
@@ -646,7 +649,7 @@
         <div class="certificate-card">
           <div class="cert-num">01</div>
           <div class="cert-brand-icon">
-            <img src="https://tuwaiq.edu.sa/img/logos/Logomark.png" class="cert-brand-img transparent-bg-img" alt="Tuwaiq Academy">
+            <img src="certificates/tuwaiq-logo.png" onerror="this.src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg'" class="cert-brand-img transparent-bg-img" alt="Tuwaiq Academy">
           </div>
           <div class="cert-details">
             <h3>Data Analysis Using R</h3>
@@ -685,7 +688,7 @@
         <div class="certificate-card">
           <div class="cert-num">04</div>
           <div class="cert-brand-icon">
-            <img src="certificates/image_19.png" class="cert-brand-img transparent-bg-img" alt="NITA">
+            <img src="certificates/nita-logo.png" class="cert-brand-img transparent-bg-img" alt="NITA">
           </div>
           <div class="cert-details">
             <h3>AI & Agentic AI for Secure Cloud Computing</h3>
@@ -698,7 +701,7 @@
         <div class="certificate-card">
           <div class="cert-num">05</div>
           <div class="cert-brand-icon">
-            <img src="certificates/image_20.png" class="cert-brand-img transparent-bg-img" alt="SDAIA">
+            <img src="certificates/sdaia-logo.png" class="cert-brand-img transparent-bg-img" alt="SDAIA">
           </div>
           <div class="cert-details">
             <h3>Fundamentals of Artificial Intelligence</h3>
@@ -724,7 +727,7 @@
         <div class="certificate-card">
           <div class="cert-num">07</div>
           <div class="cert-brand-icon">
-            <img src="https://saai.sa/wp-content/uploads/2023/10/SAAI-Logo.png" class="cert-brand-img transparent-bg-img" alt="SAAI">
+            <img src="certificates/saai-logo.png" onerror="this.src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg'" class="cert-brand-img transparent-bg-img" alt="SAAI">
           </div>
           <div class="cert-details">
             <h3>Building and Training Large Language Models</h3>
@@ -737,7 +740,7 @@
         <div class="certificate-card">
           <div class="cert-num">08</div>
           <div class="cert-brand-icon">
-            <img src="certificates/image_21.png" class="cert-brand-img transparent-bg-img" alt="Numken">
+            <img src="certificates/numken-logo.png" class="cert-brand-img transparent-bg-img" alt="Numken">
           </div>
           <div class="cert-details">
             <h3>Mastering Claude Code</h3>
