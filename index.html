@@ -8,7 +8,6 @@
   <meta name="description" content="Khawlah Alsudais - Artificial Intelligence student and developer based in Hail, building practical AI solutions, machine learning models, and UI/UX designs." />
   <meta property="og:title" content="Khawlah Portfolio" />
   <meta property="og:description" content="Artificial Intelligence student and developer building practical AI solutions, machine learning models, and intuitive UI/UX designs." />
-  <meta property="og:image" content="https://ikhawlah.github.io/portfolio/certificates/app.png" />
   <meta property="og:type" content="website" />
   
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%231c2333'/%3E%3Ctext x='50' y='67' text-anchor='middle' font-family='Georgia,serif' font-size='62' fill='%23f6f3eb'%3EK%3C/text%3E%3C/svg%3E" />
@@ -204,10 +203,13 @@
     .project-link:hover { transform: translateX(5px); }
     .mobile-project-img { display: none; }
 
-    /* Skills Split Layout (Tags & Sphere) */
-    .skills-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
-    .skills-lists-block { display: flex; flex-direction: column; gap: 35px; }
-    .skill-group h3 { font-family: "IBM Plex Mono", monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 15px; }
+    /* --- Skills Section (Tags + Marquee) --- */
+    .skills-lists-block {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+    .skill-group h3 { font-family: "IBM Plex Mono", monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 20px; }
     .skill-tags { display: flex; flex-wrap: wrap; gap: 10px; }
     .skill-tags span {
       padding: 8px 16px; border: 1px solid var(--line); border-radius: 8px;
@@ -215,19 +217,44 @@
       transition: border-color 0.3s ease, background 0.3s ease; cursor: default;
     }
     .skill-tags span:hover { border-color: var(--text); background: var(--hover-bg); }
-    
-    .sphere-container {
-      width: 100%; max-width: 420px; height: 420px; margin: 0 auto; position: relative; cursor: grab; user-select: none;
-      perspective: 1000px; display: flex; justify-content: center; align-items: center;
+
+    /* Marquee (الشريط المتحرك) */
+    .skills-marquee-wrapper {
+      display: flex;
+      overflow: hidden;
+      width: 100%;
+      margin-top: 60px;
+      padding: 30px 0;
+      /* Gradient mask for smooth fade out at edges */
+      mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
     }
-    .sphere-container:active { cursor: grabbing; }
-    #sphere { position: relative; width: 0; height: 0; transform-style: preserve-3d; }
-    .skill-icon-3d {
-      position: absolute; width: 34px; height: 34px; margin: -17px 0 0 -17px;
-      transform-style: preserve-3d; backface-visibility: hidden;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+    .skills-marquee {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      padding-right: 60px;
+      flex-shrink: 0;
+      animation: scrollMarquee 25s linear infinite;
     }
-    [data-theme="dark"] .skill-icon-3d { filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); }
+    .skills-marquee-wrapper:hover .skills-marquee {
+      animation-play-state: paused;
+    }
+    .skills-marquee img {
+      width: 45px;
+      height: 45px;
+      object-fit: contain;
+      filter: grayscale(100%) opacity(0.5);
+      transition: filter 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+    }
+    .skills-marquee img:hover {
+      filter: grayscale(0%) opacity(1);
+      transform: scale(1.2);
+    }
+    @keyframes scrollMarquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
 
     /* Certificates List */
     .certificates-list { display: grid; gap: 0; }
@@ -287,8 +314,7 @@
       .education-left { margin: 0 auto; text-align: left; }
       .uni-logo-wrapper { align-items: flex-start; }
       
-      .skills-layout { grid-template-columns: 1fr; gap: 40px; }
-      .sphere-container { height: 350px; max-width: 100%; }
+      .skills-lists-block { grid-template-columns: 1fr; gap: 40px; }
 
       .certificate-card { grid-template-columns: 40px 50px 1fr; gap: 15px; }
       .cert-mini-thumb { display: none; }
@@ -405,7 +431,7 @@
     </div>
   </section>
 
-  <!-- Education (بدون إطار ومدمج في الخلفية) -->
+  <!-- Education -->
   <section id="education" class="smooth-reveal">
     <div class="section-inner">
       <div class="section-label">02. Education</div>
@@ -419,8 +445,8 @@
           <div class="date">Expected Graduation: 2028</div>
         </div>
         <div class="uni-logo-wrapper">
-          <!-- شعار الجامعة الفعلي مسحوب من ويكيبيديا ومطبق عليه العزل -->
-          <img src="https://upload.wikimedia.org/wikipedia/ar/2/23/Uoh_logo.png" alt="University of Hail Logo" class="uni-logo-img transparent-bg-img" />
+          <!-- شعار الجامعة عن طريق Favicon API لضمان عمله 100% وبدون خلفية -->
+          <img src="https://www.google.com/s2/favicons?domain=uoh.edu.sa&sz=128" alt="University of Hail Logo" class="uni-logo-img transparent-bg-img" />
           <div class="uni-logo-text">University of Hail</div>
         </div>
       </div>
@@ -545,64 +571,62 @@
     </div>
   </section>
 
-  <!-- Skills (Tags layout with 3D Sphere) -->
+  <!-- Skills (Tags + Infinite Marquee Scroll) -->
   <section id="skills" class="smooth-reveal">
     <div class="section-inner">
       <div class="section-label">04. Skills</div>
       <h2 class="section-title">What I<br>Work With.</h2>
       
-      <div class="skills-layout">
-        
-        <!-- التعداد بطريقة Tags بدلاً من النصوص الطويلة -->
-        <div class="skills-lists-block">
-          
-          <div class="skill-group">
-            <h3>Programming & Data</h3>
-            <div class="skill-tags">
-              <span>Python</span>
-              <span>Java</span>
-              <span>SQL</span>
-              <span>R</span>
-              <span>Data Analysis</span>
-              <span>Pandas / Numpy</span>
-            </div>
+      <!-- التصنيف بطريقة التاجز المتجاورة الأنيقة -->
+      <div class="skills-lists-block">
+        <div class="skill-group">
+          <h3>Programming & Data</h3>
+          <div class="skill-tags">
+            <span>Python</span>
+            <span>Java</span>
+            <span>SQL</span>
+            <span>R</span>
+            <span>Data Analysis</span>
           </div>
-          
-          <div class="skill-group">
-            <h3>AI & Machine Learning</h3>
-            <div class="skill-tags">
-              <span>Machine Learning</span>
-              <span>Large Language Models (LLMs)</span>
-              <span>TensorFlow</span>
-              <span>Agentic AI</span>
-              <span>Vector Search</span>
-              <span>Recommendation Systems</span>
-            </div>
-          </div>
-          
-          <div class="skill-group">
-            <h3>Tools & Platform</h3>
-            <div class="skill-tags">
-              <span>Amazon Web Services (AWS)</span>
-              <span>Figma</span>
-              <span>Git / GitHub</span>
-              <span>Claude Code</span>
-              <span>IBM SPSS</span>
-            </div>
-          </div>
-
         </div>
         
-        <!-- كرة الـ 3D تم تصغيرها ودمجها جانبيًا -->
-        <div class="sphere-container" id="sphereWrap">
-          <div id="sphere"></div>
+        <div class="skill-group">
+          <h3>AI & Machine Learning</h3>
+          <div class="skill-tags">
+            <span>Machine Learning</span>
+            <span>LLMs</span>
+            <span>TensorFlow</span>
+            <span>Recommendation Systems</span>
+            <span>Computer Vision</span>
+          </div>
+        </div>
+        
+        <div class="skill-group">
+          <h3>Tools & Platforms</h3>
+          <div class="skill-tags">
+            <span>Amazon Web Services</span>
+            <span>Figma</span>
+            <span>Git / GitHub</span>
+            <span>Streamlit</span>
+            <span>IBM SPSS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- الشريط المتحرك (Marquee) يعرض التقنيات بشكل دائم ومتحرك -->
+      <div class="skills-marquee-wrapper">
+        <div class="skills-marquee" id="marqueeTrack">
+          <!-- صور المهارات تتولد عن طريق الجافاسكريبت لجعلها شريطاً لا نهائياً -->
+        </div>
+        <div class="skills-marquee" id="marqueeTrack2" aria-hidden="true">
+          <!-- النسخة الثانية لضمان استمرارية الحركة بدون تقطيع -->
         </div>
       </div>
 
     </div>
   </section>
 
-  <!-- Certificates (تم تقديم القسم بناءً على طلبك) -->
+  <!-- Certificates (تم وضعه قبل التطوع) -->
   <section id="certificates" class="smooth-reveal">
     <div class="section-inner">
       <div class="section-label">05. Certificates</div>
@@ -612,7 +636,7 @@
         <div class="certificate-card">
           <div class="cert-num">01</div>
           <div class="cert-brand-icon">
-            <img src="https://logo.clearbit.com/tuwaiq.edu.sa" onerror="this.src='https://tuwaiq.edu.sa/img/logos/Logomark.png'" class="cert-brand-img transparent-bg-img" alt="Tuwaiq Academy">
+            <img src="https://www.google.com/s2/favicons?domain=tuwaiq.edu.sa&sz=128" class="cert-brand-img transparent-bg-img" alt="Tuwaiq Academy">
           </div>
           <div class="cert-details">
             <h3>Data Analysis Using R</h3>
@@ -651,8 +675,7 @@
         <div class="certificate-card">
           <div class="cert-num">04</div>
           <div class="cert-brand-icon">
-            <!-- NITA Logo (تم جلب الشعار وشفافيته) -->
-            <img src="https://logo.clearbit.com/nita.org.sa" onerror="this.src='https://www.nita.org.sa/assets/images/logo.png'" class="cert-brand-img transparent-bg-img" alt="NITA">
+            <img src="https://www.google.com/s2/favicons?domain=nita.org.sa&sz=128" class="cert-brand-img transparent-bg-img" alt="NITA">
           </div>
           <div class="cert-details">
             <h3>AI & Agentic AI for Secure Cloud Computing</h3>
@@ -665,8 +688,7 @@
         <div class="certificate-card">
           <div class="cert-num">05</div>
           <div class="cert-brand-icon">
-            <!-- SDAIA Logo (من ويكيبيديا) -->
-            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/SDAIA_logo.png" class="cert-brand-img transparent-bg-img" alt="SDAIA">
+            <img src="https://www.google.com/s2/favicons?domain=sdaia.gov.sa&sz=128" class="cert-brand-img transparent-bg-img" alt="SDAIA">
           </div>
           <div class="cert-details">
             <h3>Fundamentals of Artificial Intelligence</h3>
@@ -679,23 +701,21 @@
         <div class="certificate-card">
           <div class="cert-num">06</div>
           <div class="cert-brand-icon">
-            <!-- IBM Logo -->
             <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" class="cert-brand-img transparent-bg-img" alt="IBM">
           </div>
           <div class="cert-details">
             <h3>Data Classification and Summarization Using IBM Granite</h3>
             <div class="issuer">IBM</div>
           </div>
-          <!-- IBM Badge Thumbnail -->
-          <img src="certificates/ibm.png" onerror="this.style.display='none'" class="cert-mini-thumb" alt="IBM Badge">
+          <img src="certificates/ibm.png" class="cert-mini-thumb" alt="IBM Badge">
           <a class="cert-link" href="certificates/ibm.png" target="_blank" rel="noopener">View badge →</a>
         </div>
 
-        <!-- تم وضع SAAI (ساعي) قبل Numken (نمكّن) -->
+        <!-- شهادة SAAI مقدمة قبل Numken كما طلبت -->
         <div class="certificate-card">
           <div class="cert-num">07</div>
           <div class="cert-brand-icon">
-            <img src="https://logo.clearbit.com/saai.sa" onerror="this.src='https://saai.sa/wp-content/uploads/2023/10/SAAI-Logo.png'" class="cert-brand-img transparent-bg-img" alt="SAAI">
+            <img src="https://www.google.com/s2/favicons?domain=saai.sa&sz=128" class="cert-brand-img transparent-bg-img" alt="SAAI">
           </div>
           <div class="cert-details">
             <h3>Building and Training Large Language Models</h3>
@@ -708,8 +728,7 @@
         <div class="certificate-card">
           <div class="cert-num">08</div>
           <div class="cert-brand-icon">
-            <!-- Numken Logo -->
-            <img src="https://logo.clearbit.com/numken.com" onerror="this.src='https://numken.com/logo.png'" class="cert-brand-img transparent-bg-img" alt="Numken">
+            <img src="https://www.google.com/s2/favicons?domain=numken.com&sz=128" class="cert-brand-img transparent-bg-img" alt="Numken">
           </div>
           <div class="cert-details">
             <h3>Mastering Claude Code</h3>
@@ -723,7 +742,7 @@
     </div>
   </section>
 
-  <!-- Experience -->
+  <!-- Experience (الخبرات والتطوع) -->
   <section id="experience" class="smooth-reveal">
     <div class="section-inner">
       <div class="section-label">06. Experience</div>
@@ -780,7 +799,7 @@
           <div class="exp-date">Aug 2026 to Sep 2026</div>
         </div>
         
-        <!-- إضافة تطوع بيت الثقافة -->
+        <!-- تمت إعادة بيت الثقافة -->
         <div class="experience-item">
           <div class="exp-num">06</div>
           <div class="exp-info">
@@ -919,8 +938,8 @@
     }, { threshold: 0.12 });
     smoothElements.forEach(el => observer.observe(el));
 
-    // 3D Skills Sphere Generator
-    const iconUrls = [
+    // Dynamic Skills Marquee Generator (لإضافة الشعارات المهارية للشريط المتحرك)
+    const skillIcons = [
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
@@ -940,82 +959,23 @@
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg"
     ];
 
-    const sphereDiv = document.getElementById("sphere");
-    const sphereRadius = 110; 
-    const iconsArray = [];
-    let targetSpeedX = 0.002, targetSpeedY = 0.002;
-    let currentSpeedX = 0.002, currentSpeedY = 0.002;
+    const track1 = document.getElementById("marqueeTrack");
+    const track2 = document.getElementById("marqueeTrack2");
 
-    const count = iconUrls.length;
-    for (let i = 0; i < count; i++) {
-      const phi = Math.acos(-1 + (2 * i + 1) / count);
-      const theta = Math.sqrt(count * Math.PI) * phi;
+    skillIcons.forEach(src => {
+      // إنشاء الصورة للتراك الأول
+      const img1 = document.createElement("img");
+      img1.src = src;
+      img1.className = "transparent-bg-img";
+      track1.appendChild(img1);
       
-      const img = document.createElement("img");
-      img.src = iconUrls[i];
-      img.className = "skill-icon-3d transparent-bg-img"; 
-      sphereDiv.appendChild(img);
-      
-      iconsArray.push({
-        el: img,
-        x: sphereRadius * Math.cos(theta) * Math.sin(phi),
-        y: sphereRadius * Math.sin(theta) * Math.sin(phi),
-        z: sphereRadius * Math.cos(phi)
-      });
-    }
-
-    function render3DSphere() {
-      currentSpeedX += (targetSpeedX - currentSpeedX) * 0.05;
-      currentSpeedY += (targetSpeedY - currentSpeedY) * 0.05;
-
-      iconsArray.forEach(item => {
-        let cosY = Math.cos(currentSpeedX), sinY = Math.sin(currentSpeedX);
-        let nx = item.x * cosY + item.z * sinY;
-        let nz = item.z * cosY - item.x * sinY;
-        item.x = nx; item.z = nz;
-
-        let cosX = Math.cos(currentSpeedY), sinX = Math.sin(currentSpeedY);
-        let ny = item.y * cosX - item.z * sinX;
-        nz = item.z * cosX + item.y * sinX;
-        item.y = ny; item.z = nz;
-
-        const scale = 300 / (300 + item.z);
-        const alpha = Math.max(0.3, (item.z + sphereRadius) / (2 * sphereRadius));
-
-        item.el.style.transform = `translate3d(${item.x}px, ${item.y}px, ${item.z}px) scale(${scale})`;
-        item.el.style.opacity = alpha;
-        item.el.style.zIndex = Math.round(item.z);
-      });
-
-      requestAnimationFrame(render3DSphere);
-    }
-    render3DSphere();
-
-    // 3D Sphere Mouse & Touch Drag Interactions
-    const wrap = document.getElementById("sphereWrap");
-    let isDragging = false, lastDragX = 0, lastDragY = 0;
-
-    wrap.addEventListener("mousedown", e => { isDragging = true; lastDragX = e.clientX; lastDragY = e.clientY; });
-    window.addEventListener("mouseup", () => { isDragging = false; targetSpeedX = 0.002; targetSpeedY = 0.002; });
-    window.addEventListener("mousemove", e => {
-      if (isDragging) {
-        targetSpeedX = (e.clientX - lastDragX) * 0.0005;
-        targetSpeedY = -(e.clientY - lastDragY) * 0.0005;
-        lastDragX = e.clientX; lastDragY = e.clientY;
-      }
+      // إنشاء صورة مكررة للتراك الثاني (ليصبح الشريط لا نهائي وسلس)
+      const img2 = document.createElement("img");
+      img2.src = src;
+      img2.className = "transparent-bg-img";
+      track2.appendChild(img2);
     });
-    
-    wrap.addEventListener("touchstart", e => {
-      if (e.touches.length === 1) { isDragging = true; lastDragX = e.touches[0].clientX; lastDragY = e.touches[0].clientY; }
-    }, { passive: true });
-    window.addEventListener("touchend", () => { isDragging = false; targetSpeedX = 0.002; targetSpeedY = 0.002; });
-    window.addEventListener("touchmove", e => {
-      if (isDragging && e.touches.length === 1) {
-        targetSpeedX = (e.touches[0].clientX - lastDragX) * 0.0005;
-        targetSpeedY = -(e.touches[0].clientY - lastDragY) * 0.0005;
-        lastDragX = e.touches[0].clientX; lastDragY = e.touches[0].clientY;
-      }
-    }, { passive: true });
+
   </script>
 </body>
 </html>
