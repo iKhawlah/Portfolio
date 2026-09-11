@@ -89,8 +89,16 @@
       object-fit: contain;
     }
     [data-theme="dark"] .transparent-bg-img {
-      filter: invert(1) hue-rotate(180deg) brightness(1.6) contrast(1.2);
+      filter: invert(1) hue-rotate(180deg) brightness(1.8) contrast(1.3);
       mix-blend-mode: screen;
+    }
+    
+    /* حل سحري لشعار الجامعة اللي فيه خلفية مربعات وهمية (Fake Checkerboard) */
+    .uni-logo-img.transparent-bg-img {
+      filter: grayscale(100%) contrast(5);
+    }
+    [data-theme="dark"] .uni-logo-img.transparent-bg-img {
+      filter: grayscale(100%) contrast(5) invert(1);
     }
 
     /* Long Floating Pill Header */
@@ -175,9 +183,8 @@
     .education-left .desc { font-size: 15px; line-height: 1.6; color: var(--muted); margin-bottom: 20px; }
     .education-left .date { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); }
     
-    .uni-logo-wrapper { display: flex; flex-direction: column; align-items: center; gap: 12px; flex-shrink: 0; }
-    .uni-logo-img { width: 140px; height: auto; transition: background-color 0.3s ease; }
-    .uni-logo-text { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: center; }
+    .uni-logo-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; }
+    .uni-logo-img { width: 160px; height: auto; transition: filter 0.3s ease; }
 
     /* Projects Preview Logic */
     img.project-preview {
@@ -204,80 +211,28 @@
     .mobile-project-img { display: none; }
 
     /* --- Skills Section (Original Lists Layout + Infinite Marquee Scroll) --- */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 50px;
-    }
-    .skill-category h3 {
-      font-family: "Fraunces", serif;
-      font-size: 25px;
-      font-weight: 500;
-      margin-bottom: 20px;
-      color: var(--text);
-      transition: color 0.4s ease;
-    }
-    .skill-list {
-      list-style: none;
-    }
-    .skill-list li {
-      padding: 10px 0;
-      border-bottom: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 14px;
-      transition: 0.3s ease, color 0.4s ease, border-color 0.4s ease;
-    }
-    .skill-list li:hover {
-      padding-left: 10px;
-      color: var(--text);
-    }
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; }
+    .skill-category h3 { font-family: "Fraunces", serif; font-size: 25px; font-weight: 500; margin-bottom: 20px; color: var(--text); transition: color 0.4s ease; }
+    .skill-list { list-style: none; }
+    .skill-list li { padding: 10px 0; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 14px; transition: 0.3s ease, color 0.4s ease, border-color 0.4s ease; }
+    .skill-list li:hover { padding-left: 10px; color: var(--text); }
 
     /* Marquee (الشريط المتحرك) */
     .skills-marquee-wrapper {
-      display: flex;
-      overflow: hidden;
-      width: 100%;
-      margin-top: 80px;
-      padding: 20px 0;
+      display: flex; overflow: hidden; width: 100%; margin-top: 80px; padding: 20px 0;
       mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
       -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
     }
-    .skills-marquee {
-      display: flex;
-      align-items: center;
-      gap: 60px;
-      padding-right: 60px;
-      flex-shrink: 0;
-      animation: scrollMarquee 25s linear infinite;
-    }
-    .skills-marquee-wrapper:hover .skills-marquee {
-      animation-play-state: paused;
-    }
-    .skills-marquee img {
-      width: 45px;
-      height: 45px;
-      object-fit: contain;
-      filter: grayscale(100%) opacity(0.5);
-      transition: filter 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
-    }
-    [data-theme="dark"] .skills-marquee img {
-      filter: grayscale(100%) opacity(0.5) invert(1) brightness(2);
-    }
-    .skills-marquee img:hover {
-      filter: grayscale(0%) opacity(1) invert(0) brightness(1) !important;
-      transform: scale(1.2);
-    }
-    @keyframes scrollMarquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
+    .skills-marquee { display: flex; align-items: center; gap: 60px; padding-right: 60px; flex-shrink: 0; animation: scrollMarquee 25s linear infinite; }
+    .skills-marquee-wrapper:hover .skills-marquee { animation-play-state: paused; }
+    .skills-marquee img { width: 45px; height: 45px; object-fit: contain; filter: grayscale(100%) opacity(0.5); transition: filter 0.3s ease, transform 0.3s ease, opacity 0.3s ease; }
+    [data-theme="dark"] .skills-marquee img { filter: grayscale(100%) opacity(0.5) invert(1) brightness(2); }
+    .skills-marquee img:hover { filter: grayscale(0%) opacity(1) invert(0) brightness(1) !important; transform: scale(1.2); }
+    @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
     /* Certificates List */
     .certificates-list { display: grid; gap: 0; }
-    .certificate-card {
-      display: grid; grid-template-columns: 50px 70px 1fr 100px 100px; gap: 20px; align-items: center;
-      padding: 24px 15px; border-top: 1px solid var(--line); transition: 0.3s ease; border-radius: 12px;
-    }
+    .certificate-card { display: grid; grid-template-columns: 50px 70px 1fr 100px 100px; gap: 20px; align-items: center; padding: 24px 15px; border-top: 1px solid var(--line); transition: 0.3s ease; border-radius: 12px; }
     .certificate-card:last-child { border-bottom: 1px solid var(--line); }
     .certificate-card:hover { background: var(--hover-bg); transform: translateX(6px); }
     
@@ -288,10 +243,7 @@
     .cert-details h3 { font-family: "Fraunces", serif; font-size: 19px; font-weight: 500; margin-bottom: 4px; }
     .cert-details .issuer { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
     
-    .cert-mini-thumb {
-      width: 85px; height: 55px; border-radius: 6px; border: 1px solid var(--line); background-color: var(--bg);
-      object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
+    .cert-mini-thumb { width: 85px; height: 55px; border-radius: 6px; border: 1px solid var(--line); background-color: var(--bg); object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.25s ease, box-shadow 0.25s ease; }
     .certificate-card:hover .cert-mini-thumb { transform: scale(1.15); box-shadow: 0 8px 20px rgba(0,0,0,0.25); z-index: 2; }
     .cert-link { font-family: "IBM Plex Mono", monospace; font-size: 11px; transition: transform 0.2s ease; white-space: nowrap; }
     .cert-link:hover { transform: translateX(4px); }
@@ -461,7 +413,7 @@
           <div class="date">Expected Graduation: 2028</div>
         </div>
         <div class="uni-logo-wrapper">
-          <!-- الشعار المحلي لجامعة حائل وبدون الاسم تحته -->
+          <!-- الشعار اللي رفعتيه (image_18.png) مع كود إخفاء المربعات الوهمية -->
           <img src="certificates/image_18.png" alt="University of Hail Logo" class="uni-logo-img transparent-bg-img" />
         </div>
       </div>
@@ -498,7 +450,7 @@
               <span class="tech">JavaScript</span><span class="tech">AI</span><span class="tech">Web Development</span>
             </div>
           </div>
-          <!-- الهوفر صار مرتبط بالرابط فقط -->
+          <!-- الهوفر فقط على الرابط -->
           <a class="project-link preview-trigger" href="https://ikhawlah.github.io/ai-tool-finder/" target="_blank" data-image="certificates/AiTool.png">View project →</a>
         </article>
 
@@ -552,7 +504,6 @@
               <span class="tech">Figma</span><span class="tech">UI/UX Design</span><span class="tech">Mobile App</span>
             </div>
           </div>
-          <!-- إزالة السهم من الديزاين -->
           <span class="project-link preview-trigger" data-image="certificates/app.png">View design</span>
         </article>
 
@@ -588,13 +539,12 @@
     </div>
   </section>
 
-  <!-- Skills (Original Lists Layout + Infinite Marquee Scroll) -->
+  <!-- Skills -->
   <section id="skills" class="smooth-reveal">
     <div class="section-inner">
       <div class="section-label">04. Skills</div>
       <h2 class="section-title">What I<br>Work With.</h2>
       
-      <!-- التصميم الأصلي للمهارات -->
       <div class="skills-grid">
         <div class="skill-category">
           <h3>Programming</h3>
@@ -629,7 +579,7 @@
         </div>
       </div>
 
-      <!-- الشريط المتحرك (Marquee) يعرض التقنيات بشكل دائم ومتحرك -->
+      <!-- Marquee -->
       <div class="skills-marquee-wrapper">
         <div class="skills-marquee" id="marqueeTrack"></div>
         <div class="skills-marquee" id="marqueeTrack2" aria-hidden="true"></div>
@@ -648,7 +598,7 @@
         <div class="certificate-card">
           <div class="cert-num">01</div>
           <div class="cert-brand-icon">
-            <img src="https://tuwaiq.edu.sa/img/logos/Logomark.png" class="cert-brand-img transparent-bg-img" alt="Tuwaiq Academy">
+            <img src="https://www.google.com/s2/favicons?domain=tuwaiq.edu.sa&sz=128" class="cert-brand-img transparent-bg-img" alt="Tuwaiq Academy">
           </div>
           <div class="cert-details">
             <h3>Data Analysis Using R</h3>
@@ -726,7 +676,7 @@
         <div class="certificate-card">
           <div class="cert-num">07</div>
           <div class="cert-brand-icon">
-            <img src="https://saai.sa/wp-content/uploads/2023/10/SAAI-Logo.png" class="cert-brand-img transparent-bg-img" alt="SAAI">
+            <img src="https://www.google.com/s2/favicons?domain=saai.sa&sz=128" class="cert-brand-img transparent-bg-img" alt="SAAI">
           </div>
           <div class="cert-details">
             <h3>Building and Training Large Language Models</h3>
@@ -853,7 +803,7 @@
       localStorage.setItem('theme', targetTheme);
     });
 
-    // Mobile Navigation Drawer
+    // Mobile Navigation
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
     const navOverlay = document.getElementById('navOverlay');
@@ -898,7 +848,7 @@
     }
     typeWriter();
 
-    // Image Preview Follow Mouse for Projects
+    // Image Preview Follow Mouse
     const projectPreview = document.getElementById("projectPreview");
     let mouseX = 0, mouseY = 0;
     window.addEventListener("mousemove", (e) => {
@@ -924,7 +874,7 @@
       });
     });
 
-    // Back to Top Button Logic
+    // Back to Top Button
     const backToTopBtn = document.getElementById("backToTop");
     window.addEventListener("scroll", () => {
       if (window.scrollY > 400) {
@@ -937,7 +887,7 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    // Smooth Scroll Reveal Engine
+    // Smooth Scroll Reveal
     const smoothElements = document.querySelectorAll('.smooth-reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
