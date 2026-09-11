@@ -167,6 +167,15 @@
     .about-text strong { color: var(--text); }
     .about-text p + p { margin-top: 25px; }
 
+    /* About Stats (الإحصائيات) */
+    .about-stats { margin-top: 80px; padding-top: 60px; border-top: 1px solid var(--line); }
+    .stats-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 70px; text-align: center; max-width: 1000px; margin: auto; }
+    .stat-item { min-width: 100px; }
+    .stat-item h3 { font-family: "IBM Plex Mono", monospace; font-size: clamp(28px, 4vw, 36px); margin-bottom: 6px; color: var(--text); }
+    .stat-item p { font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    @keyframes pulse-inf { 0% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 0.8; } }
+    .inf-sign { display: inline-block; animation: pulse-inf 2.5s infinite ease-in-out; }
+
     /* Education */
     .education-grid { display: grid; grid-template-columns: auto 1fr; gap: 50px; align-items: center; }
     .education-left { max-width: 650px; }
@@ -386,6 +395,33 @@
             projects while continuously developing my skills in
             AI, programming, data analysis, and web development.
           </p>
+        </div>
+      </div>
+
+      <!-- الإحصائيات (About Stats) -->
+      <div class="about-stats smooth-reveal">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <h3><span class="scramble-text" data-target="8">0</span>+</h3>
+            <p>Projects</p>
+          </div>
+          <div class="stat-item">
+            <h3><span class="scramble-text" data-target="16">0</span>+</h3>
+            <p>Technologies</p>
+          </div>
+          <div class="stat-item">
+            <h3><span class="inf-sign">∞</span></h3>
+            <p>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                <line x1="6" y1="1" x2="6" y2="4"></line>
+                <line x1="10" y1="1" x2="10" y2="4"></line>
+                <line x1="14" y1="1" x2="14" y2="4"></line>
+              </svg>
+              Cups of Coffee
+            </p>
+          </div>
         </div>
       </div>
     </div>
