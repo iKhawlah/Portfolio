@@ -69,6 +69,18 @@
     }
     a, button { color: inherit; text-decoration: none; outline: none; -webkit-tap-highlight-color: transparent; }
 
+    /* Page Wipe Transition */
+    .page-wipe {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: var(--bg); z-index: 99999;
+      animation: wipeUpOut 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+      pointer-events: none;
+    }
+    @keyframes wipeUpOut {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-100%); }
+    }
+
     /* Background Shapes */
     .bg-shapes { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; overflow: hidden; pointer-events: none; }
     .blob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.35; animation: float 20s infinite ease-in-out alternate; }
@@ -173,8 +185,12 @@
     .stat-item { min-width: 100px; }
     .stat-item h3 { font-family: "IBM Plex Mono", monospace; font-size: clamp(28px, 4vw, 36px); margin-bottom: 6px; color: var(--text); }
     .stat-item p { font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; display: flex; align-items: center; justify-content: center; gap: 6px; }
-    @keyframes pulse-inf { 0% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 0.8; } }
-    .inf-sign { display: inline-block; animation: pulse-inf 2.5s infinite ease-in-out; }
+    
+    /* Infinity SVG Animation */
+    .inf-sign { display: inline-flex; align-items: center; justify-content: center; }
+    .inf-sign svg { width: 45px; height: 30px; overflow: visible; }
+    .inf-sign svg path { stroke-dasharray: 100; stroke-dashoffset: 100; animation: drawInfinity 3s ease-in-out infinite; }
+    @keyframes drawInfinity { 0% { stroke-dashoffset: 100; } 45%, 55% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -100; } }
 
     /* Education */
     .education-grid { display: grid; grid-template-columns: auto 1fr; gap: 50px; align-items: center; }
@@ -300,6 +316,9 @@
 </head>
 <body>
 
+  <!-- Page Wipe Transition -->
+  <div class="page-wipe"></div>
+
   <!-- Project Previews Popup Image -->
   <img class="project-preview" id="projectPreview" src="" alt="" />
 
@@ -415,7 +434,13 @@
             <p>Technologies</p>
           </div>
           <div class="stat-item">
-            <h3><span class="inf-sign">∞</span></h3>
+            <h3>
+              <span class="inf-sign">
+                <svg viewBox="0 0 100 50" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                  <path pathLength="100" d="M 50 25 C 30 5, 10 5, 10 25 C 10 45, 30 45, 50 25 C 70 5, 90 5, 90 25 C 90 45, 70 45, 50 25" />
+                </svg>
+              </span>
+            </h3>
             <p>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
