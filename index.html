@@ -11,23 +11,6 @@
   <meta property="og:image" content="https://ikhawlah.github.io/portfolio/certificates/app.png" />
   <meta property="og:type" content="website" />
   
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org/",
-    "@type": "Person",
-    "name": "Khawlah Alsudais",
-    "jobTitle": "Artificial Intelligence Student & Developer",
-    "alumniOf": {
-      "@type": "CollegeOrUniversity",
-      "name": "University of Hail"
-    },
-    "sameAs": [
-      "https://www.linkedin.com/in/khawlah-alsudais",
-      "https://github.com/iKhawlah"
-    ]
-  }
-  </script>
-
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%231c2333'/%3E%3Ctext x='50' y='67' text-anchor='middle' font-family='Georgia,serif' font-size='62' fill='%23f6f3eb'%3EK%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -78,36 +61,18 @@
       --overlay-bg: rgba(246, 243, 235, 0.7);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: "Inter", sans-serif;
-      overflow-x: hidden;
+      background: var(--bg); color: var(--text);
+      font-family: "Inter", sans-serif; overflow-x: hidden;
       transition: background 0.4s ease, color 0.4s ease;
     }
-    a, button {
-      color: inherit;
-      text-decoration: none;
-      outline: none;
-      -webkit-tap-highlight-color: transparent;
-    }
+    a, button { color: inherit; text-decoration: none; outline: none; -webkit-tap-highlight-color: transparent; }
 
     /* Background Shapes */
-    .bg-shapes {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      z-index: -1; overflow: hidden; pointer-events: none;
-    }
-    .blob {
-      position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.35;
-      animation: float 20s infinite ease-in-out alternate;
-    }
+    .bg-shapes { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; overflow: hidden; pointer-events: none; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.35; animation: float 20s infinite ease-in-out alternate; }
     .blob-1 { top: -10%; left: -10%; width: 40vw; height: 40vw; background: var(--blob-1); }
     .blob-2 { bottom: -20%; right: -10%; width: 45vw; height: 45vw; background: var(--blob-2); animation-delay: -5s; }
     .blob-3 { top: 40%; left: 50%; width: 30vw; height: 30vw; background: var(--blob-3); animation-delay: -10s; transform: translateX(-50%); }
@@ -118,123 +83,64 @@
       100% { transform: translate(-5%, 5%) scale(0.9); }
     }
 
+    /* CSS Trick for making white backgrounds transparent automatically */
+    .transparent-bg-img {
+      mix-blend-mode: multiply;
+      filter: contrast(1.1);
+      object-fit: contain;
+    }
+    [data-theme="dark"] .transparent-bg-img {
+      filter: invert(1) hue-rotate(180deg) brightness(1.6) contrast(1.2);
+      mix-blend-mode: screen;
+    }
+
     /* Long Floating Pill Header */
-    .nav-container {
-      position: fixed;
-      top: 20px;
-      left: 0;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      z-index: 1450;
-      padding: 0 20px;
-      pointer-events: none;
-    }
+    .nav-container { position: fixed; top: 20px; left: 0; width: 100%; display: flex; justify-content: center; z-index: 1450; padding: 0 20px; pointer-events: none; }
     nav {
-      pointer-events: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 30px;
-      padding: 12px 30px;
-      background: var(--nav-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--nav-border);
-      border-radius: 100px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-      width: 100%;
-      max-width: 1400px; /* العرض الطويل */
-      transition: all 0.3s ease;
+      pointer-events: auto; display: flex; align-items: center; justify-content: space-between; gap: 30px;
+      padding: 12px 30px; background: var(--nav-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--nav-border); border-radius: 100px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      width: 100%; max-width: 1400px; transition: all 0.3s ease;
     }
-    .nav-name {
-      font-family: "Fraunces", serif;
-      font-size: 18px;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-    }
-    .nav-center-links {
-      display: flex;
-      gap: 25px;
-      align-items: center;
-    }
-    .nav-center-links a {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 12px;
-      color: var(--muted);
-      transition: color 0.25s ease;
-    }
+    .nav-name { font-family: "Fraunces", serif; font-size: 18px; font-weight: 500; letter-spacing: 0.02em; }
+    .nav-center-links { display: flex; gap: 25px; align-items: center; }
+    .nav-center-links a { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); transition: color 0.25s ease; }
     .nav-center-links a:hover { color: var(--text); }
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-    .theme-toggle {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      padding: 4px;
-      color: var(--text);
-      transition: transform 0.3s ease;
-    }
+    .nav-right { display: flex; align-items: center; gap: 15px; }
+    
+    .theme-toggle { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; padding: 4px; color: var(--text); transition: transform 0.3s ease; }
     .theme-toggle:hover { transform: scale(1.15) rotate(15deg); }
     .theme-toggle svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; }
-    .sun-icon { display: block; }
-    .moon-icon { display: none; }
-    [data-theme="light"] .sun-icon { display: none; }
-    [data-theme="light"] .moon-icon { display: block; }
+    .sun-icon { display: block; } .moon-icon { display: none; }
+    [data-theme="light"] .sun-icon { display: none; } [data-theme="light"] .moon-icon { display: block; }
 
     .nav-badge {
-      display: flex; align-items: center; justify-content: center;
-      width: 26px; height: 26px; border-radius: 50%;
-      background: var(--text); color: var(--bg);
-      font-family: "IBM Plex Mono", monospace; font-size: 10px; font-weight: 600;
-      transition: 0.3s ease;
+      display: flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%;
+      background: var(--text); color: var(--bg); font-family: "IBM Plex Mono", monospace; font-size: 10px; font-weight: 600; transition: 0.3s ease;
     }
     .nav-badge:hover { transform: translateY(-2px); }
 
-    .hamburger {
-      display: none; background: none; border: none; cursor: pointer;
-      width: 22px; height: 14px; position: relative;
-      flex-direction: column; justify-content: space-between;
-    }
-    .hamburger span {
-      display: block; width: 100%; height: 1.5px; background: var(--text); transition: 0.3s ease;
-    }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; width: 22px; height: 14px; position: relative; flex-direction: column; justify-content: space-between; }
+    .hamburger span { display: block; width: 100%; height: 1.5px; background: var(--text); transition: 0.3s ease; }
 
     /* Mobile Drawer */
-    .nav-overlay {
-      position: fixed; inset: 0; background: var(--overlay-bg); backdrop-filter: blur(8px);
-      opacity: 0; visibility: hidden; transition: 0.3s ease; z-index: 1500;
-    }
+    .nav-overlay { position: fixed; inset: 0; background: var(--overlay-bg); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: 0.3s ease; z-index: 1500; }
     .nav-overlay.active { opacity: 1; visibility: visible; }
     .nav-links {
-      position: fixed; top: 0; right: 0; height: 100vh; width: min(280px, 80vw);
-      background: var(--inv-bg); display: flex; flex-direction: column; justify-content: center; gap: 25px;
-      padding: 40px; font-size: 16px; color: var(--inv-muted);
-      transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1); z-index: 1600;
+      position: fixed; top: 0; right: 0; height: 100vh; width: min(280px, 80vw); background: var(--inv-bg); display: flex; flex-direction: column; justify-content: center; gap: 25px;
+      padding: 40px; font-size: 16px; color: var(--inv-muted); transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1); z-index: 1600;
     }
     .nav-links.active { transform: translateX(0); }
     .nav-links a { color: var(--inv-muted); transition: 0.2s ease; }
     .nav-links a:hover { color: var(--inv-text); transform: translateX(6px); }
 
     /* Hero Section */
-    .hero {
-      min-height: 100vh; padding: 160px 6vw 80px; display: flex; flex-direction: column;
-      justify-content: center; position: relative;
-    }
+    .hero { min-height: 100vh; padding: 160px 6vw 80px; display: flex; flex-direction: column; justify-content: center; position: relative; }
     .hero-content { position: relative; z-index: 2; max-width: 1100px; }
     .eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 25px; }
     h1 { font-family: "Fraunces", serif; font-size: clamp(55px, 11vw, 130px); line-height: 0.92; font-weight: 600; letter-spacing: -0.03em; }
     .hero-description { max-width: 650px; margin-top: 35px; font-size: clamp(16px, 2vw, 20px); line-height: 1.6; color: var(--muted); min-height: 64px; }
-    
-    .typewriter-cursor {
-      display: inline-block; width: 2px; background-color: var(--text);
-      animation: blink 0.8s infinite; margin-left: 4px; vertical-align: middle; height: 1.1em;
-    }
+    .typewriter-cursor { display: inline-block; width: 2px; background-color: var(--text); animation: blink 0.8s infinite; margin-left: 4px; vertical-align: middle; height: 1.1em; }
     @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
     /* General Section Styles */
@@ -249,27 +155,18 @@
     .about-text strong { color: var(--text); }
     .about-text p + p { margin-top: 25px; }
 
-    /* Education & University Logo */
-    .education-card {
-      display: flex; align-items: center; justify-content: space-between; gap: 40px; padding: 45px 35px;
-      background: var(--hover-bg); border: 1px solid var(--line); border-radius: 24px; transition: transform 0.3s ease, border-color 0.3s ease;
-    }
-    .education-card:hover { transform: translateY(-4px); border-color: var(--text); }
+    /* Education (No Card Style) */
+    .education-grid { display: grid; grid-template-columns: 1fr auto; gap: 50px; align-items: center; }
     .education-left { max-width: 650px; }
-    .education-left h3 { font-family: "Fraunces", serif; font-size: clamp(24px, 3vw, 32px); font-weight: 500; margin-bottom: 8px; }
-    .education-left .org { font-family: "IBM Plex Mono", monospace; font-size: 14px; color: var(--text); margin-bottom: 12px; }
-    .education-left .desc { font-size: 15px; line-height: 1.6; color: var(--muted); margin-bottom: 16px; }
+    .education-left h3 { font-family: "Fraunces", serif; font-size: clamp(24px, 3vw, 32px); font-weight: 500; margin-bottom: 12px; }
+    .education-left .org { font-family: "IBM Plex Mono", monospace; font-size: 14px; color: var(--text); margin-bottom: 16px; }
+    .education-left .desc { font-size: 15px; line-height: 1.6; color: var(--muted); margin-bottom: 20px; }
     .education-left .date { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); }
-    
     .uni-logo-wrapper { display: flex; flex-direction: column; align-items: center; gap: 12px; flex-shrink: 0; }
-    .uni-logo-img {
-      width: 100px; height: auto; object-fit: contain;
-      filter: grayscale(100%) contrast(150%) brightness(1.2);
-    }
-    [data-theme="dark"] .uni-logo-img { filter: grayscale(100%) invert(1) brightness(200%); }
+    .uni-logo-img { width: 140px; height: auto; }
     .uni-logo-text { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: center; }
 
-    /* Projects Preview Image Logic */
+    /* Projects Preview Logic */
     img.project-preview {
       position: fixed; width: auto; height: auto; max-width: 320px; max-height: 450px; border-radius: 36px;
       overflow: hidden; pointer-events: none; z-index: 9990; opacity: 0; transform: translate(-50%, -50%) scale(0.8);
@@ -278,12 +175,9 @@
     }
     img.project-preview.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
-    /* Projects Layout */
+    /* Projects List */
     .projects { display: grid; gap: 0; }
-    .project {
-      display: grid; grid-template-columns: 80px 1fr auto; gap: 30px; align-items: center; padding: 35px 0;
-      border-top: 1px solid var(--line); transition: padding 0.3s ease, background 0.3s ease; cursor: default;
-    }
+    .project { display: grid; grid-template-columns: 80px 1fr auto; gap: 30px; align-items: center; padding: 35px 0; border-top: 1px solid var(--line); transition: padding 0.3s ease, background 0.3s ease; cursor: default; }
     .project:last-child { border-bottom: 1px solid var(--line); }
     .project:hover { padding-left: 20px; padding-right: 15px; background: var(--hover-bg); }
     .project-number { font-family: "IBM Plex Mono", monospace; font-size: 12px; }
@@ -296,21 +190,25 @@
     .project-link:hover { transform: translateX(5px); }
     .mobile-project-img { display: none; }
 
-    /* 3D Sphere for Skills using DOM */
+    /* Skills Split Layout & 3D Sphere */
+    .skills-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+    .skills-text-block { max-width: 500px; }
+    .skills-text-block h3 { font-family: "Fraunces", serif; font-size: 22px; font-weight: 500; margin-bottom: 10px; color: var(--text); }
+    .skills-text-block p { font-size: 15px; line-height: 1.6; color: var(--muted); margin-bottom: 30px; }
+    .skills-text-block p:last-child { margin-bottom: 0; }
+    
     .sphere-container {
-      width: 100%; height: 480px; position: relative; margin-top: 20px; cursor: grab; user-select: none;
-      perspective: 1200px; display: flex; justify-content: center; align-items: center;
+      width: 100%; max-width: 420px; height: 420px; margin: 0 auto; position: relative; cursor: grab; user-select: none;
+      perspective: 1000px; display: flex; justify-content: center; align-items: center;
     }
     .sphere-container:active { cursor: grabbing; }
-    #sphere {
-      position: relative; width: 0; height: 0; transform-style: preserve-3d;
-    }
+    #sphere { position: relative; width: 0; height: 0; transform-style: preserve-3d; }
     .skill-icon-3d {
-      position: absolute; width: 44px; height: 44px; margin: -22px 0 0 -22px;
+      position: absolute; width: 34px; height: 34px; margin: -17px 0 0 -17px;
       transform-style: preserve-3d; backface-visibility: hidden;
-      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15));
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
     }
-    [data-theme="dark"] .skill-icon-3d { filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5)); }
+    [data-theme="dark"] .skill-icon-3d { filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); }
 
     /* Certificates List */
     .certificates-list { display: grid; gap: 0; }
@@ -322,28 +220,17 @@
     .certificate-card:hover { background: var(--hover-bg); transform: translateX(6px); }
     
     .cert-num { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); }
+    .cert-brand-icon { width: 55px; height: 55px; border-radius: 10px; background: transparent; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .cert-brand-img { width: 100%; height: 100%; object-fit: contain; }
     
-    .cert-brand-icon {
-      width: 55px; height: 55px; border-radius: 10px; background: transparent;
-      display: flex; align-items: center; justify-content: center; overflow: hidden;
-    }
-    .cert-brand-img {
-      width: 100%; height: 100%; object-fit: contain;
-      filter: grayscale(100%) contrast(120%);
-    }
-    [data-theme="dark"] .cert-brand-img.invertable { filter: grayscale(100%) invert(1) brightness(200%); }
-
     .cert-details h3 { font-family: "Fraunces", serif; font-size: 19px; font-weight: 500; margin-bottom: 4px; }
     .cert-details .issuer { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
     
-    /* Real Certificate Thumbnail */
     .cert-mini-thumb {
       width: 85px; height: 55px; border-radius: 6px; border: 1px solid var(--line); background-color: var(--bg);
-      object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
-    .certificate-card:hover .cert-mini-thumb { transform: scale(1.15); box-shadow: 0 8px 20px rgba(0,0,0,0.25); z-index: 2;}
-    
+    .certificate-card:hover .cert-mini-thumb { transform: scale(1.15); box-shadow: 0 8px 20px rgba(0,0,0,0.25); z-index: 2; }
     .cert-link { font-family: "IBM Plex Mono", monospace; font-size: 11px; transition: transform 0.2s ease; white-space: nowrap; }
     .cert-link:hover { transform: translateX(4px); }
 
@@ -371,28 +258,36 @@
     .smooth-reveal { opacity: 0; transform: translateY(45px); transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); will-change: opacity, transform; }
     .smooth-reveal.active { opacity: 1; transform: translateY(0); }
 
+    /* Responsive adjustments */
     @media (max-width: 900px) {
       .nav-center-links { display: none; }
       .hamburger { display: flex; }
       nav { padding: 12px 20px; }
-      .education-card { flex-direction: column; align-items: flex-start; }
+      
+      .education-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+      .education-left { margin: 0 auto; text-align: left; }
+      .uni-logo-wrapper { align-items: flex-start; }
+      
+      .skills-layout { grid-template-columns: 1fr; gap: 40px; }
+      .sphere-container { height: 350px; max-width: 100%; }
+
       .certificate-card { grid-template-columns: 40px 50px 1fr; gap: 15px; }
       .cert-mini-thumb { display: none; }
       .cert-link { grid-column: 3; margin-top: -6px; }
+      
       .project, .experience-item { grid-template-columns: 45px 1fr; gap: 15px; }
       .project-link, .exp-date { grid-column: 2; margin-top: -8px; }
       .mobile-project-img { display: block; width: 100%; height: auto; border-radius: 20px; margin: 15px 0; }
       img.project-preview { display: none; }
-      .sphere-container { height: 350px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Image Preview for Projects -->
+  <!-- Project Previews Popup Image -->
   <img class="project-preview" id="projectPreview" src="" alt="" />
 
-  <!-- Background Blobs -->
+  <!-- Background Animated Blobs -->
   <div class="bg-shapes">
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
@@ -482,12 +377,13 @@
     </div>
   </section>
 
-  <!-- Education -->
+  <!-- Education (بدون إطار ومدمج في الخلفية) -->
   <section id="education" class="smooth-reveal">
     <div class="section-inner">
       <div class="section-label">02. Education</div>
       <h2 class="section-title">Academic<br>Background.</h2>
-      <div class="education-card">
+      
+      <div class="education-grid">
         <div class="education-left">
           <h3>Bachelor in Artificial Intelligence</h3>
           <div class="org">University of Hail</div>
@@ -495,11 +391,12 @@
           <div class="date">Expected Graduation: 2028</div>
         </div>
         <div class="uni-logo-wrapper">
-          <!-- صورة شعار الجامعة برابط مباشر يجعله مونوكروم شفاف -->
-          <img src="certificates/uoh.png" onerror="this.src='https://www.google.com/s2/favicons?domain=uoh.edu.sa&sz=256'" alt="University of Hail Logo" class="uni-logo-img invertable" />
+          <!-- الكلاس transparent-bg-img يقوم بعزل الخلفية البيضاء وجعلها شفافة -->
+          <img src="image_18.png" alt="University of Hail Logo" class="uni-logo-img transparent-bg-img" />
           <div class="uni-logo-text">University of Hail</div>
         </div>
       </div>
+
     </div>
   </section>
 
@@ -620,14 +517,29 @@
     </div>
   </section>
 
-  <!-- 3D Interactive Skills -->
+  <!-- Skills (تصميم بنص على اليسار وكرة مصغرة على اليمين) -->
   <section id="skills" class="smooth-reveal">
     <div class="section-inner">
       <div class="section-label">04. Skills</div>
-      <h2 class="section-title">Interactive<br>Stack.</h2>
-      <div class="sphere-container" id="sphereWrap">
-        <div id="sphere"></div>
+      <h2 class="section-title">What I<br>Work With.</h2>
+      
+      <div class="skills-layout">
+        <div class="skills-text-block">
+          <h3>Programming & Data</h3>
+          <p>Solid foundation in <strong>Python</strong>, Java, SQL, and R. Skilled in manipulating datasets, performing statistical analysis, and architecting efficient backend logic.</p>
+          
+          <h3>AI & Machine Learning</h3>
+          <p>Experienced in integrating <strong>Large Language Models (LLMs)</strong>, utilizing frameworks like TensorFlow, and developing AI-powered recommendation systems and intelligent agents.</p>
+          
+          <h3>Tools & Design</h3>
+          <p>Proficient with Amazon Web Services (AWS) for cloud infrastructure, Git/GitHub for version control, and creating intuitive user interfaces using Figma.</p>
+        </div>
+        
+        <div class="sphere-container" id="sphereWrap">
+          <div id="sphere"></div>
+        </div>
       </div>
+
     </div>
   </section>
 
@@ -686,7 +598,7 @@
     </div>
   </section>
 
-  <!-- Certificates with Real Images and Logos -->
+  <!-- Certificates -->
   <section id="certificates" class="smooth-reveal">
     <div class="section-inner">
       <div class="section-label">06. Certificates</div>
@@ -696,7 +608,7 @@
         <div class="certificate-card">
           <div class="cert-num">01</div>
           <div class="cert-brand-icon">
-            <img src="certificates/tuwaiq-logo.png" onerror="this.src='https://www.google.com/s2/favicons?domain=tuwaiq.edu.sa&sz=128'" class="cert-brand-img invertable" alt="Tuwaiq Academy">
+            <img src="certificates/tuwaiq-logo.png" onerror="this.src='https://www.google.com/s2/favicons?domain=tuwaiq.edu.sa&sz=128'" class="cert-brand-img transparent-bg-img" alt="Tuwaiq Academy">
           </div>
           <div class="cert-details">
             <h3>Data Analysis Using R</h3>
@@ -709,7 +621,7 @@
         <div class="certificate-card">
           <div class="cert-num">02</div>
           <div class="cert-brand-icon">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" class="cert-brand-img invertable" alt="Oracle">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" class="cert-brand-img transparent-bg-img" alt="Oracle">
           </div>
           <div class="cert-details">
             <h3>Oracle Certified Foundations Associate - Agentic AI</h3>
@@ -722,7 +634,7 @@
         <div class="certificate-card">
           <div class="cert-num">03</div>
           <div class="cert-brand-icon">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" class="cert-brand-img invertable" alt="AWS">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" class="cert-brand-img transparent-bg-img" alt="AWS">
           </div>
           <div class="cert-details">
             <h3>AWS Certified AI Practitioner: Learning Path</h3>
@@ -735,7 +647,8 @@
         <div class="certificate-card">
           <div class="cert-num">04</div>
           <div class="cert-brand-icon">
-            <img src="certificates/nita-logo.png" onerror="this.src='https://www.google.com/s2/favicons?domain=nita.org.sa&sz=128'" class="cert-brand-img invertable" alt="NITA">
+            <!-- NITA Logo -->
+            <img src="image_19.png" class="cert-brand-img transparent-bg-img" alt="NITA">
           </div>
           <div class="cert-details">
             <h3>AI & Agentic AI for Secure Cloud Computing</h3>
@@ -748,7 +661,8 @@
         <div class="certificate-card">
           <div class="cert-num">05</div>
           <div class="cert-brand-icon">
-            <img src="certificates/sdaia-logo.png" onerror="this.src='https://www.google.com/s2/favicons?domain=sdaia.gov.sa&sz=128'" class="cert-brand-img invertable" alt="SDAIA">
+            <!-- SDAIA Logo -->
+            <img src="image_20.png" class="cert-brand-img transparent-bg-img" alt="SDAIA">
           </div>
           <div class="cert-details">
             <h3>Fundamentals of Artificial Intelligence</h3>
@@ -761,20 +675,23 @@
         <div class="certificate-card">
           <div class="cert-num">06</div>
           <div class="cert-brand-icon">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" class="cert-brand-img invertable" alt="IBM">
+            <!-- IBM Logo via generic link to match style -->
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" class="cert-brand-img transparent-bg-img" alt="IBM">
           </div>
           <div class="cert-details">
             <h3>Data Classification and Summarization Using IBM Granite</h3>
             <div class="issuer">IBM</div>
           </div>
-          <div class="cert-mini-thumb" style="display: flex; align-items:center; justify-content:center; background: var(--hover-bg);"><span style="font-size: 10px; color: var(--muted)">No Image</span></div>
-          <span class="cert-link" style="opacity: 0.6; cursor: default;">Learning Achievement</span>
+          <!-- IBM Badge Thumbnail -->
+          <img src="certificates/ibm.png" class="cert-mini-thumb" alt="IBM Badge">
+          <a class="cert-link" href="certificates/ibm.png" target="_blank" rel="noopener">View badge →</a>
         </div>
 
         <div class="certificate-card">
           <div class="cert-num">07</div>
           <div class="cert-brand-icon">
-            <img src="certificates/numken-logo.png" onerror="this.src='https://www.google.com/s2/favicons?domain=numken.com&sz=128'" class="cert-brand-img invertable" alt="Numken">
+            <!-- Numken Logo -->
+            <img src="image_21.png" class="cert-brand-img transparent-bg-img" alt="Numken">
           </div>
           <div class="cert-details">
             <h3>Mastering Claude Code</h3>
@@ -787,7 +704,7 @@
         <div class="certificate-card">
           <div class="cert-num">08</div>
           <div class="cert-brand-icon">
-            <img src="certificates/saai-logo.png" onerror="this.src='https://www.google.com/s2/favicons?domain=saai.sa&sz=128'" class="cert-brand-img invertable" alt="SAAI">
+            <img src="certificates/saai-logo.png" onerror="this.src='https://www.google.com/s2/favicons?domain=saai.sa&sz=128'" class="cert-brand-img transparent-bg-img" alt="SAAI">
           </div>
           <div class="cert-details">
             <h3>Building and Training Large Language Models</h3>
@@ -830,7 +747,7 @@
       localStorage.setItem('theme', targetTheme);
     });
 
-    // Mobile Navigation
+    // Mobile Navigation Drawer
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
     const navOverlay = document.getElementById('navOverlay');
@@ -844,14 +761,12 @@
     navOverlay.addEventListener('click', toggleMenu);
     navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', toggleMenu));
 
-    // Typewriter Typing Effect
+    // Typewriter Effect
     const typeStrings = [
       "Building practical AI solutions through machine learning, data, and intelligent applications.",
       "Developing intelligent recommenders, AI chatbots, and intuitive UI/UX designs."
     ];
-    let stringIdx = 0;
-    let charIdx = 0;
-    let isDeleting = false;
+    let stringIdx = 0, charIdx = 0, isDeleting = false;
     const typeElement = document.getElementById("typewriterText");
 
     function typeWriter() {
@@ -877,7 +792,7 @@
     }
     typeWriter();
 
-    // Image Preview Follow Mouse
+    // Image Preview Follow Mouse for Projects
     const projectPreview = document.getElementById("projectPreview");
     let mouseX = 0, mouseY = 0;
     window.addEventListener("mousemove", (e) => {
@@ -888,8 +803,7 @@
       }
     });
 
-    const previewTriggers = document.querySelectorAll(".preview-trigger");
-    previewTriggers.forEach(trigger => {
+    document.querySelectorAll(".preview-trigger").forEach(trigger => {
       trigger.addEventListener("mouseenter", () => {
         const imageUrl = trigger.getAttribute("data-image");
         if (imageUrl) {
@@ -904,7 +818,7 @@
       });
     });
 
-    // Smooth Scroll Reveal
+    // Smooth Scroll Reveal Engine
     const smoothElements = document.querySelectorAll('.smooth-reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -915,7 +829,7 @@
     }, { threshold: 0.12 });
     smoothElements.forEach(el => observer.observe(el));
 
-    // 3D DOM Sphere for Skills Logos
+    // 3D Skills Sphere Generator
     const iconUrls = [
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
@@ -937,13 +851,11 @@
     ];
 
     const sphereDiv = document.getElementById("sphere");
-    const sphereRadius = 140;
+    const sphereRadius = 110; // حجم أصغر للكرة
     const iconsArray = [];
-    let currentRotX = 0, currentRotY = 0;
     let targetSpeedX = 0.002, targetSpeedY = 0.002;
     let currentSpeedX = 0.002, currentSpeedY = 0.002;
 
-    // Create 3D items
     const count = iconUrls.length;
     for (let i = 0; i < count; i++) {
       const phi = Math.acos(-1 + (2 * i + 1) / count);
@@ -951,7 +863,8 @@
       
       const img = document.createElement("img");
       img.src = iconUrls[i];
-      img.className = "skill-icon-3d invertable";
+      // transparent-bg-img applied to handle logos cleanly in light/dark mode
+      img.className = "skill-icon-3d transparent-bg-img"; 
       sphereDiv.appendChild(img);
       
       iconsArray.push({
@@ -967,13 +880,11 @@
       currentSpeedY += (targetSpeedY - currentSpeedY) * 0.05;
 
       iconsArray.forEach(item => {
-        // Rotate Y
         let cosY = Math.cos(currentSpeedX), sinY = Math.sin(currentSpeedX);
         let nx = item.x * cosY + item.z * sinY;
         let nz = item.z * cosY - item.x * sinY;
         item.x = nx; item.z = nz;
 
-        // Rotate X
         let cosX = Math.cos(currentSpeedY), sinX = Math.sin(currentSpeedY);
         let ny = item.y * cosX - item.z * sinX;
         nz = item.z * cosX + item.y * sinX;
@@ -991,7 +902,7 @@
     }
     render3DSphere();
 
-    // Sphere Interaction
+    // 3D Sphere Mouse & Touch Drag Interactions
     const wrap = document.getElementById("sphereWrap");
     let isDragging = false, lastDragX = 0, lastDragY = 0;
 
