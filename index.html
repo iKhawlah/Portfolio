@@ -82,7 +82,7 @@
       100% { transform: translate(-5%, 5%) scale(0.9); }
     }
 
-    /* CSS Trick for making white backgrounds transparent automatically */
+    /* CSS Trick for making white backgrounds transparent automatically (For other logos) */
     .transparent-bg-img {
       mix-blend-mode: multiply;
       filter: contrast(1.1);
@@ -91,14 +91,6 @@
     [data-theme="dark"] .transparent-bg-img {
       filter: invert(1) hue-rotate(180deg) brightness(1.8) contrast(1.3);
       mix-blend-mode: screen;
-    }
-    
-    /* حل سحري لشعار الجامعة اللي فيه خلفية مربعات وهمية (Fake Checkerboard) */
-    .uni-logo-img.transparent-bg-img {
-      filter: grayscale(100%) contrast(5);
-    }
-    [data-theme="dark"] .uni-logo-img.transparent-bg-img {
-      filter: grayscale(100%) contrast(5) invert(1);
     }
 
     /* Long Floating Pill Header */
@@ -184,7 +176,9 @@
     .education-left .date { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); }
     
     .uni-logo-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; }
-    .uni-logo-img { width: 160px; height: auto; transition: filter 0.3s ease; }
+    .uni-logo-img { width: 140px; height: auto; transition: filter 0.3s ease; }
+    /* قلب لون شعار الجامعة الشفاف في الثيم الداكن ليظهر بوضوح */
+    [data-theme="dark"] .uni-logo-img { filter: invert(1) brightness(2); }
 
     /* Projects Preview Logic */
     img.project-preview {
@@ -232,7 +226,10 @@
 
     /* Certificates List */
     .certificates-list { display: grid; gap: 0; }
-    .certificate-card { display: grid; grid-template-columns: 50px 70px 1fr 100px 100px; gap: 20px; align-items: center; padding: 24px 15px; border-top: 1px solid var(--line); transition: 0.3s ease; border-radius: 12px; }
+    .certificate-card {
+      display: grid; grid-template-columns: 50px 70px 1fr 100px 100px; gap: 20px; align-items: center;
+      padding: 24px 15px; border-top: 1px solid var(--line); transition: 0.3s ease; border-radius: 12px;
+    }
     .certificate-card:last-child { border-bottom: 1px solid var(--line); }
     .certificate-card:hover { background: var(--hover-bg); transform: translateX(6px); }
     
@@ -243,7 +240,10 @@
     .cert-details h3 { font-family: "Fraunces", serif; font-size: 19px; font-weight: 500; margin-bottom: 4px; }
     .cert-details .issuer { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
     
-    .cert-mini-thumb { width: 85px; height: 55px; border-radius: 6px; border: 1px solid var(--line); background-color: var(--bg); object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.25s ease, box-shadow 0.25s ease; }
+    .cert-mini-thumb {
+      width: 85px; height: 55px; border-radius: 6px; border: 1px solid var(--line); background-color: var(--bg);
+      object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
     .certificate-card:hover .cert-mini-thumb { transform: scale(1.15); box-shadow: 0 8px 20px rgba(0,0,0,0.25); z-index: 2; }
     .cert-link { font-family: "IBM Plex Mono", monospace; font-size: 11px; transition: transform 0.2s ease; white-space: nowrap; }
     .cert-link:hover { transform: translateX(4px); }
@@ -413,8 +413,8 @@
           <div class="date">Expected Graduation: 2028</div>
         </div>
         <div class="uni-logo-wrapper">
-          <!-- الشعار اللي رفعتيه (image_18.png) مع كود إخفاء المربعات الوهمية -->
-          <img src="certificates/image_18.png" alt="University of Hail Logo" class="uni-logo-img transparent-bg-img" />
+          <!-- تم تعديل اسم الصورة لشعار الجامعة إلى uoh.png بدون أي فلاتر تعكس الألوان -->
+          <img src="certificates/uoh.png" alt="University of Hail Logo" class="uni-logo-img" />
         </div>
       </div>
 
@@ -450,7 +450,6 @@
               <span class="tech">JavaScript</span><span class="tech">AI</span><span class="tech">Web Development</span>
             </div>
           </div>
-          <!-- الهوفر فقط على الرابط -->
           <a class="project-link preview-trigger" href="https://ikhawlah.github.io/ai-tool-finder/" target="_blank" data-image="certificates/AiTool.png">View project →</a>
         </article>
 
@@ -598,7 +597,7 @@
         <div class="certificate-card">
           <div class="cert-num">01</div>
           <div class="cert-brand-icon">
-            <img src="https://www.google.com/s2/favicons?domain=tuwaiq.edu.sa&sz=128" class="cert-brand-img transparent-bg-img" alt="Tuwaiq Academy">
+            <img src="https://tuwaiq.edu.sa/img/logos/Logomark.png" class="cert-brand-img transparent-bg-img" alt="Tuwaiq Academy">
           </div>
           <div class="cert-details">
             <h3>Data Analysis Using R</h3>
@@ -676,7 +675,7 @@
         <div class="certificate-card">
           <div class="cert-num">07</div>
           <div class="cert-brand-icon">
-            <img src="https://www.google.com/s2/favicons?domain=saai.sa&sz=128" class="cert-brand-img transparent-bg-img" alt="SAAI">
+            <img src="https://saai.sa/wp-content/uploads/2023/10/SAAI-Logo.png" class="cert-brand-img transparent-bg-img" alt="SAAI">
           </div>
           <div class="cert-details">
             <h3>Building and Training Large Language Models</h3>
@@ -803,7 +802,7 @@
       localStorage.setItem('theme', targetTheme);
     });
 
-    // Mobile Navigation
+    // Mobile Navigation Drawer
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
     const navOverlay = document.getElementById('navOverlay');
@@ -848,7 +847,7 @@
     }
     typeWriter();
 
-    // Image Preview Follow Mouse
+    // Image Preview Follow Mouse for Projects
     const projectPreview = document.getElementById("projectPreview");
     let mouseX = 0, mouseY = 0;
     window.addEventListener("mousemove", (e) => {
@@ -874,7 +873,7 @@
       });
     });
 
-    // Back to Top Button
+    // Back to Top Button Logic
     const backToTopBtn = document.getElementById("backToTop");
     window.addEventListener("scroll", () => {
       if (window.scrollY > 400) {
@@ -887,7 +886,7 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    // Smooth Scroll Reveal
+    // Smooth Scroll Reveal Engine
     const smoothElements = document.querySelectorAll('.smooth-reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
