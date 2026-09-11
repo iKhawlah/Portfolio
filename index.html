@@ -232,20 +232,21 @@
     .project-link { font-family: "IBM Plex Mono", monospace; font-size: 11px; white-space: nowrap; transition: transform 0.2s ease; cursor: pointer; padding: 10px 0; display: inline-block;} 
     .project-link:hover { transform: translateX(5px); }
     
-    /* Mobile Figma and Project Images - إزالة الحواف السوداء وجعل الأطراف ناعمة ونظيفة */
-    .mobile-project-img { 
-      display: none; 
-      width: 100%; 
-      max-width: 420px;
-      height: auto; 
-      border-radius: 20px; 
-      margin: 18px 0;
-      border: 1px solid var(--line);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-      object-fit: cover;
-      overflow: hidden;
-      background-color: var(--bg);
-    }
+   
+.mobile-project-img { 
+  display: none; 
+  width: 100%; 
+  max-width: 420px;
+  height: auto; 
+  border-radius: 20px; 
+  margin: 18px 0;
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  object-fit: contain; /* تمنع اقتصاص الصورة أو إظهار أطراف سوداء مجهولة */
+  background: transparent; /* إزالة أي لون خلفية داكن */
+  overflow: hidden;
+  -webkit-mask-image: -webkit-radial-gradient(white, black); /* حل خاص بجوالات الآيفون وسفاري لتطبيق التدوير بدقة بدون حواف حادة */
+}
 
     /* --- Skills Section --- */
     .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; }
