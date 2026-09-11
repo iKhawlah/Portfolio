@@ -37,9 +37,9 @@
     :root {
       --bg: #1c2333; 
       --text: #f6f3eb;
-      --muted: rgba(246, 243, 235, 0.85);
-      --line: rgba(246, 243, 235, 0.15);
-      --hover-bg: rgba(246, 243, 235, 0.05);
+      --muted: rgba(246, 243, 235, 0.75);
+      --line: rgba(246, 243, 235, 0.12);
+      --hover-bg: rgba(246, 243, 235, 0.04);
       --glow: rgba(246, 243, 235, 0.5);
 
       --inv-bg: #f6f3eb;
@@ -51,16 +51,17 @@
       --blob-2: #202d47;
       --blob-3: rgba(49, 64, 99, 0.5);
       
-      --nav-scroll: rgba(28, 35, 51, 0.9);
+      --nav-bg: rgba(28, 35, 51, 0.65);
+      --nav-border: rgba(246, 243, 235, 0.15);
       --overlay-bg: rgba(28, 35, 51, 0.7);
     }
 
     [data-theme="light"] {
       --bg: #f6f3eb;
       --text: #1c2333;
-      --muted: rgba(28, 35, 51, 0.85);
-      --line: rgba(28, 35, 51, 0.15);
-      --hover-bg: rgba(28, 35, 51, 0.05);
+      --muted: rgba(28, 35, 51, 0.75);
+      --line: rgba(28, 35, 51, 0.12);
+      --hover-bg: rgba(28, 35, 51, 0.04);
       --glow: rgba(28, 35, 51, 0.5);
 
       --inv-bg: #1c2333;
@@ -72,7 +73,8 @@
       --blob-2: #dbcdb0;
       --blob-3: rgba(226, 216, 195, 0.5);
       
-      --nav-scroll: rgba(246, 243, 235, 0.9);
+      --nav-bg: rgba(246, 243, 235, 0.65);
+      --nav-border: rgba(28, 35, 51, 0.15);
       --overlay-bg: rgba(246, 243, 235, 0.7);
     }
 
@@ -97,9 +99,6 @@
       outline: none;
       -webkit-tap-highlight-color: transparent;
     }
-    a:focus, button:focus {
-      outline: none;
-    }
     .mono {
       font-family: "IBM Plex Mono", monospace;
     }
@@ -117,204 +116,137 @@
       position: absolute;
       border-radius: 50%;
       filter: blur(90px);
-      opacity: 0.4;
+      opacity: 0.35;
       animation: float 20s infinite ease-in-out alternate;
       transition: transform 0.1s linear, background 0.4s ease;
     }
-    .blob-1 {
-      top: -10%;
-      left: -10%;
-      width: 40vw;
-      height: 40vw;
-      background: var(--blob-1);
-    }
-    .blob-2 {
-      bottom: -20%;
-      right: -10%;
-      width: 45vw;
-      height: 45vw;
-      background: var(--blob-2);
-      animation-delay: -5s;
-    }
-    .blob-3 {
-      top: 40%;
-      left: 50%;
-      width: 30vw;
-      height: 30vw;
-      background: var(--blob-3);
-      animation-delay: -10s;
-      transform: translateX(-50%);
-    }
+    .blob-1 { top: -10%; left: -10%; width: 40vw; height: 40vw; background: var(--blob-1); }
+    .blob-2 { bottom: -20%; right: -10%; width: 45vw; height: 45vw; background: var(--blob-2); animation-delay: -5s; }
+    .blob-3 { top: 40%; left: 50%; width: 30vw; height: 30vw; background: var(--blob-3); animation-delay: -10s; transform: translateX(-50%); }
+
     @keyframes float {
       0% { transform: translate(0, 0) scale(1); }
       50% { transform: translate(5%, 10%) scale(1.1); }
       100% { transform: translate(-5%, 5%) scale(0.9); }
     }
-    img.project-preview {
+
+    /* Floating Pill Header */
+    .nav-container {
       position: fixed;
-      width: auto;
-      height: auto;
-      max-width: 320px;
-      max-height: 450px;
-      border-radius: 36px;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 9990;
-      opacity: 0;
-      transform: translate(-50%, -50%) scale(0.8);
-      transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-    }
-    img.project-preview.active {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
-    #scroll-progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 3px;
-      width: 0%;
-      background: var(--text);
-      z-index: 1100;
-      box-shadow: 0 0 10px var(--glow);
-      transition: background 0.4s ease, box-shadow 0.4s ease;
-    }
-    nav {
-      position: fixed;
-      top: 0;
+      top: 20px;
       left: 0;
       width: 100%;
-      z-index: 1450;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 3vw;
-      background: transparent;
+      justify-content: center;
+      z-index: 1450;
+      padding: 0 20px;
       pointer-events: none;
-      transition: background 0.3s ease, box-shadow 0.3s ease;
     }
-    nav.scrolled {
-      background: var(--nav-scroll);
-      backdrop-filter: blur(12px);
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    }
-    .nav-name, .hamburger, .nav-links, .nav-social, .theme-toggle {
+    nav {
       pointer-events: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      padding: 10px 24px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--nav-border);
+      border-radius: 100px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      width: min(850px, 100%);
+      transition: all 0.3s ease;
     }
     .nav-name {
       font-family: "Fraunces", serif;
-      font-size: 17px;
-      font-weight: 400;
+      font-size: 16px;
+      font-weight: 500;
       letter-spacing: 0.02em;
-      color: var(--text);
-      transition: transform 0.3s ease, color 0.4s ease;
     }
-    .nav-name:hover {
-      transform: scale(1.05);
+    .nav-center-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .nav-center-links a {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      color: var(--muted);
+      transition: color 0.25s ease;
+    }
+    .nav-center-links a:hover {
+      color: var(--text);
     }
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }
     .theme-toggle {
       background: transparent;
       border: none;
-      color: var(--text);
       cursor: pointer;
       display: flex;
       align-items: center;
-      justify-content: center;
       padding: 4px;
-      transition: transform 0.3s ease, color 0.4s ease;
+      color: var(--text);
+      transition: transform 0.3s ease;
     }
-    .theme-toggle:hover {
-      transform: rotate(15deg) scale(1.1);
-    }
-    .theme-toggle svg {
-      width: 18px;
-      height: 18px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
+    .theme-toggle:hover { transform: scale(1.15) rotate(15deg); }
+    .theme-toggle svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .sun-icon { display: block; }
     .moon-icon { display: none; }
     [data-theme="light"] .sun-icon { display: none; }
     [data-theme="light"] .moon-icon { display: block; }
 
-    .nav-social {
-      display: flex;
-      align-items: center;
-      transition: 0.25s ease;
-    }
-    .nav-social:hover {
-      transform: translateY(-2px);
-    }
     .nav-badge {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 20px;
-      height: 20px;
-      border-radius: 4px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
       background: var(--text);
       color: var(--bg);
       font-family: "IBM Plex Mono", monospace;
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 600;
-      transition: background 0.4s ease, color 0.4s ease;
+      transition: 0.3s ease;
     }
+    .nav-badge:hover { transform: translateY(-2px); }
+
     .hamburger {
-      position: relative;
-      z-index: 1600;
-      width: 17px;
-      height: 11px;
-      background: transparent;
+      display: none;
+      background: none;
       border: none;
-      display: flex;
+      cursor: pointer;
+      width: 22px;
+      height: 14px;
+      position: relative;
       flex-direction: column;
       justify-content: space-between;
-      padding: 0;
-      margin-left: 6px;
-      cursor: pointer;
     }
     .hamburger span {
       display: block;
-      height: 1px;
       width: 100%;
+      height: 1.5px;
       background: var(--text);
-      transition: 0.3s ease, background 0.4s ease;
+      transition: 0.3s ease;
     }
-    .hamburger.active span {
-      background: var(--inv-text);
-    }
-    .hamburger.active span:nth-child(1) {
-      transform: translateY(5px) rotate(45deg);
-    }
-    .hamburger.active span:nth-child(2) {
-      opacity: 0;
-    }
-    .hamburger.active span:nth-child(3) {
-      transform: translateY(-5px) rotate(-45deg);
-    }
+
+    /* Mobile Drawer */
     .nav-overlay {
       position: fixed;
       inset: 0;
       background: var(--overlay-bg);
-      backdrop-filter: blur(5px);
+      backdrop-filter: blur(8px);
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease, background 0.4s ease;
-      z-index: 1400;
+      transition: 0.3s ease;
+      z-index: 1500;
     }
-    .nav-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
+    .nav-overlay.active { opacity: 1; visibility: visible; }
     .nav-links {
       position: fixed;
       top: 0;
@@ -322,40 +254,29 @@
       height: 100vh;
       width: min(280px, 80vw);
       background: var(--inv-bg);
-      backdrop-filter: blur(10px);
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 30px;
+      gap: 25px;
       padding: 40px;
-      font-size: 15px;
+      font-size: 16px;
       color: var(--inv-muted);
       transform: translateX(100%);
-      transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1), background 0.4s ease;
-      z-index: 1500;
-      box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+      transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+      z-index: 1600;
     }
-    .nav-links.active {
-      transform: translateX(0);
-    }
-    .nav-links a {
-      position: relative;
-      color: var(--inv-muted);
-      transition: 0.25s ease, color 0.4s ease;
-      width: fit-content;
-    }
-    .nav-links a:hover {
-      color: var(--inv-text);
-      transform: translateX(10px);
-    }
+    .nav-links.active { transform: translateX(0); }
+    .nav-links a { color: var(--inv-muted); transition: 0.2s ease; }
+    .nav-links a:hover { color: var(--inv-text); transform: translateX(6px); }
+
+    /* Hero Section */
     .hero {
       min-height: 100vh;
-      padding: 140px 6vw 80px;
+      padding: 160px 6vw 80px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       position: relative;
-      overflow: hidden;
     }
     .hero-content {
       position: relative;
@@ -365,23 +286,16 @@
     .eyebrow {
       font-family: "IBM Plex Mono", monospace;
       font-size: 12px;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--text);
       margin-bottom: 25px;
-      animation: fadeUp 0.8s ease both;
-      transition: color 0.4s ease;
     }
     h1 {
       font-family: "Fraunces", serif;
-      font-size: clamp(60px, 12vw, 130px);
-      line-height: 0.9;
+      font-size: clamp(55px, 11vw, 130px);
+      line-height: 0.92;
       font-weight: 600;
       letter-spacing: -0.03em;
-      color: var(--text);
-      max-width: 1200px;
-      animation: fadeUp 0.9s ease 0.1s both;
-      transition: color 0.4s ease;
     }
     .hero-description {
       max-width: 650px;
@@ -389,47 +303,29 @@
       font-size: clamp(16px, 2vw, 20px);
       line-height: 1.6;
       color: var(--muted);
-      animation: fadeUp 0.9s ease 0.25s both;
-      transition: color 0.4s ease;
+      min-height: 64px;
     }
-    .scroll-indicator {
-      position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 24px;
-      height: 38px;
-      border: 1px solid var(--muted);
-      border-radius: 12px;
-      opacity: 0;
-      animation: fadeUp 1s ease 1s forwards;
-      z-index: 5;
-      transition: border-color 0.4s ease;
+    .typewriter-cursor {
+      display: inline-block;
+      width: 2px;
+      background-color: var(--text);
+      animation: blink 0.8s infinite;
+      margin-left: 4px;
+      vertical-align: middle;
+      height: 1.1em;
     }
-    .scroll-indicator::before {
-      content: "";
-      position: absolute;
-      top: 6px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 4px;
-      height: 4px;
-      background: var(--text);
-      border-radius: 50%;
-      animation: scrollDot 2s infinite cubic-bezier(0.15, 0.41, 0.69, 0.94);
-      transition: background 0.4s ease;
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
     }
-    @keyframes scrollDot {
-      0% { transform: translate(-50%, 0); opacity: 1; }
-      100% { transform: translate(-50%, 18px); opacity: 0; }
-    }
+
+    /* General Section Styles with Smooth Reveal */
     section {
-      padding: 100px 6vw;
+      padding: 120px 6vw;
       border-top: 1px solid var(--line);
       scroll-margin-top: 80px;
       position: relative;
       z-index: 2;
-      transition: border-color 0.4s ease;
     }
     .section-inner {
       max-width: 1200px;
@@ -438,22 +334,21 @@
     .section-label {
       font-family: "IBM Plex Mono", monospace;
       font-size: 11px;
-      color: var(--text);
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       margin-bottom: 40px;
-      transition: color 0.4s ease;
+      opacity: 0.9;
     }
     .section-title {
       font-family: "Fraunces", serif;
-      font-size: clamp(42px, 6vw, 80px);
+      font-size: clamp(40px, 6vw, 80px);
       font-weight: 500;
       letter-spacing: -0.04em;
       line-height: 1;
       margin-bottom: 40px;
-      color: var(--text);
-      transition: color 0.4s ease;
     }
+
+    /* About Section */
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1.7fr;
@@ -461,402 +356,260 @@
       align-items: start;
     }
     .about-text {
-      font-size: 19px;
+      font-size: 18px;
       line-height: 1.75;
       color: var(--muted);
-      max-width: 750px;
-      transition: color 0.4s ease;
     }
-    .about-text strong {
-      color: var(--text);
-      transition: color 0.4s ease;
-    }
-    .about-text p + p {
-      margin-top: 25px;
-    }
-    .about-stats {
-      margin-top: 80px;
-      padding-top: 60px;
-      border-top: 1px solid var(--line);
-      transition: border-color 0.4s ease;
-    }
-    .stats-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 70px;
-      text-align: center;
-      max-width: 1000px;
-      margin: auto;
-      position: relative;
-    }
-    .stat-item {
-      min-width: 100px;
-    }
-    .stat-item h3 {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: clamp(28px, 4vw, 36px);
-      color: var(--text);
-      margin-bottom: 6px;
-      transition: color 0.4s ease;
-    }
-    .stat-item p {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 10px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
+    .about-text strong { color: var(--text); }
+    .about-text p + p { margin-top: 25px; }
+
+    /* Education Card with Hail University Monochromatic Shield */
+    .education-card {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: color 0.4s ease;
+      justify-content: space-between;
+      gap: 40px;
+      padding: 45px 35px;
+      background: var(--hover-bg);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      transition: transform 0.3s ease, border-color 0.3s ease;
     }
-    @keyframes pulse-inf {
-      0% { transform: scale(1); opacity: 0.8; }
-      50% { transform: scale(1.1); opacity: 1; }
-      100% { transform: scale(1); opacity: 0.8; }
+    .education-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--text);
     }
-    .inf-sign {
-      display: inline-block;
-      animation: pulse-inf 2.5s infinite ease-in-out;
+    .education-left {
+      max-width: 650px;
     }
-    .projects {
+    .education-left h3 {
+      font-family: "Fraunces", serif;
+      font-size: clamp(24px, 3vw, 32px);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .education-left .org {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 14px;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .education-left .desc {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .education-left .date {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .uni-logo-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .uni-shield {
+      width: 90px;
+      height: 90px;
+      stroke: var(--text);
+      fill: none;
+      stroke-width: 1.5;
+    }
+    .uni-logo-text {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* Projects Layout */
+    .projects { display: grid; gap: 0; }
+    .project {
       display: grid;
-      gap: 0;
-    }
-    .project, .experience-item, .certificate-row {
-      display: grid;
-      grid-template-columns: 90px 1fr auto;
+      grid-template-columns: 80px 1fr auto;
       gap: 30px;
       align-items: center;
       padding: 35px 0;
       border-top: 1px solid var(--line);
-      transition: padding 0.3s ease, background 0.3s ease, border-color 0.4s ease;
+      transition: padding 0.3s ease, background 0.3s ease;
+    }
+    .project:last-child { border-bottom: 1px solid var(--line); }
+    .project:hover { padding-left: 20px; padding-right: 15px; background: var(--hover-bg); }
+    .project-number { font-family: "IBM Plex Mono", monospace; font-size: 12px; }
+    .project-info h3 { font-family: "Fraunces", serif; font-size: 28px; font-weight: 500; margin-bottom: 8px; }
+    .project-info p { max-width: 650px; color: var(--muted); font-size: 15px; line-height: 1.6; }
+    .project-tech { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .tech { border: 1px solid var(--line); padding: 3px 8px; font-family: "IBM Plex Mono", monospace; font-size: 10px; border-radius: 4px; }
+    .project-link { font-family: "IBM Plex Mono", monospace; font-size: 11px; white-space: nowrap; transition: transform 0.2s ease; }
+    .project-link:hover { transform: translateX(5px); }
+
+    /* Interactive 3D Sphere for Skills */
+    .sphere-container {
+      width: 100%;
+      height: 480px;
       position: relative;
-    }
-    .project:last-child, .experience-item:last-child, .certificate-row:last-child {
-      border-bottom: 1px solid var(--line);
-    }
-    .project:hover, .experience-item:hover, .certificate-row:hover {
-      padding-left: 20px;
-      padding-right: 15px;
-      background: var(--hover-bg);
-    }
-    .project-number, .experience-number, .certificate-number {
-      font-family: "IBM Plex Mono", monospace;
-      color: var(--text);
-      font-size: 12px;
-      transition: color 0.4s ease;
-    }
-    .project-type-label {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 10px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 6px;
-      transition: color 0.4s ease;
-    }
-    .project-info h3, .experience-info h3 {
-      font-family: "Fraunces", serif;
-      font-size: 30px;
-      font-weight: 500;
-      margin-bottom: 10px;
-      color: var(--text);
-      transition: color 0.4s ease;
-    }
-    .experience-info h3 {
-      font-size: 25px;
-      margin-bottom: 6px;
-    }
-    .certificate-body h3 {
-      font-family: "Fraunces", serif;
-      font-size: 20px;
-      font-weight: 500;
-      margin-bottom: 6px;
-      color: var(--text);
-      transition: color 0.4s ease;
-    }
-    .project-info p {
-      max-width: 650px;
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: 15px;
-      transition: color 0.4s ease;
-    }
-    .mobile-project-img {
-      display: none;
-    }
-    .project-tech {
-      margin-top: 14px;
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .tech {
-      border: 1px solid var(--line);
-      padding: 4px 8px;
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 10px;
-      color: var(--text);
-      border-radius: 4px;
-      transition: 0.3s ease, color 0.4s ease, border-color 0.4s ease;
-    }
-    .project:hover .tech {
-      border-color: var(--text);
-    }
-    .project-link, .certificate-link, .certificate-status {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 11px;
-      white-space: nowrap;
-      transition: 0.25s ease, color 0.4s ease;
-      display: inline-block;
-      color: var(--text);
-      cursor: pointer;
-    }
-    .project-link:hover, .certificate-link:hover {
-      transform: translateX(5px);
-    }
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 50px;
-    }
-    .skill-category h3 {
-      font-family: "Fraunces", serif;
-      font-size: 25px;
-      font-weight: 500;
-      margin-bottom: 20px;
-      color: var(--text);
-      transition: color 0.4s ease;
-    }
-    .skill-list {
-      list-style: none;
-    }
-    .skill-list li {
-      padding: 10px 0;
-      border-bottom: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 14px;
-      transition: 0.3s ease, color 0.4s ease, border-color 0.4s ease;
-    }
-    .skill-list li:hover {
-      padding-left: 10px;
-      color: var(--text);
-    }
-    .experience-info .organization, .certificate-org {
-      font-family: "IBM Plex Mono", monospace;
-      color: var(--text);
-      font-size: 13px;
-      margin-bottom: 7px;
-      transition: color 0.4s ease;
-    }
-    .certificate-org {
-      font-size: 11px;
-    }
-    .experience-info .description {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.6;
-      transition: color 0.4s ease;
-    }
-    .experience-date {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 10px;
-      color: var(--muted);
-      white-space: nowrap;
-      transition: color 0.4s ease;
-    }
-    #backToTop {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 45px;
-      height: 45px;
-      background: var(--text);
-      color: var(--bg);
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      z-index: 1000;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(20px);
-      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), background 0.4s ease, color 0.4s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      margin-top: 20px;
+      cursor: grab;
+      user-select: none;
     }
-    #backToTop.show {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
+    .sphere-container:active { cursor: grabbing; }
+    #sphereCanvas {
+      width: 100%;
+      height: 100%;
+      max-width: 500px;
+      max-height: 480px;
     }
-    #backToTop:hover {
-      transform: translateY(-5px);
-    }
-    footer {
-      padding: 60px 6vw 30px;
-      background: var(--inv-bg);
-      color: var(--inv-text);
-      scroll-margin-top: 20px;
-      position: relative;
-      z-index: 2;
-      transition: background 0.4s ease, color 0.4s ease;
-    }
-    .footer-inner {
-      max-width: 1200px;
-      margin: auto;
-    }
-    .footer-title {
-      font-family: "Fraunces", serif;
-      font-size: clamp(34px, 5vw, 55px);
-      font-weight: 500;
-      letter-spacing: -0.04em;
-      margin-bottom: 25px;
-      color: var(--inv-text);
-      transition: color 0.4s ease;
-    }
-    footer .section-label {
-      color: var(--inv-muted);
-      transition: color 0.4s ease;
-      border: none;
-      margin-bottom: 40px;
-    }
-    .footer-links {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
+
+    /* Certificates List with Brand Logos & Mini Thumbnails */
+    .certificates-list { display: grid; gap: 0; }
+    .certificate-card {
+      display: grid;
+      grid-template-columns: 70px 60px 1fr 90px auto;
+      gap: 25px;
       align-items: center;
+      padding: 24px 15px;
+      border-top: 1px solid var(--line);
+      transition: 0.3s ease;
+      border-radius: 12px;
+    }
+    .certificate-card:last-child { border-bottom: 1px solid var(--line); }
+    .certificate-card:hover {
+      background: var(--hover-bg);
+      transform: translateX(6px);
+    }
+    .cert-num { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); }
+    .cert-brand-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      padding: 7px;
+    }
+    .cert-brand-icon svg {
+      width: 100%;
+      height: 100%;
+      fill: var(--text);
+      stroke: var(--text);
+    }
+    .cert-details h3 {
+      font-family: "Fraunces", serif;
+      font-size: 19px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .cert-details .issuer {
       font-family: "IBM Plex Mono", monospace;
       font-size: 11px;
-      color: var(--inv-muted);
-      transition: color 0.4s ease;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
-    .footer-links a {
-      transition: 0.25s ease, color 0.4s ease;
+    .cert-mini-thumb {
+      width: 75px;
+      height: 48px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background-color: var(--hover-bg);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 6px;
+      gap: 3px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
-    .footer-links a:hover {
-      color: var(--inv-text);
-      transform: translateY(-2px);
+    .certificate-card:hover .cert-mini-thumb {
+      transform: scale(1.08);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
     }
-    .copyright {
-      margin-top: 50px;
+    .thumb-line-h { height: 3px; background: var(--text); opacity: 0.6; border-radius: 2px; width: 60%; }
+    .thumb-line-s { height: 2px; background: var(--muted); opacity: 0.35; border-radius: 1px; width: 85%; }
+    .thumb-seal { position: absolute; right: 5px; bottom: 5px; width: 10px; height: 10px; border-radius: 50%; border: 1px dashed var(--text); opacity: 0.7; }
+    .cert-link {
       font-family: "IBM Plex Mono", monospace;
-      font-size: 10px;
-      color: var(--inv-muted);
-      opacity: 0.8;
-      transition: color 0.4s ease;
+      font-size: 11px;
+      transition: transform 0.2s ease;
+      white-space: nowrap;
     }
-    
-    /* حركة طي الصفحة (Book Fold Reveal) للأقسام الرئيسية */
-    .reveal-book {
+    .cert-link:hover { transform: translateX(4px); }
+
+    /* Experience List */
+    .experience-list { display: grid; gap: 0; }
+    .experience-item {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      gap: 30px;
+      align-items: center;
+      padding: 30px 0;
+      border-top: 1px solid var(--line);
+      transition: padding 0.3s ease, background 0.3s ease;
+    }
+    .experience-item:last-child { border-bottom: 1px solid var(--line); }
+    .experience-item:hover { padding-left: 20px; background: var(--hover-bg); }
+    .exp-num { font-family: "IBM Plex Mono", monospace; font-size: 12px; }
+    .exp-info h3 { font-family: "Fraunces", serif; font-size: 24px; font-weight: 500; margin-bottom: 4px; }
+    .exp-info .org { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--text); margin-bottom: 6px; }
+    .exp-info .desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+    .exp-date { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); white-space: nowrap; }
+
+    /* Footer */
+    footer {
+      padding: 70px 6vw 35px;
+      background: var(--inv-bg);
+      color: var(--inv-text);
+      position: relative;
+      z-index: 2;
+    }
+    .footer-inner { max-width: 1200px; margin: auto; }
+    .footer-title { font-family: "Fraunces", serif; font-size: clamp(34px, 5vw, 55px); font-weight: 500; margin-bottom: 25px; }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; font-family: "IBM Plex Mono", monospace; font-size: 11px; }
+    .footer-links a { color: var(--inv-muted); transition: 0.2s ease; }
+    .footer-links a:hover { color: var(--inv-text); transform: translateY(-2px); }
+    .copyright { margin-top: 50px; font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--inv-muted); opacity: 0.8; }
+
+    /* Liquid Smooth Scroll & Section Reveal (مثل الصورة الرابعة) */
+    .smooth-reveal {
       opacity: 0;
-      transform: perspective(1500px) rotateX(-20deg) translateY(60px);
-      transform-origin: top;
-      transition: opacity 1s cubic-bezier(0.165, 0.84, 0.44, 1), transform 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transform: translateY(45px);
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: opacity, transform;
     }
-    .reveal-book.visible {
+    .smooth-reveal.active {
       opacity: 1;
-      transform: perspective(1500px) rotateX(0deg) translateY(0);
+      transform: translateY(0);
     }
 
-    /* الحركات الداخلية */
-    .reveal-up {
-      opacity: 0;
-      transform: translateY(35px) rotateX(-10deg);
-      transition: opacity 0.7s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
-    }
-    .reveal-left {
-      opacity: 0;
-      transform: translateX(-40px);
-      transition: opacity 0.7s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
-    }
-    .reveal-right {
-      opacity: 0;
-      transform: translateX(40px);
-      transition: opacity 0.7s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
-    }
-    .reveal-scale {
-      opacity: 0;
-      transform: scale(0.95);
-      transition: opacity 0.7s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
-    }
-    .reveal-up.visible, .reveal-left.visible, .reveal-right.visible, .reveal-scale.visible {
-      opacity: 1;
-      transform: translate(0) rotateX(0) scale(1);
-    }
-    .project.reveal-up { transition-delay: 0.05s; }
-    .experience-item.reveal-left:nth-of-type(1) { transition-delay: 0s; }
-    .experience-item.reveal-left:nth-of-type(2) { transition-delay: 0.1s; }
-    .experience-item.reveal-left:nth-of-type(3) { transition-delay: 0.2s; }
-    .experience-item.reveal-left:nth-of-type(4) { transition-delay: 0.3s; }
-    .experience-item.reveal-left:nth-of-type(5) { transition-delay: 0.4s; }
-    .certificate-row.reveal-up:nth-of-type(1) { transition-delay: 0s; }
-    .certificate-row.reveal-up:nth-of-type(2) { transition-delay: 0.1s; }
-    .certificate-row.reveal-up:nth-of-type(3) { transition-delay: 0.2s; }
-    .certificate-row.reveal-up:nth-of-type(4) { transition-delay: 0.3s; }
-    .certificate-row.reveal-up:nth-of-type(5) { transition-delay: 0.4s; }
-    .certificate-row.reveal-up:nth-of-type(6) { transition-delay: 0.5s; }
-    .certificate-row.reveal-up:nth-of-type(7) { transition-delay: 0.6s; }
-    .certificate-row.reveal-up:nth-of-type(8) { transition-delay: 0.7s; }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @media (max-width: 800px) {
-      .project-preview { display: none; }
-      nav { padding: 15px 4vw; }
-      .hero { padding: 120px 5vw 80px; }
-      section { padding: 80px 5vw; }
-      .about-stats { margin-top: 60px; padding-top: 50px; }
-      .stats-grid { gap: 40px; flex-direction: column; align-items: center;}
-      .about-grid { grid-template-columns: 1fr; gap: 30px; }
-      .skills-grid { grid-template-columns: 1fr; gap: 40px; }
-      
-      .project, .experience-item, .certificate-row { grid-template-columns: 45px 1fr; gap: 15px; }
-      .project:hover, .experience-item:hover, .certificate-row:hover { padding-left: 10px; }
-      .project-link, .experience-date, .certificate-link, .certificate-status { grid-column: 2; margin-top: -8px; }
-      
-      .mobile-project-img {
-        display: block;
-        width: auto;
-        max-width: 100%;
-        height: auto;
-        max-height: 450px;
-        border-radius: 36px;
-        overflow: hidden;
-        margin-top: 20px;
-        margin-bottom: 10px;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    @media (max-width: 850px) {
+      .nav-center-links { display: none; }
+      .hamburger { display: flex; }
+      .education-card { flex-direction: column; align-items: flex-start; }
+      .certificate-card {
+        grid-template-columns: 45px 44px 1fr;
+        gap: 15px;
       }
-
-      .project-info h3 { font-size: 24px; }
-      .about-text { font-size: 16px; }
-      #backToTop { bottom: 20px; right: 20px; width: 40px; height: 40px; }
-    }
-    @media (max-width: 500px) {
-      .nav-name { font-size: 16px; }
-      h1 { font-size: 50px; }
-      .hero-description { font-size: 15px; }
-      .section-title { font-size: 38px; }
-      .stats-grid { flex-direction: column; gap: 30px; }
+      .cert-mini-thumb { display: none; }
+      .cert-link { grid-column: 3; margin-top: -6px; }
+      .project, .experience-item { grid-template-columns: 45px 1fr; gap: 15px; }
+      .project-link, .exp-date { grid-column: 2; margin-top: -8px; }
+      .sphere-container { height: 380px; }
     }
   </style>
 </head>
 <body>
-
-  <img class="project-preview" id="projectPreview" src="" alt="" />
-
-  <button id="backToTop" aria-label="Back to top">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M18 15l-6-6-6 6"/>
-    </svg>
-  </button>
 
   <div class="bg-shapes">
     <div class="blob blob-1"></div>
@@ -864,448 +617,336 @@
     <div class="blob blob-3"></div>
   </div>
 
-  <div id="scroll-progress"></div>
+  <!-- Smooth Floating Pill Navbar (الصورة الثالثة) -->
+  <div class="nav-container">
+    <nav id="navbar">
+      <div class="nav-name">Khawlah.</div>
+      
+      <div class="nav-center-links">
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#certificates">Certificates</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div class="nav-right">
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+          <svg class="sun-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="moon-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+        <a class="nav-social" href="https://www.linkedin.com/in/khawlah-alsudais" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <span class="nav-badge">in</span>
+        </a>
+        <a class="nav-social" href="resume.pdf" target="_blank" rel="noopener" aria-label="Resume">
+          <span class="nav-badge">CV</span>
+        </a>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+  </div>
+
   <div class="nav-overlay" id="navOverlay"></div>
+  <div class="nav-links" id="navLinks">
+    <a href="#about">About</a>
+    <a href="#education">Education</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#certificates">Certificates</a>
+    <a href="#contact">Contact</a>
+  </div>
 
-  <nav id="navbar">
-    <div class="nav-name">Khawlah Portfolio</div>
-    <div class="nav-right">
-      <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
-        <svg class="sun-icon" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="5"></circle>
-          <line x1="12" y1="1" x2="12" y2="3"></line>
-          <line x1="12" y1="21" x2="12" y2="23"></line>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-          <line x1="1" y1="12" x2="3" y2="12"></line>
-          <line x1="21" y1="12" x2="23" y2="12"></line>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-        </svg>
-        <svg class="moon-icon" viewBox="0 0 24 24">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        </svg>
-      </button>
-      <a class="nav-social" href="https://www.linkedin.com/in/khawlah-alsudais" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <span class="nav-badge">in</span>
-      </a>
-      <a class="nav-social" href="resume.pdf" target="_blank" rel="noopener" aria-label="Resume">
-        <span class="nav-badge">CV</span>
-      </a>
-      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-    <div class="nav-links" id="navLinks">
-      <a href="#about">About</a>
-      <a href="#education">Education</a>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#experience">Experience</a>
-      <a href="#certificates">Certificates</a>
-      <a href="#contact">Contact</a>
-    </div>
-  </nav>
-
+  <!-- Hero with Typewriter (الصورة الرابعة) -->
   <header class="hero">
     <div class="hero-content">
       <div class="eyebrow">Artificial Intelligence</div>
       <h1>Khawlah<br>Alsudais</h1>
       <p class="hero-description">
-        Building practical AI solutions through machine learning,
-        data, and intelligent applications.
+        <span id="typewriterText"></span><span class="typewriter-cursor"></span>
       </p>
     </div>
-    <div class="scroll-indicator"></div>
   </header>
 
-  <section id="about" class="reveal-book">
+  <section id="about" class="smooth-reveal">
     <div class="section-inner">
-      <div class="section-label reveal-left">01. About</div>
+      <div class="section-label">01. About</div>
       <div class="about-grid">
         <h2 class="section-title">About<br>Me.</h2>
-        <div class="about-text reveal-right">
+        <div class="about-text">
           <p>
-            I'm an <strong>Artificial Intelligence</strong> student interested in
-            building practical solutions that combine data,
-            machine learning, and technology.
+            I'm an <strong>Artificial Intelligence</strong> student passionate about creating practical AI applications, designing scalable machine learning pipelines, and delivering thoughtful user interfaces.
           </p>
           <p>
-            I enjoy exploring how intelligent systems can solve
-            real problems, from recommendation systems and
-            computer vision to AI-powered tools and applications.
+            My work focuses on bridging the gap between cutting-edge models and real-world tools—from automated agents and recommender algorithms to full-stack experiences.
           </p>
-          <p>
-            My work focuses on turning ideas into functional
-            projects while continuously developing my skills in
-            AI, programming, data analysis, and web development.
-          </p>
-        </div>
-      </div>
-      
-      <div class="about-stats reveal-scale">
-        <div class="stats-grid">
-          <div class="stat-item">
-            <h3><span class="scramble-text" data-target="8">0</span>+</h3>
-            <p>Projects</p>
-          </div>
-          <div class="stat-item">
-            <h3><span class="scramble-text" data-target="16">0</span>+</h3>
-            <p>Technologies</p>
-          </div>
-          <div class="stat-item">
-            <h3><span class="inf-sign">∞</span></h3>
-            <p>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
-                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
-                <line x1="6" y1="1" x2="6" y2="4"></line>
-                <line x1="10" y1="1" x2="10" y2="4"></line>
-                <line x1="14" y1="1" x2="14" y2="4"></line>
-              </svg>
-              Cups of Coffee
-            </p>
-          </div>
-        </div>
-      </div>
-      
-    </div>
-  </section>
-
-  <section id="education" class="reveal-book">
-    <div class="section-inner">
-      <div class="section-label reveal-left">02. Education</div>
-      <h2 class="section-title reveal-left">Academic<br>Background.</h2>
-      <div class="experience-list">
-        <div class="experience-item reveal-left">
-          <div class="experience-number">01</div>
-          <div class="experience-info">
-            <h3>Bachelor in Artificial Intelligence</h3>
-            <div class="organization">University of Hail</div>
-            <div class="description">Focusing on machine learning, data structures, algorithms, and intelligent systems design.</div>
-          </div>
-          <div class="experience-date">Expected Graduation: 2028</div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="projects" class="reveal-book">
+  <!-- Education with University of Hail Emblem (الصورة الأولى) -->
+  <section id="education" class="smooth-reveal">
     <div class="section-inner">
-      <div class="section-label reveal-up">03. Projects</div>
-      <h2 class="section-title reveal-up">Selected<br>Work.</h2>
+      <div class="section-label">02. Education</div>
+      <h2 class="section-title">Academic<br>Background.</h2>
+      <div class="education-card">
+        <div class="education-left">
+          <h3>Bachelor in Artificial Intelligence</h3>
+          <div class="org">University of Hail — College of Computer Science & Engineering</div>
+          <div class="desc">Pursuing comprehensive studies in machine learning algorithms, deep neural architectures, autonomous systems, and advanced software engineering.</div>
+          <div class="date">Expected Graduation: 2028</div>
+        </div>
+        <div class="uni-logo-wrapper">
+          <svg class="uni-shield" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+            <!-- University of Hail Minimalist Crest Emblem -->
+            <path d="M50 8 L88 24 V62 C88 88 50 112 50 112 C50 112 12 88 12 62 V24 Z" stroke-width="2.5"/>
+            <!-- Palm and Crossed Swords -->
+            <path d="M50 32 V54" stroke-width="2" stroke-linecap="round"/>
+            <path d="M42 36 Q50 34 50 42" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M58 36 Q50 34 50 42" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M40 44 Q50 42 50 50" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M60 44 Q50 42 50 50" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M38 58 L62 58" stroke-width="1.5"/>
+            <path d="M42 54 L58 62" stroke-width="1.5"/>
+            <path d="M42 62 L58 54" stroke-width="1.5"/>
+            <!-- Open Book of Knowledge -->
+            <path d="M34 76 Q50 72 50 78 Q50 72 66 76 V88 Q50 84 50 90 Q50 84 34 88 Z" stroke-width="1.8"/>
+          </svg>
+          <div class="uni-logo-text">University of Hail</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="smooth-reveal">
+    <div class="section-inner">
+      <div class="section-label">03. Projects</div>
+      <h2 class="section-title">Selected<br>Work.</h2>
       <div class="projects">
-
-        <article class="project reveal-up">
+        <article class="project">
           <div class="project-number">01</div>
           <div class="project-info">
             <h3>AI Study Telegram Bot</h3>
             <p>A smart academic assistant bot for university students featuring PDF summarization, interactive quiz generation, custom reminders, and concept explanations.</p>
             <div class="project-tech">
-              <span class="tech">Python</span>
-              <span class="tech">Google Gemini</span>
-              <span class="tech">Telegram API</span>
+              <span class="tech">Python</span><span class="tech">Gemini API</span><span class="tech">Telegram API</span>
             </div>
           </div>
           <a class="project-link" href="https://t.me/KhawlahStudyBot" target="_blank">Try Bot →</a>
         </article>
-
-        <article class="project reveal-up">
+        <article class="project">
           <div class="project-number">02</div>
           <div class="project-info">
             <h3>AI Tool Finder</h3>
-            <img src="certificates/AiTool.png" alt="Screenshot of the AI Tool Finder web platform interface showing search and recommendation features" class="mobile-project-img" loading="lazy" />
-            <p>An AI tool recommendation platform that helps users discover suitable AI tools based on what they want to accomplish.</p>
+            <p>An AI tool recommendation platform that helps users discover suitable AI tools based on task objectives and workflows.</p>
             <div class="project-tech">
-              <span class="tech">JavaScript</span>
-              <span class="tech">AI</span>
-              <span class="tech">Web Development</span>
+              <span class="tech">JavaScript</span><span class="tech">AI</span><span class="tech">Web Development</span>
             </div>
           </div>
-          <a class="project-link preview-trigger" href="https://ikhawlah.github.io/ai-tool-finder/" target="_blank" data-image="certificates/AiTool.png">View project →</a>
+          <a class="project-link" href="https://ikhawlah.github.io/ai-tool-finder/" target="_blank">View project →</a>
         </article>
-
-        <article class="project reveal-up">
+        <article class="project">
           <div class="project-number">03</div>
           <div class="project-info">
             <h3>SeriesMatch</h3>
-            <img src="certificates/series.png" alt="Dashboard view of the SeriesMatch TV series recommendation system" class="mobile-project-img" loading="lazy" />
-            <p>A personalized TV series recommendation system that recommends shows based on genres, story preferences, intensity, length, completion status, and ratings.</p>
+            <p>A personalized TV series recommendation system predicting user affinity across genres, pacing, completion status, and ratings.</p>
             <div class="project-tech">
-              <span class="tech">Python</span>
-              <span class="tech">Machine Learning</span>
-              <span class="tech">Recommendation System</span>
+              <span class="tech">Python</span><span class="tech">Machine Learning</span><span class="tech">Streamlit</span>
             </div>
           </div>
-          <a class="project-link preview-trigger" href="https://seriesmatch-ckbzgb7wwdwyxbmvpvuylu.streamlit.app/" target="_blank" data-image="certificates/series.png">View project →</a>
+          <a class="project-link" href="https://seriesmatch-ckbzgb7wwdwyxbmvpvuylu.streamlit.app/" target="_blank">View project →</a>
         </article>
-
-        <article class="project reveal-up">
-          <div class="project-number">04</div>
-          <div class="project-info">
-            <h3>Image Classifier</h3>
-            <img src="certificates/image.png" alt="User interface of the TensorFlow-based Image Classifier application identifying a sample image" class="mobile-project-img" loading="lazy" />
-            <p>An image classification project using TensorFlow and MobileNetV2 to identify and classify images.</p>
-            <div class="project-tech">
-              <span class="tech">Python</span>
-              <span class="tech">TensorFlow</span>
-              <span class="tech">Computer Vision</span>
-            </div>
-          </div>
-          <a class="project-link preview-trigger" href="https://image-classifier-zibszmtqrbunfppches9vf.streamlit.app/" target="_blank" data-image="certificates/image.png">View project →</a>
-        </article>
-
-        <article class="project reveal-up">
-          <div class="project-number">05</div>
-          <div class="project-info">
-            <h3>Chess vs AI</h3>
-            <img src="certificates/chess.png" alt="Web-based chessboard interface for playing against Stockfish AI" class="mobile-project-img" loading="lazy" />
-            <p>A web-based chess game where players can compete against an AI opponent powered by Stockfish, with adjustable difficulty.</p>
-            <div class="project-tech">
-              <span class="tech">Python</span>
-              <span class="tech">AI</span>
-              <span class="tech">Stockfish</span>
-            </div>
-          </div>
-          <a class="project-link preview-trigger" href="https://chess-vs-ai-j8qxb8xplxj6r5vgygfyzm.streamlit.app/" target="_blank" data-image="certificates/chess.png">View project →</a>
-        </article>
-
-        <article class="project reveal-up">
-          <div class="project-number">06</div>
-          <div class="project-info">
-            <div class="project-type-label">UI/UX</div>
-            <h3>Saudi Wonders Travel App</h3>
-            <img src="certificates/app.png" alt="Mobile app UI design concept for Saudi Wonders showing visual travel storytelling elements" class="mobile-project-img" loading="lazy" />
-            <p>A mobile application interface designed to explore iconic places in Saudi Arabia with a focus on visual storytelling.</p>
-            <div class="project-tech">
-              <span class="tech">Figma</span>
-              <span class="tech">UI/UX Design</span>
-              <span class="tech">Mobile App</span>
-            </div>
-          </div>
-          <span class="project-link preview-trigger" data-image="certificates/app.png">View design →</span>
-        </article>
-
-        <article class="project reveal-up">
-          <div class="project-number">07</div>
-          <div class="project-info">
-            <div class="project-type-label">UI/UX</div>
-            <h3>Authentication UI Design</h3>
-            <img src="certificates/signUp.png" alt="Clean and modern authentication and sign-up interface design layout" class="mobile-project-img" loading="lazy" />
-            <p>A clean and modern sign-up interface design focusing on user experience and accessibility.</p>
-            <div class="project-tech">
-              <span class="tech">Figma</span>
-              <span class="tech">Graphic Design</span>
-              <span class="tech">Prototyping</span>
-            </div>
-          </div>
-          <span class="project-link preview-trigger" data-image="certificates/signUp.png">View design →</span>
-        </article>
-
-        <article class="project reveal-up">
-          <div class="project-number">08</div>
-          <div class="project-info">
-            <div class="project-type-label">UI/UX</div>
-            <h3>E-commerce Cart Interface</h3>
-            <img src="certificates/sofa.png" alt="Minimalist e-commerce shopping cart mobile screen design showing order summary" class="mobile-project-img" loading="lazy" />
-            <p>A minimalist shopping cart screen design for a furniture app, featuring order summaries and intuitive checkout flows.</p>
-            <div class="project-tech">
-              <span class="tech">Figma</span>
-              <span class="tech">UI Design</span>
-              <span class="tech">E-commerce</span>
-            </div>
-          </div>
-          <span class="project-link preview-trigger" data-image="certificates/sofa.png">View design →</span>
-        </article>
-
       </div>
     </div>
   </section>
 
-  <section id="skills" class="reveal-book">
-    <div class="section-inner reveal-scale">
+  <!-- 3D Interactive Skills Sphere (الصورة الخامسة) -->
+  <section id="skills" class="smooth-reveal">
+    <div class="section-inner">
       <div class="section-label">04. Skills</div>
-      <h2 class="section-title">What I<br>Work With.</h2>
-      <div class="skills-grid">
-        <div class="skill-category">
-          <h3>Programming</h3>
-          <ul class="skill-list">
-            <li>Python</li>
-            <li>Java</li>
-            <li>SQL</li>
-            <li>R</li>
-          </ul>
-        </div>
-        <div class="skill-category">
-          <h3>AI & Data</h3>
-          <ul class="skill-list">
-            <li>Machine Learning</li>
-            <li>Artificial Intelligence</li>
-            <li>Data Analysis</li>
-            <li>Data Classification</li>
-            <li>Recommendation Systems</li>
-          </ul>
-        </div>
-        <div class="skill-category">
-          <h3>Tools & Technologies</h3>
-          <ul class="skill-list">
-            <li>Amazon Web Services</li>
-            <li>Cloud Computing</li>
-            <li>Figma</li>
-            <li>Claude Code</li>
-            <li>IBM SPSS Statistics</li>
-            <li>TensorFlow</li>
-            <li>Streamlit</li>
-          </ul>
-        </div>
+      <h2 class="section-title">Interactive<br>Stack.</h2>
+      <p style="color: var(--muted); font-size: 14px; font-family: 'IBM Plex Mono', monospace; margin-bottom: 20px;">
+        Drag & rotate the 3D globe to explore skills and frameworks in all directions:
+      </p>
+      <div class="sphere-container" id="sphereWrap">
+        <canvas id="sphereCanvas"></canvas>
       </div>
     </div>
   </section>
 
-  <section id="experience" class="reveal-book">
+  <!-- Experience -->
+  <section id="experience" class="smooth-reveal">
     <div class="section-inner">
-      <div class="section-label reveal-left">05. Experience</div>
-      <h2 class="section-title reveal-left">Clubs &<br>Volunteering.</h2>
+      <div class="section-label">05. Experience</div>
+      <h2 class="section-title">Clubs &<br>Volunteering.</h2>
       <div class="experience-list">
-        <div class="experience-item reveal-left">
-          <div class="experience-number">01</div>
-          <div class="experience-info">
+        <div class="experience-item">
+          <div class="exp-num">01</div>
+          <div class="exp-info">
             <h3>Design Team Member</h3>
-            <div class="organization">AIC UOH</div>
-            <div class="description">Contributing to design and creative work within the Artificial Intelligence Club at the University of Hail.</div>
+            <div class="org">AIC UOH (Artificial Intelligence Club)</div>
+            <div class="desc">Contributing to media direction, UI prototypes, and creative workshops at UOH.</div>
           </div>
-          <div class="experience-date">Feb 2026 to Present</div>
+          <div class="exp-date">Feb 2026 – Present</div>
         </div>
-
-        <div class="experience-item reveal-left">
-          <div class="experience-number">02</div>
-          <div class="experience-info">
+        <div class="experience-item">
+          <div class="exp-num">02</div>
+          <div class="exp-info">
             <h3>Operations & Execution Team Member</h3>
-            <div class="organization">FabLab Hail</div>
-            <div class="description">Supporting operations, execution, and activities at FabLab Hail.</div>
+            <div class="org">FabLab Hail</div>
+            <div class="desc">Facilitating technical fabrication workshops and hardware innovation sessions.</div>
           </div>
-          <div class="experience-date">Mar 2026 to Present</div>
+          <div class="exp-date">Mar 2026 – Present</div>
         </div>
-
-        <div class="experience-item reveal-left">
-          <div class="experience-number">03</div>
-          <div class="experience-info">
-            <h3>Design Team Member</h3>
-            <div class="organization">CSC | University of Hail</div>
-            <div class="description">Supporting design and creative initiatives within the Cyber Security Club at the University of Hail.</div>
-          </div>
-          <div class="experience-date">Mar 2026 to Present</div>
-        </div>
-
-        <div class="experience-item reveal-left">
-          <div class="experience-number">04</div>
-          <div class="experience-info">
+        <div class="experience-item">
+          <div class="exp-num">03</div>
+          <div class="exp-info">
             <h3>Student Ambassador</h3>
-            <div class="organization">Oracle</div>
-            <div class="description">Won first place in an Oracle competition by publishing the university's project code.</div>
+            <div class="org">Oracle</div>
+            <div class="desc">Won first place in an Oracle competition by presenting and publishing the university project codebase.</div>
           </div>
-          <div class="experience-date">Nov 2025 to Jun 2026</div>
-        </div>
-
-        <div class="experience-item reveal-left">
-          <div class="experience-number">05</div>
-          <div class="experience-info">
-            <h3>AI Solutions Developer Volunteer</h3>
-            <div class="organization">Sakani Association</div>
-            <div class="description">Volunteering as an AI Solutions Developer, contributing to technology-focused initiatives.</div>
-          </div>
-          <div class="experience-date">Aug 2026 to Sep 2026</div>
+          <div class="exp-date">Nov 2025 – Jun 2026</div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="certificates" class="reveal-book">
+  <!-- Certificates with Organization Logos & Mini Thumbnails (الصورة الثانية & الرابعة) -->
+  <section id="certificates" class="smooth-reveal">
     <div class="section-inner">
-      <div class="section-label reveal-up">06. Certificates</div>
-      <h2 class="section-title reveal-up">Certifications<br>& Learning.</h2>
+      <div class="section-label">06. Certificates</div>
+      <h2 class="section-title">Certifications<br>& Badges.</h2>
       <div class="certificates-list">
         
-        <div class="certificate-row reveal-up">
-          <div class="certificate-number">01</div>
-          <div class="certificate-body">
-            <h3>Data Analysis Using R</h3>
-            <div class="certificate-org">Tuwaiq Academy</div>
+        <!-- 01 Oracle Agentic AI -->
+        <div class="certificate-card">
+          <div class="cert-num">01</div>
+          <div class="cert-brand-icon" title="Oracle">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg>
           </div>
-          <a class="certificate-link" href="certificates/tuwaiq.png" target="_blank" rel="noopener">View certificate →</a>
-        </div>
-
-        <div class="certificate-row reveal-up">
-          <div class="certificate-number">02</div>
-          <div class="certificate-body">
+          <div class="cert-details">
             <h3>Oracle Certified Foundations Associate - Agentic AI</h3>
-            <div class="certificate-org">Oracle</div>
+            <div class="issuer">Oracle University</div>
           </div>
-          <a class="certificate-link" href="certificates/oracle.png" target="_blank" rel="noopener">View certificate →</a>
+          <div class="cert-mini-thumb" aria-hidden="true">
+            <div class="thumb-line-h"></div>
+            <div class="thumb-line-s"></div>
+            <div class="thumb-line-s"></div>
+            <div class="thumb-seal"></div>
+          </div>
+          <a class="cert-link" href="certificates/oracle.png" target="_blank" rel="noopener">View certificate →</a>
         </div>
 
-        <div class="certificate-row reveal-up">
-          <div class="certificate-number">03</div>
-          <div class="certificate-body">
-            <h3>AWS Certified AI Practitioner: Learning Path</h3>
-            <div class="certificate-org">Amazon Web Services</div>
+        <!-- 02 Tuwaiq Academy -->
+        <div class="certificate-card">
+          <div class="cert-num">02</div>
+          <div class="cert-brand-icon" title="Tuwaiq Academy">
+            <svg viewBox="0 0 24 24"><path d="M12 3L2 9l10 6 10-6-10-6zm0 8.5L4.5 7 12 4.5 19.5 7 12 11.5zM4 14l8 4.8 8-4.8v2.4L12 21l-8-4.6V14z"/></svg>
           </div>
-          <a class="certificate-link" href="certificates/aws.png" target="_blank" rel="noopener">View certificate →</a>
+          <div class="cert-details">
+            <h3>Data Analysis Using R</h3>
+            <div class="issuer">Tuwaiq Academy</div>
+          </div>
+          <div class="cert-mini-thumb" aria-hidden="true">
+            <div class="thumb-line-h"></div>
+            <div class="thumb-line-s"></div>
+            <div class="thumb-line-s"></div>
+            <div class="thumb-seal"></div>
+          </div>
+          <a class="cert-link" href="certificates/tuwaiq.png" target="_blank" rel="noopener">View certificate →</a>
         </div>
 
-        <div class="certificate-row reveal-up">
-          <div class="certificate-number">04</div>
-          <div class="certificate-body">
-            <h3>AI & Agentic AI for Secure Cloud Computing</h3>
-            <div class="certificate-org">National IT Academy (NITA)</div>
+        <!-- 03 AWS -->
+        <div class="certificate-card">
+          <div class="cert-num">03</div>
+          <div class="cert-brand-icon" title="Amazon Web Services">
+            <svg viewBox="0 0 24 24"><path d="M19.5 16.5c-2.8 2-6.5 2.8-10.3 1.9-3.2-.8-5.9-2.7-7.2-5.4-.3-.6.1-1 .7-.7 3.5 1.7 7.5 2.2 11.4 1.2 2-.5 3.8-1.5 5.4-2.8.5-.4 1 .2.7.7-.2.3-.4.6-.7.9zm2.4-1.2c-.4-.5-2.2-.2-3.3 0-.3 0-.4-.3-.1-.5 1.8-1.4 3.8-.7 4.1-.3.4.5-.1 2.5-1.9 4-.3.2-.5.1-.4-.2.4-1 .8-2.5 1.6-3z"/></svg>
           </div>
-          <a class="certificate-link" href="certificates/nita.png" target="_blank" rel="noopener">View certificate →</a>
+          <div class="cert-details">
+            <h3>AWS Certified AI Practitioner Learning Path</h3>
+            <div class="issuer">Amazon Web Services</div>
+          </div>
+          <div class="cert-mini-thumb" aria-hidden="true">
+            <div class="thumb-line-h"></div>
+            <div class="thumb-line-s"></div>
+            <div class="thumb-line-s"></div>
+            <div class="thumb-seal"></div>
+          </div>
+          <a class="cert-link" href="certificates/aws.png" target="_blank" rel="noopener">View certificate →</a>
         </div>
 
-        <div class="certificate-row reveal-up">
-          <div class="certificate-number">05</div>
-          <div class="certificate-body">
+        <!-- 04 SDAIA -->
+        <div class="certificate-card">
+          <div class="cert-num">04</div>
+          <div class="cert-brand-icon" title="SDAIA">
+            <svg viewBox="0 0 24 24"><path d="M12 2L4 6v6c0 5.5 3.8 10.7 8 12 4.2-1.3 8-6.5 8-12V6l-8-4zm0 4.5c1.9 0 3.5 1.6 3.5 3.5S13.9 13.5 12 13.5 8.5 11.9 8.5 10 10.1 6.5 12 6.5zm0 13c-2.7-.9-5.1-4.1-5.4-7.8.9-.7 2.3-1.2 3.9-1.2h3c1.6 0 3 .5 3.9 1.2-.3 3.7-2.7 6.9-5.4 7.8z"/></svg>
+          </div>
+          <div class="cert-details">
             <h3>Fundamentals of Artificial Intelligence</h3>
-            <div class="certificate-org">SDAIA</div>
+            <div class="issuer">SDAIA</div>
           </div>
-          <a class="certificate-link" href="certificates/sdaia.png" target="_blank" rel="noopener">View certificate →</a>
+          <div class="cert-mini-thumb" aria-hidden="true">
+            <div class="thumb-line-h"></div>
+            <div class="thumb-line-s"></div>
+            <div class="thumb-line-s"></div>
+            <div class="thumb-seal"></div>
+          </div>
+          <a class="cert-link" href="certificates/sdaia.png" target="_blank" rel="noopener">View certificate →</a>
         </div>
 
-        <div class="certificate-row reveal-up">
-          <div class="certificate-number">06</div>
-          <div class="certificate-body">
-            <h3>Data Classification and Summarization Using IBM Granite</h3>
-            <div class="certificate-org">IBM</div>
+        <!-- 05 IBM -->
+        <div class="certificate-card">
+          <div class="cert-num">05</div>
+          <div class="cert-brand-icon" title="IBM">
+            <svg viewBox="0 0 24 24"><path d="M3 5h18v2H3V5zm0 4h18v2H3V9zm0 4h18v2H3v-2zm0 4h18v2H3v-2z"/></svg>
           </div>
-          <span class="certificate-status">Learning Achievement</span>
+          <div class="cert-details">
+            <h3>Data Classification & Summarization with Granite</h3>
+            <div class="issuer">IBM</div>
+          </div>
+          <div class="cert-mini-thumb" aria-hidden="true">
+            <div class="thumb-line-h"></div>
+            <div class="thumb-line-s"></div>
+            <div class="thumb-line-s"></div>
+            <div class="thumb-seal"></div>
+          </div>
+          <span class="cert-link" style="opacity: 0.7;">Verified Completion</span>
         </div>
 
-        <div class="certificate-row reveal-up">
-          <div class="certificate-number">07</div>
-          <div class="certificate-body">
-            <h3>Mastering Claude Code</h3>
-            <div class="certificate-org">Numken</div>
+        <!-- 06 NITA -->
+        <div class="certificate-card">
+          <div class="cert-num">06</div>
+          <div class="cert-brand-icon" title="NITA">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 14.5h-2v-2h2v2zm0-4h-2V7h2v5.5z"/></svg>
           </div>
-          <a class="certificate-link" href="certificates/numken.jpg" target="_blank" rel="noopener">View certificate →</a>
-        </div>
-
-        <div class="certificate-row reveal-up">
-          <div class="certificate-number">08</div>
-          <div class="certificate-body">
-            <h3>Building and Training Large Language Models</h3>
-            <div class="certificate-org">SAAI</div>
+          <div class="cert-details">
+            <h3>AI & Agentic AI for Secure Cloud Computing</h3>
+            <div class="issuer">National IT Academy (NITA)</div>
           </div>
-          <a class="certificate-link" href="certificates/saai.png" target="_blank" rel="noopener">View certificate →</a>
+          <div class="cert-mini-thumb" aria-hidden="true">
+            <div class="thumb-line-h"></div>
+            <div class="thumb-line-s"></div>
+            <div class="thumb-line-s"></div>
+            <div class="thumb-seal"></div>
+          </div>
+          <a class="cert-link" href="certificates/nita.png" target="_blank" rel="noopener">View certificate →</a>
         </div>
 
       </div>
     </div>
   </section>
 
-  <footer id="contact" class="reveal-book">
-    <div class="footer-inner reveal-up">
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="footer-inner">
       <div class="section-label">07. Contact</div>
       <h2 class="footer-title">Let's connect.</h2>
       <div class="footer-links">
@@ -1319,159 +960,240 @@
   </footer>
 
   <script>
+    // Theme Management
     const themeToggle = document.getElementById('themeToggle');
     const root = document.documentElement;
     const savedTheme = localStorage.getItem('theme') || 'dark';
-    
     root.setAttribute('data-theme', savedTheme);
 
     themeToggle.addEventListener('click', () => {
-      const currentTheme = root.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      root.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
+      const isDark = root.getAttribute('data-theme') === 'dark';
+      const targetTheme = isDark ? 'light' : 'dark';
+      root.setAttribute('data-theme', targetTheme);
+      localStorage.setItem('theme', targetTheme);
     });
 
-    const projectPreview = document.getElementById("projectPreview");
-    let mouseX = 0;
-    let mouseY = 0;
-    
-    window.addEventListener("mousemove", (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+    // Mobile Navigation
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    const navOverlay = document.getElementById('navOverlay');
 
-      if (projectPreview.classList.contains("active")) {
-        projectPreview.style.left = `${mouseX}px`;
-        projectPreview.style.top = `${mouseY}px`;
-      }
-    });
-
-    const previewTriggers = document.querySelectorAll(".preview-trigger");
-    previewTriggers.forEach(trigger => {
-      trigger.addEventListener("mouseenter", () => {
-        const imageUrl = trigger.getAttribute("data-image");
-        if (imageUrl) {
-          projectPreview.src = imageUrl;
-          projectPreview.style.left = `${mouseX}px`;
-          projectPreview.style.top = `${mouseY}px`;
-          projectPreview.classList.add("active");
-        }
-      });
-      trigger.addEventListener("mouseleave", () => {
-        projectPreview.classList.remove("active");
-      });
-    });
-
-    const hamburger = document.getElementById("hamburger");
-    const navLinks = document.getElementById("navLinks");
-    const navOverlay = document.getElementById("navOverlay");
-    const navbar = document.getElementById("navbar");
-
-    function closeMenu() {
-      hamburger.classList.remove("active");
-      hamburger.setAttribute("aria-expanded", "false");
-      navLinks.classList.remove("active");
-      navOverlay.classList.remove("active");
+    function toggleMenu() {
+      navLinks.classList.toggle('active');
+      navOverlay.classList.toggle('active');
     }
+    hamburger.addEventListener('click', toggleMenu);
+    navOverlay.addEventListener('click', toggleMenu);
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', toggleMenu));
 
-    hamburger.addEventListener("click", () => {
-      const isActive = hamburger.classList.toggle("active");
-      hamburger.setAttribute("aria-expanded", isActive);
-      navLinks.classList.toggle("active");
-      navOverlay.classList.toggle("active");
-    });
+    // Typewriter Typing Effect (الصورة الرابعة)
+    const typeStrings = [
+      "Building practical AI solutions through machine learning, data, and intelligent applications.",
+      "Engineering Agentic AI workflows, vector search architectures, and modern UI/UX."
+    ];
+    let stringIdx = 0;
+    let charIdx = 0;
+    let isDeleting = false;
+    const typeElement = document.getElementById("typewriterText");
 
-    navOverlay.addEventListener("click", closeMenu);
-
-    navLinks.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", closeMenu);
-    });
-
-    const scrollProgress = document.getElementById("scroll-progress");
-    const blob1 = document.querySelector(".blob-1");
-    const blob2 = document.querySelector(".blob-2");
-    const blob3 = document.querySelector(".blob-3");
-    const backToTopBtn = document.getElementById("backToTop");
-
-    function updateScrollProgress() {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      scrollProgress.style.width = percent + "%";
-      
-      if (scrollTop > 50) {
-        navbar.classList.add("scrolled");
+    function typeWriter() {
+      const current = typeStrings[stringIdx];
+      if (isDeleting) {
+        typeElement.textContent = current.substring(0, charIdx - 1);
+        charIdx--;
       } else {
-        navbar.classList.remove("scrolled");
+        typeElement.textContent = current.substring(0, charIdx + 1);
+        charIdx++;
       }
 
-      if (scrollTop > 500) {
-        backToTopBtn.classList.add("show");
-      } else {
-        backToTopBtn.classList.remove("show");
+      let speed = isDeleting ? 25 : 45;
+      if (!isDeleting && charIdx === current.length) {
+        speed = 2800; // Pause at end
+        isDeleting = true;
+      } else if (isDeleting && charIdx === 0) {
+        isDeleting = false;
+        stringIdx = (stringIdx + 1) % typeStrings.length;
+        speed = 400;
       }
-
-      blob1.style.transform = `translateY(${scrollTop * 0.15}px)`;
-      blob2.style.transform = `translateY(${scrollTop * 0.1}px)`;
-      blob3.style.transform = `translate(-50%, ${scrollTop * 0.2}px)`;
+      setTimeout(typeWriter, speed);
     }
+    typeWriter();
 
-    window.addEventListener("scroll", updateScrollProgress);
-    updateScrollProgress();
-
-    backToTopBtn.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-
-    const scrambleChars = "0123456789!@#$%^&*";
-    function runScrambleEffect(element, finalValue, duration = 1200) {
-      let startTime = Date.now();
-      let interval = setInterval(() => {
-        let now = Date.now();
-        if (now - startTime >= duration) {
-          clearInterval(interval);
-          element.innerText = finalValue;
-          return;
+    // Liquid Smooth Scroll Reveal (الصورة الرابعة)
+    const smoothElements = document.querySelectorAll('.smooth-reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
         }
-        let randomStr = "";
-        for (let i = 0; i < finalValue.length; i++) {
-          randomStr += scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
-        }
-        element.innerText = randomStr;
-      }, 50);
-    }
-
-    function triggerAllScrambles() {
-      const targets = document.querySelectorAll(".scramble-text");
-      targets.forEach(target => {
-        const finalVal = target.getAttribute("data-target");
-        runScrambleEffect(target, finalVal);
       });
+    }, { threshold: 0.12 });
+    smoothElements.forEach(el => observer.observe(el));
+
+    // 3D Interactive Skills Sphere Canvas (الصورة الخامسة)
+    const skillsList = [
+      "Python", "LangChain", "TensorFlow", "PyTorch", "Oracle AI", "Vector Search", 
+      "LLMs", "RAG", "SQL", "Streamlit", "AWS", "Agentic AI", "Figma", "FastAPI",
+      "Claude Code", "R", "Scikit-Learn", "Docker", "Git", "SPSS", "Prompt Eng"
+    ];
+
+    const canvas = document.getElementById("sphereCanvas");
+    const ctx = canvas.getContext("2d");
+    let sphereRadius = 160;
+    let tags = [];
+    let mouseX = 0, mouseY = 0;
+    let targetSpeedX = 0.0015, targetSpeedY = 0.0015;
+    let currentSpeedX = 0.0015, currentSpeedY = 0.0015;
+    let isDragging = false;
+    let lastX = 0, lastY = 0;
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * window.devicePixelRatio;
+      canvas.height = rect.height * window.devicePixelRatio;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+      sphereRadius = Math.min(rect.width, rect.height) * 0.38;
     }
 
-    setInterval(triggerAllScrambles, 6000);
-
-    const revealElements = document.querySelectorAll(".reveal-up, .reveal-left, .reveal-right, .reveal-scale, .reveal-book, .about-stats");
-
-    const revealObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            if(entry.target.classList.contains("about-stats")) {
-              triggerAllScrambles();
-            }
-            revealObserver.unobserve(entry.target);
-          }
+    function initTags() {
+      tags = [];
+      const count = skillsList.length;
+      for (let i = 0; i < count; i++) {
+        const phi = Math.acos(-1 + (2 * i + 1) / count);
+        const theta = Math.sqrt(count * Math.PI) * phi;
+        tags.push({
+          text: skillsList[i],
+          x: sphereRadius * Math.cos(theta) * Math.sin(phi),
+          y: sphereRadius * Math.sin(theta) * Math.sin(phi),
+          z: sphereRadius * Math.cos(phi)
         });
-      },
-      { threshold: 0.15 }
-    );
+      }
+    }
 
-    revealElements.forEach((element) => {
-      revealObserver.observe(element);
+    function rotateX(tag, angle) {
+      const cos = Math.cos(angle);
+      const sin = Math.sin(angle);
+      const y = tag.y * cos - tag.z * sin;
+      const z = tag.z * cos + tag.y * sin;
+      tag.y = y;
+      tag.z = z;
+    }
+
+    function rotateY(tag, angle) {
+      const cos = Math.cos(angle);
+      const sin = Math.sin(angle);
+      const x = tag.x * cos + tag.z * sin;
+      const z = tag.z * cos - tag.x * sin;
+      tag.x = x;
+      tag.z = z;
+    }
+
+    function renderSphere() {
+      const width = canvas.width / window.devicePixelRatio;
+      const height = canvas.height / window.devicePixelRatio;
+      ctx.clearRect(0, 0, width, height);
+
+      currentSpeedX += (targetSpeedX - currentSpeedX) * 0.08;
+      currentSpeedY += (targetSpeedY - currentSpeedY) * 0.08;
+
+      tags.sort((a, b) => b.z - a.z);
+
+      const isDark = root.getAttribute('data-theme') !== 'light';
+      const textColor = isDark ? "246, 243, 235" : "28, 35, 51";
+
+      tags.forEach(tag => {
+        rotateX(tag, currentSpeedY);
+        rotateY(tag, currentSpeedX);
+
+        const fov = 340;
+        const scale = fov / (fov + tag.z);
+        const alpha = Math.max(0.18, (tag.z + sphereRadius) / (2 * sphereRadius));
+        const screenX = width / 2 + tag.x * scale;
+        const screenY = height / 2 + tag.y * scale;
+
+        ctx.font = `500 ${Math.max(10, 13 * scale)}px "IBM Plex Mono", monospace`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        // Draw pill background for tags
+        const metrics = ctx.measureText(tag.text);
+        const padding = 10 * scale;
+        const boxWidth = metrics.width + padding * 2;
+        const boxHeight = 22 * scale;
+
+        ctx.fillStyle = `rgba(${textColor}, ${alpha * 0.08})`;
+        ctx.strokeStyle = `rgba(${textColor}, ${alpha * 0.25})`;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.roundRect(screenX - boxWidth / 2, screenY - boxHeight / 2, boxWidth, boxHeight, 12);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = `rgba(${textColor}, ${alpha})`;
+        ctx.fillText(tag.text, screenX, screenY);
+      });
+
+      requestAnimationFrame(renderSphere);
+    }
+
+    const wrap = document.getElementById("sphereWrap");
+    wrap.addEventListener("mousedown", (e) => {
+      isDragging = true;
+      lastX = e.clientX;
+      lastY = e.clientY;
     });
-  </script>
 
+    window.addEventListener("mouseup", () => {
+      isDragging = false;
+      targetSpeedX = 0.0015;
+      targetSpeedY = 0.0015;
+    });
+
+    window.addEventListener("mousemove", (e) => {
+      if (isDragging) {
+        const dx = e.clientX - lastX;
+        const dy = e.clientY - lastY;
+        targetSpeedX = dx * 0.00035;
+        targetSpeedY = -dy * 0.00035;
+        lastX = e.clientX;
+        lastY = e.clientY;
+      }
+    });
+
+    // Touch Support for mobile
+    wrap.addEventListener("touchstart", (e) => {
+      if (e.touches.length === 1) {
+        isDragging = true;
+        lastX = e.touches[0].clientX;
+        lastY = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    window.addEventListener("touchmove", (e) => {
+      if (isDragging && e.touches.length === 1) {
+        const dx = e.touches[0].clientX - lastX;
+        const dy = e.touches[0].clientY - lastY;
+        targetSpeedX = dx * 0.0004;
+        targetSpeedY = -dy * 0.0004;
+        lastX = e.touches[0].clientX;
+        lastY = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    window.addEventListener("touchend", () => {
+      isDragging = false;
+      targetSpeedX = 0.0015;
+      targetSpeedY = 0.0015;
+    });
+
+    window.addEventListener("resize", () => {
+      resizeCanvas();
+      initTags();
+    });
+
+    resizeCanvas();
+    initTags();
+    requestAnimationFrame(renderSphere);
+  </script>
 </body>
 </html>
