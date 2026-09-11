@@ -167,13 +167,13 @@
     .typewriter-cursor { display: inline-block; width: 2px; background-color: var(--text); animation: blink 0.8s infinite; margin-left: 4px; vertical-align: middle; height: 1.1em; }
     @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-    /* General Section Styles & Transition */
+    /* General Section Styles & Smooth Page Wipe Transition between sections */
     section { 
       padding: 120px 6vw; 
       border-top: 1px solid var(--line); 
       scroll-margin-top: 80px; 
       position: relative; 
-      z-index: 2; 
+      z-index: 2;
     }
     .section-inner { max-width: 1200px; margin: auto; }
     .section-label { font-family: "IBM Plex Mono", monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 40px; opacity: 0.9; }
@@ -231,7 +231,21 @@
     .tech { border: 1px solid var(--line); padding: 3px 8px; font-family: "IBM Plex Mono", monospace; font-size: 10px; border-radius: 4px; }
     .project-link { font-family: "IBM Plex Mono", monospace; font-size: 11px; white-space: nowrap; transition: transform 0.2s ease; cursor: pointer; padding: 10px 0; display: inline-block;} 
     .project-link:hover { transform: translateX(5px); }
-    .mobile-project-img { display: none; }
+    
+    /* Mobile Figma and Project Images - إزالة الحواف السوداء وجعل الأطراف ناعمة ونظيفة */
+    .mobile-project-img { 
+      display: none; 
+      width: 100%; 
+      max-width: 420px;
+      height: auto; 
+      border-radius: 20px; 
+      margin: 18px 0;
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+      object-fit: cover;
+      overflow: hidden;
+      background-color: var(--bg);
+    }
 
     /* --- Skills Section --- */
     .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; }
@@ -291,16 +305,16 @@
     .footer-links a:hover { color: var(--inv-text); transform: translateY(-2px); }
     .copyright { margin-top: 50px; font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--inv-muted); opacity: 0.8; }
 
-    /* Smooth Scroll Section Reveal Transition (الانتقالة بين السكاشن عند النزول بالماوس) */
+    /* الانتقالة الواضحة والفعالة بين السكاشن عند التمرير بالماوس */
     .smooth-reveal {
       opacity: 0;
-      transform: translateY(60px) scale(0.985);
-      transition: opacity 1s cubic-bezier(0.2, 0.9, 0.2, 1), transform 1s cubic-bezier(0.2, 0.9, 0.2, 1);
+      transform: translateY(50px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: opacity, transform;
     }
     .smooth-reveal.active {
       opacity: 1;
-      transform: translateY(0) scale(1);
+      transform: translateY(0);
     }
 
     /* Responsive adjustments */
@@ -321,7 +335,9 @@
       
       .project, .experience-item { grid-template-columns: 45px 1fr; gap: 15px; }
       .project-link, .exp-date { grid-column: 2; margin-top: -8px; }
-      .mobile-project-img { display: block; width: 100%; height: auto; border-radius: 20px; margin: 15px 0; }
+      .mobile-project-img { 
+        display: block; 
+      }
       img.project-preview { display: none; }
       
       #backToTop { bottom: 20px; right: 20px; width: 40px; height: 40px; }
@@ -401,7 +417,7 @@
   </div>
 
   <!-- Hero -->
-  <header class="hero">
+  <header class="hero smooth-reveal">
     <div class="hero-content">
       <div class="eyebrow">Artificial Intelligence</div>
       <h1>Khawlah<br>Alsudais</h1>
@@ -845,7 +861,7 @@
   </section>
 
   <!-- Footer -->
-  <footer id="contact">
+  <footer id="contact" class="smooth-reveal">
     <div class="footer-inner">
       <div class="section-label">07. Contact</div>
       <h2 class="footer-title">Let's connect.</h2>
@@ -957,7 +973,7 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    // Smooth Scroll Reveal Transitions (بين السكاشن عند التمرير)
+    // Smooth Scroll Reveal - تم تصحيح طريقة الرصد لضمان ظهور الانتقالة عند النزول بالفأرة
     const smoothElements = document.querySelectorAll('.smooth-reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -966,8 +982,8 @@
         }
       });
     }, { 
-      threshold: 0.15,
-      rootMargin: "0px 0px -40px 0px"
+      threshold: 0.08,
+      rootMargin: "0px 0px -50px 0px"
     });
     smoothElements.forEach(el => observer.observe(el));
 
