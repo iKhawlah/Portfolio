@@ -161,20 +161,11 @@
     .section-label { font-family: "IBM Plex Mono", monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 40px; opacity: 0.9; }
     .section-title { font-family: "Fraunces", serif; font-size: clamp(40px, 6vw, 80px); font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin-bottom: 40px; }
 
-    /* About Section */
+    /* About */
     .about-grid { display: grid; grid-template-columns: 1fr 1.7fr; gap: 70px; align-items: start; }
     .about-text { font-size: 18px; line-height: 1.75; color: var(--muted); }
     .about-text strong { color: var(--text); }
     .about-text p + p { margin-top: 25px; }
-
-    /* About Stats (الإحصائيات) */
-    .about-stats { margin-top: 80px; padding-top: 60px; border-top: 1px solid var(--line); }
-    .stats-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 70px; text-align: center; max-width: 1000px; margin: auto; }
-    .stat-item { min-width: 100px; }
-    .stat-item h3 { font-family: "IBM Plex Mono", monospace; font-size: clamp(28px, 4vw, 36px); margin-bottom: 6px; color: var(--text); }
-    .stat-item p { font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; display: flex; align-items: center; justify-content: center; gap: 6px; }
-    @keyframes pulse-inf { 0% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 0.8; } }
-    .inf-sign { display: inline-block; animation: pulse-inf 2.5s infinite ease-in-out; }
 
     /* Education */
     .education-grid { display: grid; grid-template-columns: auto 1fr; gap: 50px; align-items: center; }
@@ -233,10 +224,7 @@
 
     /* Certificates List */
     .certificates-list { display: grid; gap: 0; }
-    .certificate-card {
-      display: grid; grid-template-columns: 50px 70px 1fr 100px 100px; gap: 20px; align-items: center;
-      padding: 24px 15px; border-top: 1px solid var(--line); transition: 0.3s ease; border-radius: 12px;
-    }
+    .certificate-card { display: grid; grid-template-columns: 50px 70px 1fr 100px 100px; gap: 20px; align-items: center; padding: 24px 15px; border-top: 1px solid var(--line); transition: 0.3s ease; border-radius: 12px; }
     .certificate-card:last-child { border-bottom: 1px solid var(--line); }
     .certificate-card:hover { background: var(--hover-bg); transform: translateX(6px); }
     
@@ -247,10 +235,7 @@
     .cert-details h3 { font-family: "Fraunces", serif; font-size: 19px; font-weight: 500; margin-bottom: 4px; }
     .cert-details .issuer { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
     
-    .cert-mini-thumb {
-      width: 85px; height: 55px; border-radius: 6px; border: 1px solid var(--line); background-color: var(--bg);
-      object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
+    .cert-mini-thumb { width: 85px; height: 55px; border-radius: 6px; border: 1px solid var(--line); background-color: var(--bg); object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.25s ease, box-shadow 0.25s ease; }
     .certificate-card:hover .cert-mini-thumb { transform: scale(1.15); box-shadow: 0 8px 20px rgba(0,0,0,0.25); z-index: 2; }
     .cert-link { font-family: "IBM Plex Mono", monospace; font-size: 11px; transition: transform 0.2s ease; white-space: nowrap; }
     .cert-link:hover { transform: translateX(4px); }
@@ -287,8 +272,7 @@
       
       .education-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; }
       .education-left { margin: 0 auto; text-align: left; }
-      .uni-logo-wrapper { align-items: center; } 
-      .uni-logo-img { width: 180px; } 
+      .uni-logo-wrapper { align-items: flex-start; }
       
       .skills-grid { grid-template-columns: 1fr; gap: 40px; }
 
@@ -402,33 +386,6 @@
             projects while continuously developing my skills in
             AI, programming, data analysis, and web development.
           </p>
-        </div>
-      </div>
-
-      <!-- الإحصائيات (About Stats) -->
-      <div class="about-stats smooth-reveal">
-        <div class="stats-grid">
-          <div class="stat-item">
-            <h3><span class="scramble-text" data-target="8">0</span>+</h3>
-            <p>Projects</p>
-          </div>
-          <div class="stat-item">
-            <h3><span class="scramble-text" data-target="16">0</span>+</h3>
-            <p>Technologies</p>
-          </div>
-          <div class="stat-item">
-            <h3><span class="inf-sign">∞</span></h3>
-            <p>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
-                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
-                <line x1="6" y1="1" x2="6" y2="4"></line>
-                <line x1="10" y1="1" x2="10" y2="4"></line>
-                <line x1="14" y1="1" x2="14" y2="4"></line>
-              </svg>
-              Cups of Coffee
-            </p>
-          </div>
         </div>
       </div>
     </div>
@@ -631,7 +588,7 @@
         <div class="certificate-card">
           <div class="cert-num">01</div>
           <div class="cert-brand-icon">
-            <img src="https://tuwaiq.edu.sa/img/logos/Logomark.png" class="cert-brand-img transparent-bg-img" alt="Tuwaiq Academy">
+            <img src="https://www.google.com/s2/favicons?domain=tuwaiq.edu.sa&sz=128" class="cert-brand-img transparent-bg-img" alt="Tuwaiq Academy">
           </div>
           <div class="cert-details">
             <h3>Data Analysis Using R</h3>
@@ -709,7 +666,7 @@
         <div class="certificate-card">
           <div class="cert-num">07</div>
           <div class="cert-brand-icon">
-            <img src="https://saai.sa/wp-content/uploads/2023/10/SAAI-Logo.png" class="cert-brand-img transparent-bg-img" alt="SAAI">
+            <img src="https://www.google.com/s2/favicons?domain=saai.sa&sz=128" class="cert-brand-img transparent-bg-img" alt="SAAI">
           </div>
           <div class="cert-details">
             <h3>Building and Training Large Language Models</h3>
@@ -836,7 +793,7 @@
       localStorage.setItem('theme', targetTheme);
     });
 
-    // Mobile Navigation Drawer
+    // Mobile Navigation
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
     const navOverlay = document.getElementById('navOverlay');
@@ -881,7 +838,7 @@
     }
     typeWriter();
 
-    // Image Preview Follow Mouse for Projects
+    // Image Preview Follow Mouse
     const projectPreview = document.getElementById("projectPreview");
     let mouseX = 0, mouseY = 0;
     window.addEventListener("mousemove", (e) => {
@@ -907,7 +864,7 @@
       });
     });
 
-    // Back to Top Button Logic
+    // Back to Top Button
     const backToTopBtn = document.getElementById("backToTop");
     window.addEventListener("scroll", () => {
       if (window.scrollY > 400) {
@@ -920,7 +877,7 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    // Smooth Scroll Reveal Engine
+    // Smooth Scroll Reveal
     const smoothElements = document.querySelectorAll('.smooth-reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -930,36 +887,6 @@
       });
     }, { threshold: 0.12 });
     smoothElements.forEach(el => observer.observe(el));
-
-    // Scramble Text Logic (للأرقام في قسم About)
-    const scrambleChars = "0123456789!@#$%^&*";
-    function runScrambleEffect(element, finalValue, duration = 1200) {
-      let startTime = Date.now();
-      let interval = setInterval(() => {
-        let now = Date.now();
-        if (now - startTime >= duration) {
-          clearInterval(interval);
-          element.innerText = finalValue;
-          return;
-        }
-        let randomStr = "";
-        for (let i = 0; i < finalValue.length; i++) {
-          randomStr += scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
-        }
-        element.innerText = randomStr;
-      }, 50);
-    }
-
-    function triggerAllScrambles() {
-      const targets = document.querySelectorAll(".scramble-text");
-      targets.forEach(target => {
-        const finalVal = target.getAttribute("data-target");
-        runScrambleEffect(target, finalVal);
-      });
-    }
-
-    triggerAllScrambles();
-    setInterval(triggerAllScrambles, 6000);
 
     // Dynamic Skills Marquee Generator
     const skillIcons = [
