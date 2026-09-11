@@ -82,22 +82,15 @@
       100% { transform: translate(-5%, 5%) scale(0.9); }
     }
 
-    /* Logo Transparency Fixes */
-    .logo-img {
-      width: 100%; height: 100%; object-fit: contain;
+    /* CSS Trick for making white backgrounds transparent automatically */
+    .transparent-bg-img {
+      mix-blend-mode: multiply;
+      filter: contrast(1.1);
+      object-fit: contain;
     }
-    [data-theme="light"] .logo-img, [data-theme="light"] .uni-logo-img {
-      mix-blend-mode: multiply; /* Makes white background transparent in light mode */
-    }
-    [data-theme="dark"] .logo-img {
-      background-color: #f6f3eb; /* Soft white backing for dark mode */
-      border-radius: 8px;
-      padding: 4px;
-    }
-    [data-theme="dark"] .uni-logo-img {
-      background-color: #f6f3eb;
-      border-radius: 50%; /* Circle backing for university logo */
-      padding: 12px;
+    [data-theme="dark"] .transparent-bg-img {
+      filter: invert(1) hue-rotate(180deg) brightness(1.6) contrast(1.2);
+      mix-blend-mode: screen;
     }
 
     /* Long Floating Pill Header */
@@ -174,7 +167,7 @@
     .about-text strong { color: var(--text); }
     .about-text p + p { margin-top: 25px; }
 
-    /* Education (No Card Style) */
+    /* Education */
     .education-grid { display: grid; grid-template-columns: 1fr auto; gap: 50px; align-items: center; }
     .education-left { max-width: 650px; }
     .education-left h3 { font-family: "Fraunces", serif; font-size: clamp(24px, 3vw, 32px); font-weight: 500; margin-bottom: 12px; }
@@ -183,7 +176,7 @@
     .education-left .date { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); }
     
     .uni-logo-wrapper { display: flex; flex-direction: column; align-items: center; gap: 12px; flex-shrink: 0; }
-    .uni-logo-img { width: 150px; height: auto; transition: background-color 0.3s ease; }
+    .uni-logo-img { width: 140px; height: auto; transition: background-color 0.3s ease; }
     .uni-logo-text { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: center; }
 
     /* Projects Preview Logic */
@@ -206,32 +199,46 @@
     .project-type-label { font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
     .project-tech { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
     .tech { border: 1px solid var(--line); padding: 3px 8px; font-family: "IBM Plex Mono", monospace; font-size: 10px; border-radius: 4px; }
-    .project-link { font-family: "IBM Plex Mono", monospace; font-size: 11px; white-space: nowrap; transition: transform 0.2s ease; cursor: pointer; padding: 10px 0;} /* Added padding to make hover area more comfortable */
+    .project-link { font-family: "IBM Plex Mono", monospace; font-size: 11px; white-space: nowrap; transition: transform 0.2s ease; cursor: pointer; padding: 10px 0; display: inline-block;} 
     .project-link:hover { transform: translateX(5px); }
     .mobile-project-img { display: none; }
 
-    /* --- Skills Section (Tags + Marquee) --- */
-    .skills-lists-block {
+    /* --- Skills Section (Original Lists + Marquee) --- */
+    .skills-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 40px;
+      gap: 50px;
     }
-    .skill-group h3 { font-family: "IBM Plex Mono", monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 20px; }
-    .skill-tags { display: flex; flex-wrap: wrap; gap: 10px; }
-    .skill-tags span {
-      padding: 8px 16px; border: 1px solid var(--line); border-radius: 8px;
-      font-size: 14px; font-weight: 500; color: var(--text);
-      transition: border-color 0.3s ease, background 0.3s ease; cursor: default;
+    .skill-category h3 {
+      font-family: "Fraunces", serif;
+      font-size: 25px;
+      font-weight: 500;
+      margin-bottom: 20px;
+      color: var(--text);
+      transition: color 0.4s ease;
     }
-    .skill-tags span:hover { border-color: var(--text); background: var(--hover-bg); }
+    .skill-list {
+      list-style: none;
+    }
+    .skill-list li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 14px;
+      transition: 0.3s ease, color 0.4s ease, border-color 0.4s ease;
+    }
+    .skill-list li:hover {
+      padding-left: 10px;
+      color: var(--text);
+    }
 
     /* Marquee (الشريط المتحرك) */
     .skills-marquee-wrapper {
       display: flex;
       overflow: hidden;
       width: 100%;
-      margin-top: 60px;
-      padding: 30px 0;
+      margin-top: 80px;
+      padding: 20px 0;
       mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
       -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
     }
@@ -276,6 +283,7 @@
     
     .cert-num { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); }
     .cert-brand-icon { width: 55px; height: 55px; border-radius: 10px; background: transparent; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .cert-brand-img { width: 100%; height: 100%; object-fit: contain; }
     
     .cert-details h3 { font-family: "Fraunces", serif; font-size: 19px; font-weight: 500; margin-bottom: 4px; }
     .cert-details .issuer { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
@@ -322,7 +330,7 @@
       .education-left { margin: 0 auto; text-align: left; }
       .uni-logo-wrapper { align-items: flex-start; }
       
-      .skills-lists-block { grid-template-columns: 1fr; gap: 40px; }
+      .skills-grid { grid-template-columns: 1fr; gap: 40px; }
 
       .certificate-card { grid-template-columns: 40px 50px 1fr; gap: 15px; }
       .cert-mini-thumb { display: none; }
@@ -453,8 +461,8 @@
           <div class="date">Expected Graduation: 2028</div>
         </div>
         <div class="uni-logo-wrapper">
-          <!-- صورة الجامعة المحلية بدون فلاتر خارجية لتظهر واضحة 100% -->
-          <img src="image_18.png" alt="University of Hail Logo" class="uni-logo-img logo-img" />
+          <!-- الشعار المحلي مع العزل الذكي للخلفية -->
+          <img src="image_18.png" alt="University of Hail Logo" class="uni-logo-img transparent-bg-img" />
           <div class="uni-logo-text">University of Hail</div>
         </div>
       </div>
@@ -491,7 +499,6 @@
               <span class="tech">JavaScript</span><span class="tech">AI</span><span class="tech">Web Development</span>
             </div>
           </div>
-          <!-- تم نقل الـ preview-trigger للرابط فقط -->
           <a class="project-link preview-trigger" href="https://ikhawlah.github.io/ai-tool-finder/" target="_blank" data-image="certificates/AiTool.png">View project →</a>
         </article>
 
@@ -545,7 +552,6 @@
               <span class="tech">Figma</span><span class="tech">UI/UX Design</span><span class="tech">Mobile App</span>
             </div>
           </div>
-          <!-- إزالة السهم من الديزاين -->
           <span class="project-link preview-trigger" data-image="certificates/app.png">View design</span>
         </article>
 
@@ -581,48 +587,48 @@
     </div>
   </section>
 
-  <!-- Skills -->
+  <!-- Skills (Original Lists Layout + Infinite Marquee Scroll) -->
   <section id="skills" class="smooth-reveal">
     <div class="section-inner">
       <div class="section-label">04. Skills</div>
       <h2 class="section-title">What I<br>Work With.</h2>
       
-      <div class="skills-lists-block">
-        <div class="skill-group">
-          <h3>Programming & Data</h3>
-          <div class="skill-tags">
-            <span>Python</span>
-            <span>Java</span>
-            <span>SQL</span>
-            <span>R</span>
-            <span>Data Analysis</span>
-          </div>
+      <!-- التصميم الأصلي للمهارات -->
+      <div class="skills-grid">
+        <div class="skill-category">
+          <h3>Programming</h3>
+          <ul class="skill-list">
+            <li>Python</li>
+            <li>Java</li>
+            <li>SQL</li>
+            <li>R</li>
+          </ul>
         </div>
-        
-        <div class="skill-group">
-          <h3>AI & Machine Learning</h3>
-          <div class="skill-tags">
-            <span>Machine Learning</span>
-            <span>LLMs</span>
-            <span>TensorFlow</span>
-            <span>Recommendation Systems</span>
-            <span>Computer Vision</span>
-          </div>
+        <div class="skill-category">
+          <h3>AI & Data</h3>
+          <ul class="skill-list">
+            <li>Machine Learning</li>
+            <li>Artificial Intelligence</li>
+            <li>Data Analysis</li>
+            <li>Data Classification</li>
+            <li>Recommendation Systems</li>
+          </ul>
         </div>
-        
-        <div class="skill-group">
-          <h3>Tools & Platforms</h3>
-          <div class="skill-tags">
-            <span>Amazon Web Services</span>
-            <span>Figma</span>
-            <span>Git / GitHub</span>
-            <span>Streamlit</span>
-            <span>IBM SPSS</span>
-          </div>
+        <div class="skill-category">
+          <h3>Tools & Technologies</h3>
+          <ul class="skill-list">
+            <li>Amazon Web Services</li>
+            <li>Cloud Computing</li>
+            <li>Figma</li>
+            <li>Claude Code</li>
+            <li>IBM SPSS Statistics</li>
+            <li>TensorFlow</li>
+            <li>Streamlit</li>
+          </ul>
         </div>
       </div>
 
-      <!-- الشريط المتحرك (Marquee) -->
+      <!-- الشريط المتحرك (Marquee) يعرض التقنيات بشكل دائم ومتحرك -->
       <div class="skills-marquee-wrapper">
         <div class="skills-marquee" id="marqueeTrack"></div>
         <div class="skills-marquee" id="marqueeTrack2" aria-hidden="true"></div>
@@ -631,7 +637,7 @@
     </div>
   </section>
 
-  <!-- Certificates -->
+  <!-- Certificates (تم التقديم قبل التطوع) -->
   <section id="certificates" class="smooth-reveal">
     <div class="section-inner">
       <div class="section-label">05. Certificates</div>
@@ -641,7 +647,7 @@
         <div class="certificate-card">
           <div class="cert-num">01</div>
           <div class="cert-brand-icon">
-            <img src="certificates/tuwaiq.png" class="cert-brand-img logo-img" alt="Tuwaiq Academy">
+            <img src="https://www.google.com/s2/favicons?domain=tuwaiq.edu.sa&sz=128" class="cert-brand-img transparent-bg-img" alt="Tuwaiq Academy">
           </div>
           <div class="cert-details">
             <h3>Data Analysis Using R</h3>
@@ -654,7 +660,7 @@
         <div class="certificate-card">
           <div class="cert-num">02</div>
           <div class="cert-brand-icon">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" class="cert-brand-img logo-img" alt="Oracle">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" class="cert-brand-img transparent-bg-img" alt="Oracle">
           </div>
           <div class="cert-details">
             <h3>Oracle Certified Foundations Associate - Agentic AI</h3>
@@ -667,7 +673,7 @@
         <div class="certificate-card">
           <div class="cert-num">03</div>
           <div class="cert-brand-icon">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" class="cert-brand-img logo-img" alt="AWS">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" class="cert-brand-img transparent-bg-img" alt="AWS">
           </div>
           <div class="cert-details">
             <h3>AWS Certified AI Practitioner: Learning Path</h3>
@@ -680,7 +686,7 @@
         <div class="certificate-card">
           <div class="cert-num">04</div>
           <div class="cert-brand-icon">
-            <img src="image_19.png" class="cert-brand-img logo-img" alt="NITA">
+            <img src="image_19.png" class="cert-brand-img transparent-bg-img" alt="NITA">
           </div>
           <div class="cert-details">
             <h3>AI & Agentic AI for Secure Cloud Computing</h3>
@@ -693,7 +699,7 @@
         <div class="certificate-card">
           <div class="cert-num">05</div>
           <div class="cert-brand-icon">
-            <img src="image_20.png" class="cert-brand-img logo-img" alt="SDAIA">
+            <img src="image_20.png" class="cert-brand-img transparent-bg-img" alt="SDAIA">
           </div>
           <div class="cert-details">
             <h3>Fundamentals of Artificial Intelligence</h3>
@@ -706,7 +712,7 @@
         <div class="certificate-card">
           <div class="cert-num">06</div>
           <div class="cert-brand-icon">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" class="cert-brand-img logo-img" alt="IBM">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" class="cert-brand-img transparent-bg-img" alt="IBM">
           </div>
           <div class="cert-details">
             <h3>Data Classification and Summarization Using IBM Granite</h3>
@@ -716,10 +722,11 @@
           <a class="cert-link" href="certificates/ibm.png" target="_blank" rel="noopener">View badge →</a>
         </div>
 
+        <!-- شهادة ساعي قبل نمكّن -->
         <div class="certificate-card">
           <div class="cert-num">07</div>
           <div class="cert-brand-icon">
-            <img src="certificates/saai.png" class="cert-brand-img logo-img" alt="SAAI">
+            <img src="https://www.google.com/s2/favicons?domain=saai.sa&sz=128" class="cert-brand-img transparent-bg-img" alt="SAAI">
           </div>
           <div class="cert-details">
             <h3>Building and Training Large Language Models</h3>
@@ -732,7 +739,7 @@
         <div class="certificate-card">
           <div class="cert-num">08</div>
           <div class="cert-brand-icon">
-            <img src="image_21.png" class="cert-brand-img logo-img" alt="Numken">
+            <img src="image_21.png" class="cert-brand-img transparent-bg-img" alt="Numken">
           </div>
           <div class="cert-details">
             <h3>Mastering Claude Code</h3>
@@ -803,11 +810,11 @@
           <div class="exp-date">Aug 2026 to Sep 2026</div>
         </div>
         
-        <!-- بيت الثقافة بدون العربي -->
+        <!-- تعديل اسم التطوع لبيت الثقافة -->
         <div class="experience-item">
           <div class="exp-num">06</div>
           <div class="exp-info">
-            <h3>Volunteer</h3>
+            <h3>Organization Volunteer</h3>
             <div class="org">Culture House</div>
             <div class="desc">Participated in cultural and organizational activities, assisting in event execution and outreach.</div>
           </div>
