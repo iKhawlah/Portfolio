@@ -69,24 +69,16 @@
     }
     a, button { color: inherit; text-decoration: none; outline: none; -webkit-tap-highlight-color: transparent; }
 
-    /* Page Wipe Transition */
+    /* Page Wipe Transition on Load */
     .page-wipe {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       background: var(--bg); z-index: 99999;
       animation: wipeUpOut 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
       pointer-events: none;
     }
-    .page-wipe.wipe-in {
-      animation: wipeDownIn 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
-      pointer-events: all;
-    }
     @keyframes wipeUpOut {
       0% { transform: translateY(0); }
       100% { transform: translateY(-100%); }
-    }
-    @keyframes wipeDownIn {
-      0% { transform: translateY(100%); }
-      100% { transform: translateY(0); }
     }
 
     /* Background Shapes */
@@ -175,8 +167,14 @@
     .typewriter-cursor { display: inline-block; width: 2px; background-color: var(--text); animation: blink 0.8s infinite; margin-left: 4px; vertical-align: middle; height: 1.1em; }
     @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-    /* General Section Styles */
-    section { padding: 120px 6vw; border-top: 1px solid var(--line); scroll-margin-top: 80px; position: relative; z-index: 2; }
+    /* General Section Styles & Transition */
+    section { 
+      padding: 120px 6vw; 
+      border-top: 1px solid var(--line); 
+      scroll-margin-top: 80px; 
+      position: relative; 
+      z-index: 2; 
+    }
     .section-inner { max-width: 1200px; margin: auto; }
     .section-label { font-family: "IBM Plex Mono", monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 40px; opacity: 0.9; }
     .section-title { font-family: "Fraunces", serif; font-size: clamp(40px, 6vw, 80px); font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin-bottom: 40px; }
@@ -187,7 +185,7 @@
     .about-text strong { color: var(--text); }
     .about-text p + p { margin-top: 25px; }
 
-    /* About Stats */
+    /* About Stats (الإحصائيات) */
     .about-stats { margin-top: 80px; padding-top: 60px; border-top: 1px solid var(--line); }
     .stats-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 70px; text-align: center; max-width: 1000px; margin: auto; }
     .stat-item { min-width: 100px; }
@@ -293,9 +291,17 @@
     .footer-links a:hover { color: var(--inv-text); transform: translateY(-2px); }
     .copyright { margin-top: 50px; font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--inv-muted); opacity: 0.8; }
 
-    /* Smooth Scroll Reveal */
-    .smooth-reveal { opacity: 0; transform: translateY(45px); transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); will-change: opacity, transform; }
-    .smooth-reveal.active { opacity: 1; transform: translateY(0); }
+    /* Smooth Scroll Section Reveal Transition (الانتقالة بين السكاشن عند النزول بالماوس) */
+    .smooth-reveal {
+      opacity: 0;
+      transform: translateY(60px) scale(0.985);
+      transition: opacity 1s cubic-bezier(0.2, 0.9, 0.2, 1), transform 1s cubic-bezier(0.2, 0.9, 0.2, 1);
+      will-change: opacity, transform;
+    }
+    .smooth-reveal.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
 
     /* Responsive adjustments */
     @media (max-width: 900px) {
@@ -325,7 +331,7 @@
 <body>
 
   <!-- Page Wipe Transition -->
-  <div class="page-wipe" id="pageWipe"></div>
+  <div class="page-wipe"></div>
 
   <!-- Project Previews Popup Image -->
   <img class="project-preview" id="projectPreview" src="" alt="" />
@@ -951,7 +957,7 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    // Smooth Scroll Reveal Engine
+    // Smooth Scroll Reveal Transitions (بين السكاشن عند التمرير)
     const smoothElements = document.querySelectorAll('.smooth-reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -959,7 +965,10 @@
           entry.target.classList.add('active');
         }
       });
-    }, { threshold: 0.12 });
+    }, { 
+      threshold: 0.15,
+      rootMargin: "0px 0px -40px 0px"
+    });
     smoothElements.forEach(el => observer.observe(el));
 
     // Scramble Text Logic (للأرقام في قسم About)
@@ -992,18 +1001,21 @@
     triggerAllScrambles();
     setInterval(triggerAllScrambles, 6000);
 
-    // Dynamic Skills Marquee Generator (Exact match to the written skills)
+    // Dynamic Skills Marquee Generator (كلها بروابط CDN رسمية ومضمونة الظهور)
     const skillIcons = [
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/r/r-original.svg",
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg",
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/streamlit/streamlit-original.svg",
-      "https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg",
-      "https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Claude-Dark.svg"
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/streamlit/streamlit-original.svg"
     ];
 
     const track1 = document.getElementById("marqueeTrack");
@@ -1017,21 +1029,6 @@
       const img2 = document.createElement("img");
       img2.src = src;
       track2.appendChild(img2);
-    });
-
-    // Smooth Page Wipe Transition for outgoing page links
-    const wipeLayer = document.getElementById('pageWipe');
-    document.querySelectorAll('a[href]:not([href^="#"]):not([target="_blank"])').forEach(link => {
-      link.addEventListener('click', (e) => {
-        const target = link.getAttribute('href');
-        if (target && !target.startsWith('#')) {
-          e.preventDefault();
-          wipeLayer.classList.add('wipe-in');
-          setTimeout(() => {
-            window.location.href = target;
-          }, 700);
-        }
-      });
     });
 
   </script>
