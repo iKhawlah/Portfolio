@@ -14,7 +14,7 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%231c2333'/%3E%3Ctext x='50' y='67' text-anchor='middle' font-family='Georgia,serif' font-size='62' fill='%23f6f3eb'%3EK%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   
   <style>
     :root {
@@ -134,6 +134,19 @@
     .nav-links a { color: var(--inv-muted); transition: 0.2s ease; }
     .nav-links a:hover { color: var(--inv-text); transform: translateX(6px); }
 
+    /* Back to Top Button */
+    #backToTop {
+      position: fixed; bottom: 30px; right: 30px; width: 45px; height: 45px;
+      background: var(--text); color: var(--bg); border: none; border-radius: 50%;
+      cursor: pointer; z-index: 1400; opacity: 0; visibility: hidden;
+      transform: translateY(20px);
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), background 0.4s ease, color 0.4s ease;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    #backToTop.show { opacity: 1; visibility: visible; transform: translateY(0); }
+    #backToTop:hover { transform: translateY(-5px); }
+
     /* Hero Section */
     .hero { min-height: 100vh; padding: 160px 6vw 80px; display: flex; flex-direction: column; justify-content: center; position: relative; }
     .hero-content { position: relative; z-index: 2; max-width: 1100px; }
@@ -162,6 +175,7 @@
     .education-left .org { font-family: "IBM Plex Mono", monospace; font-size: 14px; color: var(--text); margin-bottom: 16px; }
     .education-left .desc { font-size: 15px; line-height: 1.6; color: var(--muted); margin-bottom: 20px; }
     .education-left .date { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); }
+    
     .uni-logo-wrapper { display: flex; flex-direction: column; align-items: center; gap: 12px; flex-shrink: 0; }
     .uni-logo-img { width: 140px; height: auto; }
     .uni-logo-text { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: center; }
@@ -190,12 +204,17 @@
     .project-link:hover { transform: translateX(5px); }
     .mobile-project-img { display: none; }
 
-    /* Skills Split Layout & 3D Sphere */
+    /* Skills Split Layout (Tags & Sphere) */
     .skills-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
-    .skills-text-block { max-width: 500px; }
-    .skills-text-block h3 { font-family: "Fraunces", serif; font-size: 22px; font-weight: 500; margin-bottom: 10px; color: var(--text); }
-    .skills-text-block p { font-size: 15px; line-height: 1.6; color: var(--muted); margin-bottom: 30px; }
-    .skills-text-block p:last-child { margin-bottom: 0; }
+    .skills-lists-block { display: flex; flex-direction: column; gap: 35px; }
+    .skill-group h3 { font-family: "IBM Plex Mono", monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 15px; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .skill-tags span {
+      padding: 8px 16px; border: 1px solid var(--line); border-radius: 8px;
+      font-size: 14px; font-weight: 500; color: var(--text);
+      transition: border-color 0.3s ease, background 0.3s ease; cursor: default;
+    }
+    .skill-tags span:hover { border-color: var(--text); background: var(--hover-bg); }
     
     .sphere-container {
       width: 100%; max-width: 420px; height: 420px; margin: 0 auto; position: relative; cursor: grab; user-select: none;
@@ -279,6 +298,8 @@
       .project-link, .exp-date { grid-column: 2; margin-top: -8px; }
       .mobile-project-img { display: block; width: 100%; height: auto; border-radius: 20px; margin: 15px 0; }
       img.project-preview { display: none; }
+      
+      #backToTop { bottom: 20px; right: 20px; width: 40px; height: 40px; }
     }
   </style>
 </head>
@@ -286,6 +307,13 @@
 
   <!-- Project Previews Popup Image -->
   <img class="project-preview" id="projectPreview" src="" alt="" />
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 15l-6-6-6 6"/>
+    </svg>
+  </button>
 
   <!-- Background Animated Blobs -->
   <div class="bg-shapes">
@@ -304,8 +332,8 @@
         <a href="#education">Education</a>
         <a href="#projects">Projects</a>
         <a href="#skills">Skills</a>
-        <a href="#experience">Experience</a>
         <a href="#certificates">Certificates</a>
+        <a href="#experience">Experience</a>
         <a href="#contact">Contact</a>
       </div>
 
@@ -334,8 +362,8 @@
     <a href="#education">Education</a>
     <a href="#projects">Projects</a>
     <a href="#skills">Skills</a>
-    <a href="#experience">Experience</a>
     <a href="#certificates">Certificates</a>
+    <a href="#experience">Experience</a>
     <a href="#contact">Contact</a>
   </div>
 
@@ -391,8 +419,8 @@
           <div class="date">Expected Graduation: 2028</div>
         </div>
         <div class="uni-logo-wrapper">
-          <!-- الكلاس transparent-bg-img يقوم بعزل الخلفية البيضاء وجعلها شفافة -->
-          <img src="image_18.png" alt="University of Hail Logo" class="uni-logo-img transparent-bg-img" />
+          <!-- شعار الجامعة الفعلي مسحوب من ويكيبيديا ومطبق عليه العزل -->
+          <img src="https://upload.wikimedia.org/wikipedia/ar/2/23/Uoh_logo.png" alt="University of Hail Logo" class="uni-logo-img transparent-bg-img" />
           <div class="uni-logo-text">University of Hail</div>
         </div>
       </div>
@@ -517,24 +545,55 @@
     </div>
   </section>
 
-  <!-- Skills (تصميم بنص على اليسار وكرة مصغرة على اليمين) -->
+  <!-- Skills (Tags layout with 3D Sphere) -->
   <section id="skills" class="smooth-reveal">
     <div class="section-inner">
       <div class="section-label">04. Skills</div>
       <h2 class="section-title">What I<br>Work With.</h2>
       
       <div class="skills-layout">
-        <div class="skills-text-block">
-          <h3>Programming & Data</h3>
-          <p>Solid foundation in <strong>Python</strong>, Java, SQL, and R. Skilled in manipulating datasets, performing statistical analysis, and architecting efficient backend logic.</p>
+        
+        <!-- التعداد بطريقة Tags بدلاً من النصوص الطويلة -->
+        <div class="skills-lists-block">
           
-          <h3>AI & Machine Learning</h3>
-          <p>Experienced in integrating <strong>Large Language Models (LLMs)</strong>, utilizing frameworks like TensorFlow, and developing AI-powered recommendation systems and intelligent agents.</p>
+          <div class="skill-group">
+            <h3>Programming & Data</h3>
+            <div class="skill-tags">
+              <span>Python</span>
+              <span>Java</span>
+              <span>SQL</span>
+              <span>R</span>
+              <span>Data Analysis</span>
+              <span>Pandas / Numpy</span>
+            </div>
+          </div>
           
-          <h3>Tools & Design</h3>
-          <p>Proficient with Amazon Web Services (AWS) for cloud infrastructure, Git/GitHub for version control, and creating intuitive user interfaces using Figma.</p>
+          <div class="skill-group">
+            <h3>AI & Machine Learning</h3>
+            <div class="skill-tags">
+              <span>Machine Learning</span>
+              <span>Large Language Models (LLMs)</span>
+              <span>TensorFlow</span>
+              <span>Agentic AI</span>
+              <span>Vector Search</span>
+              <span>Recommendation Systems</span>
+            </div>
+          </div>
+          
+          <div class="skill-group">
+            <h3>Tools & Platform</h3>
+            <div class="skill-tags">
+              <span>Amazon Web Services (AWS)</span>
+              <span>Figma</span>
+              <span>Git / GitHub</span>
+              <span>Claude Code</span>
+              <span>IBM SPSS</span>
+            </div>
+          </div>
+
         </div>
         
+        <!-- كرة الـ 3D تم تصغيرها ودمجها جانبيًا -->
         <div class="sphere-container" id="sphereWrap">
           <div id="sphere"></div>
         </div>
@@ -543,72 +602,17 @@
     </div>
   </section>
 
-  <!-- Experience -->
-  <section id="experience" class="smooth-reveal">
-    <div class="section-inner">
-      <div class="section-label">05. Experience</div>
-      <h2 class="section-title">Clubs &<br>Volunteering.</h2>
-      <div class="experience-list">
-        <div class="experience-item">
-          <div class="exp-num">01</div>
-          <div class="exp-info">
-            <h3>Design Team Member</h3>
-            <div class="org">AIC UOH</div>
-            <div class="desc">Contributing to design and creative work within the Artificial Intelligence Club at the University of Hail.</div>
-          </div>
-          <div class="exp-date">Feb 2026 to Present</div>
-        </div>
-        <div class="experience-item">
-          <div class="exp-num">02</div>
-          <div class="exp-info">
-            <h3>Operations & Execution Team Member</h3>
-            <div class="org">FabLab Hail</div>
-            <div class="desc">Supporting operations, execution, and activities at FabLab Hail.</div>
-          </div>
-          <div class="exp-date">Mar 2026 to Present</div>
-        </div>
-        <div class="experience-item">
-          <div class="exp-num">03</div>
-          <div class="exp-info">
-            <h3>Design Team Member</h3>
-            <div class="org">CSC | University of Hail</div>
-            <div class="desc">Supporting design and creative initiatives within the Cyber Security Club at the University of Hail.</div>
-          </div>
-          <div class="exp-date">Mar 2026 to Present</div>
-        </div>
-        <div class="experience-item">
-          <div class="exp-num">04</div>
-          <div class="exp-info">
-            <h3>Student Ambassador</h3>
-            <div class="org">Oracle</div>
-            <div class="desc">Won first place in an Oracle competition by publishing the university's project code.</div>
-          </div>
-          <div class="exp-date">Nov 2025 to Jun 2026</div>
-        </div>
-        <div class="experience-item">
-          <div class="exp-num">05</div>
-          <div class="exp-info">
-            <h3>AI Solutions Developer Volunteer</h3>
-            <div class="org">Sakani Association</div>
-            <div class="desc">Volunteering as an AI Solutions Developer, contributing to technology-focused initiatives.</div>
-          </div>
-          <div class="exp-date">Aug 2026 to Sep 2026</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Certificates -->
+  <!-- Certificates (تم تقديم القسم بناءً على طلبك) -->
   <section id="certificates" class="smooth-reveal">
     <div class="section-inner">
-      <div class="section-label">06. Certificates</div>
+      <div class="section-label">05. Certificates</div>
       <h2 class="section-title">Certifications<br>& Learning.</h2>
       <div class="certificates-list">
         
         <div class="certificate-card">
           <div class="cert-num">01</div>
           <div class="cert-brand-icon">
-            <img src="certificates/tuwaiq-logo.png" onerror="this.src='https://www.google.com/s2/favicons?domain=tuwaiq.edu.sa&sz=128'" class="cert-brand-img transparent-bg-img" alt="Tuwaiq Academy">
+            <img src="https://logo.clearbit.com/tuwaiq.edu.sa" onerror="this.src='https://tuwaiq.edu.sa/img/logos/Logomark.png'" class="cert-brand-img transparent-bg-img" alt="Tuwaiq Academy">
           </div>
           <div class="cert-details">
             <h3>Data Analysis Using R</h3>
@@ -647,8 +651,8 @@
         <div class="certificate-card">
           <div class="cert-num">04</div>
           <div class="cert-brand-icon">
-            <!-- NITA Logo -->
-            <img src="image_19.png" class="cert-brand-img transparent-bg-img" alt="NITA">
+            <!-- NITA Logo (تم جلب الشعار وشفافيته) -->
+            <img src="https://logo.clearbit.com/nita.org.sa" onerror="this.src='https://www.nita.org.sa/assets/images/logo.png'" class="cert-brand-img transparent-bg-img" alt="NITA">
           </div>
           <div class="cert-details">
             <h3>AI & Agentic AI for Secure Cloud Computing</h3>
@@ -661,8 +665,8 @@
         <div class="certificate-card">
           <div class="cert-num">05</div>
           <div class="cert-brand-icon">
-            <!-- SDAIA Logo -->
-            <img src="image_20.png" class="cert-brand-img transparent-bg-img" alt="SDAIA">
+            <!-- SDAIA Logo (من ويكيبيديا) -->
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/SDAIA_logo.png" class="cert-brand-img transparent-bg-img" alt="SDAIA">
           </div>
           <div class="cert-details">
             <h3>Fundamentals of Artificial Intelligence</h3>
@@ -675,7 +679,7 @@
         <div class="certificate-card">
           <div class="cert-num">06</div>
           <div class="cert-brand-icon">
-            <!-- IBM Logo via generic link to match style -->
+            <!-- IBM Logo -->
             <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" class="cert-brand-img transparent-bg-img" alt="IBM">
           </div>
           <div class="cert-details">
@@ -683,15 +687,29 @@
             <div class="issuer">IBM</div>
           </div>
           <!-- IBM Badge Thumbnail -->
-          <img src="certificates/ibm.png" class="cert-mini-thumb" alt="IBM Badge">
+          <img src="certificates/ibm.png" onerror="this.style.display='none'" class="cert-mini-thumb" alt="IBM Badge">
           <a class="cert-link" href="certificates/ibm.png" target="_blank" rel="noopener">View badge →</a>
         </div>
 
+        <!-- تم وضع SAAI (ساعي) قبل Numken (نمكّن) -->
         <div class="certificate-card">
           <div class="cert-num">07</div>
           <div class="cert-brand-icon">
+            <img src="https://logo.clearbit.com/saai.sa" onerror="this.src='https://saai.sa/wp-content/uploads/2023/10/SAAI-Logo.png'" class="cert-brand-img transparent-bg-img" alt="SAAI">
+          </div>
+          <div class="cert-details">
+            <h3>Building and Training Large Language Models</h3>
+            <div class="issuer">SAAI</div>
+          </div>
+          <img src="certificates/saai.png" class="cert-mini-thumb" alt="Certificate Thumbnail">
+          <a class="cert-link" href="certificates/saai.png" target="_blank" rel="noopener">View certificate →</a>
+        </div>
+
+        <div class="certificate-card">
+          <div class="cert-num">08</div>
+          <div class="cert-brand-icon">
             <!-- Numken Logo -->
-            <img src="image_21.png" class="cert-brand-img transparent-bg-img" alt="Numken">
+            <img src="https://logo.clearbit.com/numken.com" onerror="this.src='https://numken.com/logo.png'" class="cert-brand-img transparent-bg-img" alt="Numken">
           </div>
           <div class="cert-details">
             <h3>Mastering Claude Code</h3>
@@ -701,17 +719,76 @@
           <a class="cert-link" href="certificates/numken.jpg" target="_blank" rel="noopener">View certificate →</a>
         </div>
 
-        <div class="certificate-card">
-          <div class="cert-num">08</div>
-          <div class="cert-brand-icon">
-            <img src="certificates/saai-logo.png" onerror="this.src='https://www.google.com/s2/favicons?domain=saai.sa&sz=128'" class="cert-brand-img transparent-bg-img" alt="SAAI">
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="smooth-reveal">
+    <div class="section-inner">
+      <div class="section-label">06. Experience</div>
+      <h2 class="section-title">Clubs &<br>Volunteering.</h2>
+      <div class="experience-list">
+        
+        <div class="experience-item">
+          <div class="exp-num">01</div>
+          <div class="exp-info">
+            <h3>Design Team Member</h3>
+            <div class="org">AIC UOH</div>
+            <div class="desc">Contributing to design and creative work within the Artificial Intelligence Club at the University of Hail.</div>
           </div>
-          <div class="cert-details">
-            <h3>Building and Training Large Language Models</h3>
-            <div class="issuer">SAAI</div>
+          <div class="exp-date">Feb 2026 to Present</div>
+        </div>
+        
+        <div class="experience-item">
+          <div class="exp-num">02</div>
+          <div class="exp-info">
+            <h3>Operations & Execution Team Member</h3>
+            <div class="org">FabLab Hail</div>
+            <div class="desc">Supporting operations, execution, and activities at FabLab Hail.</div>
           </div>
-          <img src="certificates/saai.png" class="cert-mini-thumb" alt="Certificate Thumbnail">
-          <a class="cert-link" href="certificates/saai.png" target="_blank" rel="noopener">View certificate →</a>
+          <div class="exp-date">Mar 2026 to Present</div>
+        </div>
+        
+        <div class="experience-item">
+          <div class="exp-num">03</div>
+          <div class="exp-info">
+            <h3>Design Team Member</h3>
+            <div class="org">CSC | University of Hail</div>
+            <div class="desc">Supporting design and creative initiatives within the Cyber Security Club at the University of Hail.</div>
+          </div>
+          <div class="exp-date">Mar 2026 to Present</div>
+        </div>
+        
+        <div class="experience-item">
+          <div class="exp-num">04</div>
+          <div class="exp-info">
+            <h3>Student Ambassador</h3>
+            <div class="org">Oracle</div>
+            <div class="desc">Won first place in an Oracle competition by publishing the university's project code.</div>
+          </div>
+          <div class="exp-date">Nov 2025 to Jun 2026</div>
+        </div>
+        
+        <div class="experience-item">
+          <div class="exp-num">05</div>
+          <div class="exp-info">
+            <h3>AI Solutions Developer Volunteer</h3>
+            <div class="org">Sakani Association</div>
+            <div class="desc">Volunteering as an AI Solutions Developer, contributing to technology-focused initiatives.</div>
+          </div>
+          <div class="exp-date">Aug 2026 to Sep 2026</div>
+        </div>
+        
+        <!-- إضافة تطوع بيت الثقافة -->
+        <div class="experience-item">
+          <div class="exp-num">06</div>
+          <div class="exp-info">
+            <h3>Volunteer</h3>
+            <div class="org">Culture House (بيت الثقافة)</div>
+            <div class="desc">Participated in cultural and organizational activities, assisting in event execution and outreach.</div>
+          </div>
+          <div class="exp-date">Previous Experience</div>
         </div>
 
       </div>
@@ -818,6 +895,19 @@
       });
     });
 
+    // Back to Top Button Logic
+    const backToTopBtn = document.getElementById("backToTop");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 400) {
+        backToTopBtn.classList.add("show");
+      } else {
+        backToTopBtn.classList.remove("show");
+      }
+    });
+    backToTopBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
     // Smooth Scroll Reveal Engine
     const smoothElements = document.querySelectorAll('.smooth-reveal');
     const observer = new IntersectionObserver((entries) => {
@@ -851,7 +941,7 @@
     ];
 
     const sphereDiv = document.getElementById("sphere");
-    const sphereRadius = 110; // حجم أصغر للكرة
+    const sphereRadius = 110; 
     const iconsArray = [];
     let targetSpeedX = 0.002, targetSpeedY = 0.002;
     let currentSpeedX = 0.002, currentSpeedY = 0.002;
@@ -863,7 +953,6 @@
       
       const img = document.createElement("img");
       img.src = iconUrls[i];
-      // transparent-bg-img applied to handle logos cleanly in light/dark mode
       img.className = "skill-icon-3d transparent-bg-img"; 
       sphereDiv.appendChild(img);
       
