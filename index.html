@@ -167,7 +167,7 @@
     .about-text strong { color: var(--text); }
     .about-text p + p { margin-top: 25px; }
 
-    /* About Stats (الأرقام والإحصائيات) */
+    /* About Stats */
     .about-stats { margin-top: 80px; padding-top: 60px; border-top: 1px solid var(--line); }
     .stats-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 70px; text-align: center; max-width: 1000px; margin: auto; }
     .stat-item { min-width: 100px; }
@@ -185,8 +185,19 @@
     .education-left .date { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); }
     
     .uni-logo-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; }
-    /* تكبير شعار الجامعة كما طلبت */
-    .uni-logo-img { width: 220px; max-width: 100%; height: auto; transition: background-color 0.3s ease; }
+    
+    /* حل سحري لشعار الجامعة اللي فيه خلفية مربعات وهمية ومكبرة */
+    .uni-logo-img { 
+      width: 220px; 
+      max-width: 100%; 
+      height: auto; 
+      mix-blend-mode: multiply !important;
+      filter: grayscale(100%) contrast(6) brightness(1.2) !important;
+    }
+    [data-theme="dark"] .uni-logo-img { 
+      mix-blend-mode: screen !important;
+      filter: grayscale(100%) contrast(6) invert(1) brightness(1.2) !important;
+    }
 
     /* Projects Preview Logic */
     img.project-preview {
@@ -288,8 +299,8 @@
       
       .education-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; }
       .education-left { margin: 0 auto; text-align: left; }
-      .uni-logo-wrapper { align-items: center; } /* توسيط الشعار في الجوال */
-      .uni-logo-img { width: 180px; } /* تصغير الشعار قليلاً في الجوال */
+      .uni-logo-wrapper { align-items: center; } 
+      .uni-logo-img { width: 180px; } 
       
       .skills-grid { grid-template-columns: 1fr; gap: 40px; }
 
@@ -406,7 +417,7 @@
         </div>
       </div>
 
-      <!-- الإحصائيات (الأرقام والقهوة) -->
+      <!-- الإحصائيات والأرقام -->
       <div class="about-stats smooth-reveal">
         <div class="stats-grid">
           <div class="stat-item">
@@ -449,7 +460,8 @@
           <div class="date">Expected Graduation: 2028</div>
         </div>
         <div class="uni-logo-wrapper">
-          <img src="certificates/image_18.png" alt="University of Hail Logo" class="uni-logo-img transparent-bg-img" />
+          <!-- صورة الجامعة بالحجم المكبر مع إخفاء المربعات الوهمية -->
+          <img src="certificates/image_18.png" alt="University of Hail Logo" class="uni-logo-img" />
         </div>
       </div>
 
@@ -573,7 +585,7 @@
     </div>
   </section>
 
-  <!-- Skills (Original Lists Layout + Infinite Marquee Scroll) -->
+  <!-- Skills -->
   <section id="skills" class="smooth-reveal">
     <div class="section-inner">
       <div class="section-label">04. Skills</div>
@@ -632,7 +644,8 @@
         <div class="certificate-card">
           <div class="cert-num">01</div>
           <div class="cert-brand-icon">
-            <img src="https://tuwaiq.edu.sa/img/logos/Logomark.png" class="cert-brand-img transparent-bg-img" alt="Tuwaiq Academy">
+            <!-- شعار طويق من روابط قوقل الرسمية بدون حماية -->
+            <img src="https://www.google.com/s2/favicons?domain=tuwaiq.edu.sa&sz=128" class="cert-brand-img transparent-bg-img" alt="Tuwaiq Academy">
           </div>
           <div class="cert-details">
             <h3>Data Analysis Using R</h3>
@@ -671,6 +684,7 @@
         <div class="certificate-card">
           <div class="cert-num">04</div>
           <div class="cert-brand-icon">
+            <!-- شعاراتك المرفوعة محلياً مطبق عليها الفلتر الشفاف -->
             <img src="certificates/image_19.png" class="cert-brand-img transparent-bg-img" alt="NITA">
           </div>
           <div class="cert-details">
@@ -710,7 +724,8 @@
         <div class="certificate-card">
           <div class="cert-num">07</div>
           <div class="cert-brand-icon">
-            <img src="https://saai.sa/wp-content/uploads/2023/10/SAAI-Logo.png" class="cert-brand-img transparent-bg-img" alt="SAAI">
+            <!-- شعار ساعي من سيرفرات قوقل بدون حماية -->
+            <img src="https://www.google.com/s2/favicons?domain=saai.sa&sz=128" class="cert-brand-img transparent-bg-img" alt="SAAI">
           </div>
           <div class="cert-details">
             <h3>Building and Training Large Language Models</h3>
@@ -801,6 +816,7 @@
             <div class="org">Culture House</div>
             <div class="desc">Participated in cultural and organizational activities, assisting in event execution and outreach.</div>
           </div>
+          <!-- تم حذف الكلمة من التطوع بالكامل -->
           <div class="exp-date"></div>
         </div>
 
@@ -959,7 +975,6 @@
       });
     }
 
-    // Trigger scramble effect initially and then every 6 seconds
     triggerAllScrambles();
     setInterval(triggerAllScrambles, 6000);
 
