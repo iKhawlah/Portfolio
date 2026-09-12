@@ -6,9 +6,46 @@
   
   <title>Khawlah Portfolio</title>
   <meta name="description" content="Khawlah Alsudais - Artificial Intelligence student and developer based in Hail, building practical AI solutions, machine learning models, and UI/UX designs." />
+  
+  <!-- Open Graph / Social Sharing -->
   <meta property="og:title" content="Khawlah Portfolio" />
   <meta property="og:description" content="Artificial Intelligence student and developer building practical AI solutions, machine learning models, and intuitive UI/UX designs." />
   <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://ikhawlah.github.io/og-preview.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Khawlah Portfolio" />
+  <meta name="twitter:description" content="Artificial Intelligence student and developer building practical AI solutions, machine learning models, and UI/UX designs." />
+  <meta name="twitter:image" content="https://ikhawlah.github.io/og-preview.png" />
+  
+  <!-- Structured Data (Schema.org Person) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Khawlah Alsudais",
+    "jobTitle": "Artificial Intelligence Student & Developer",
+    "url": "https://ikhawlah.github.io",
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "University of Hail"
+    },
+    "sameAs": [
+      "https://github.com/iKhawlah",
+      "https://www.linkedin.com/in/khawlah-alsudais"
+    ],
+    "knowsAbout": [
+      "Artificial Intelligence",
+      "Machine Learning",
+      "Python",
+      "UI/UX Design",
+      "Computer Vision"
+    ]
+  }
+  </script>
   
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%231c2333'/%3E%3Ctext x='50' y='67' text-anchor='middle' font-family='Georgia,serif' font-size='62' fill='%23f6f3eb'%3EK%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -94,7 +131,7 @@
       100% { transform: translate(-5%, 5%) scale(0.9); }
     }
 
-    /* CSS Trick for making white backgrounds transparent automatically */
+    /* Transparent backgrounds helper */
     .transparent-bg-img {
       mix-blend-mode: multiply;
       filter: contrast(1.1);
@@ -167,7 +204,7 @@
     .typewriter-cursor { display: inline-block; width: 2px; background-color: var(--text); animation: blink 0.8s infinite; margin-left: 4px; vertical-align: middle; height: 1.1em; }
     @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-    /* General Section Styles & Smooth Page Wipe Transition between sections */
+    /* General Section Styles */
     section { 
       padding: 120px 6vw; 
       border-top: 1px solid var(--line); 
@@ -185,7 +222,7 @@
     .about-text strong { color: var(--text); }
     .about-text p + p { margin-top: 25px; }
 
-    /* About Stats (الإحصائيات) */
+    /* About Stats */
     .about-stats { margin-top: 80px; padding-top: 60px; border-top: 1px solid var(--line); }
     .stats-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 70px; text-align: center; max-width: 1000px; margin: auto; }
     .stat-item { min-width: 100px; }
@@ -232,23 +269,24 @@
     .project-link { font-family: "IBM Plex Mono", monospace; font-size: 11px; white-space: nowrap; transition: transform 0.2s ease; cursor: pointer; padding: 10px 0; display: inline-block;} 
     .project-link:hover { transform: translateX(5px); }
     
-   
-.mobile-project-img { 
-  display: none; 
-  width: 100%; 
-  max-width: 420px;
-  height: auto; 
-  border-radius: 20px; 
-  margin: 18px 0;
-  border: 1px solid var(--line);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-  object-fit: contain; /* تمنع اقتصاص الصورة أو إظهار أطراف سوداء مجهولة */
-  background: transparent; /* إزالة أي لون خلفية داكن */
-  overflow: hidden;
-  -webkit-mask-image: -webkit-radial-gradient(white, black); /* حل خاص بجوالات الآيفون وسفاري لتطبيق التدوير بدقة بدون حواف حادة */
-}
+    /* Responsive Project Images with Consistent Aspect Ratio */
+    .mobile-project-img { 
+      display: none; 
+      width: 100%; 
+      max-width: 420px;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 16px; 
+      margin: 18px 0;
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      background: var(--hover-bg);
+      overflow: hidden;
+      -webkit-mask-image: -webkit-radial-gradient(white, black);
+    }
 
-    /* --- Skills Section --- */
+    /* Skills Section */
     .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; }
     .skill-category h3 { font-family: "Fraunces", serif; font-size: 25px; font-weight: 500; margin-bottom: 20px; color: var(--text); transition: color 0.4s ease; }
     .skill-list { list-style: none; }
@@ -306,7 +344,7 @@
     .footer-links a:hover { color: var(--inv-text); transform: translateY(-2px); }
     .copyright { margin-top: 50px; font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--inv-muted); opacity: 0.8; }
 
-    /* الانتقالة الواضحة والفعالة بين السكاشن عند التمرير بالماوس */
+    /* Smooth Scroll Reveal */
     .smooth-reveal {
       opacity: 0;
       transform: translateY(50px);
@@ -336,9 +374,7 @@
       
       .project, .experience-item { grid-template-columns: 45px 1fr; gap: 15px; }
       .project-link, .exp-date { grid-column: 2; margin-top: -8px; }
-      .mobile-project-img { 
-        display: block; 
-      }
+      .mobile-project-img { display: block; }
       img.project-preview { display: none; }
       
       #backToTop { bottom: 20px; right: 20px; width: 40px; height: 40px; }
@@ -453,7 +489,7 @@
         </div>
       </div>
 
-      <!-- الإحصائيات (About Stats) -->
+      <!-- About Stats -->
       <div class="about-stats smooth-reveal">
         <div class="stats-grid">
           <div class="stat-item">
@@ -532,7 +568,7 @@
           <div class="project-number">02</div>
           <div class="project-info">
             <h3>AI Tool Finder</h3>
-            <img src="certificates/AiTool.png" class="mobile-project-img" loading="lazy" />
+            <img src="certificates/AiTool.png" class="mobile-project-img" loading="lazy" alt="AI Tool Finder preview" />
             <p>An AI tool recommendation platform that helps users discover suitable AI tools based on what they want to accomplish.</p>
             <div class="project-tech">
               <span class="tech">JavaScript</span><span class="tech">AI</span><span class="tech">Web Development</span>
@@ -545,7 +581,7 @@
           <div class="project-number">03</div>
           <div class="project-info">
             <h3>SeriesMatch</h3>
-            <img src="certificates/series.png" class="mobile-project-img" loading="lazy" />
+            <img src="certificates/series.png" class="mobile-project-img" loading="lazy" alt="SeriesMatch preview" />
             <p>A personalized TV series recommendation system that recommends shows based on genres, story preferences, intensity, length, completion status, and ratings.</p>
             <div class="project-tech">
               <span class="tech">Python</span><span class="tech">Machine Learning</span><span class="tech">Recommendation System</span>
@@ -558,7 +594,7 @@
           <div class="project-number">04</div>
           <div class="project-info">
             <h3>Image Classifier</h3>
-            <img src="certificates/image.png" class="mobile-project-img" loading="lazy" />
+            <img src="certificates/image.png" class="mobile-project-img" loading="lazy" alt="Image Classifier preview" />
             <p>An image classification project using TensorFlow and MobileNetV2 to identify and classify images.</p>
             <div class="project-tech">
               <span class="tech">Python</span><span class="tech">TensorFlow</span><span class="tech">Computer Vision</span>
@@ -571,7 +607,7 @@
           <div class="project-number">05</div>
           <div class="project-info">
             <h3>Chess vs AI</h3>
-            <img src="certificates/chess.png" class="mobile-project-img" loading="lazy" />
+            <img src="certificates/chess.png" class="mobile-project-img" loading="lazy" alt="Chess vs AI preview" />
             <p>A web-based chess game where players can compete against an AI opponent powered by Stockfish, with adjustable difficulty.</p>
             <div class="project-tech">
               <span class="tech">Python</span><span class="tech">AI</span><span class="tech">Stockfish</span>
@@ -585,7 +621,7 @@
           <div class="project-info">
             <div class="project-type-label">UI/UX</div>
             <h3>Saudi Wonders Travel App</h3>
-            <img src="certificates/app.png" class="mobile-project-img" loading="lazy" />
+            <img src="certificates/app.png" class="mobile-project-img" loading="lazy" alt="Saudi Wonders App UI" />
             <p>A mobile application interface designed to explore iconic places in Saudi Arabia with a focus on visual storytelling.</p>
             <div class="project-tech">
               <span class="tech">Figma</span><span class="tech">UI/UX Design</span><span class="tech">Mobile App</span>
@@ -599,7 +635,7 @@
           <div class="project-info">
             <div class="project-type-label">UI/UX</div>
             <h3>Authentication UI Design</h3>
-            <img src="certificates/signUp.png" class="mobile-project-img" loading="lazy" />
+            <img src="certificates/signUp.png" class="mobile-project-img" loading="lazy" alt="Sign Up UI Design" />
             <p>A clean and modern sign-up interface design focusing on user experience and accessibility.</p>
             <div class="project-tech">
               <span class="tech">Figma</span><span class="tech">Graphic Design</span><span class="tech">Prototyping</span>
@@ -613,7 +649,7 @@
           <div class="project-info">
             <div class="project-type-label">UI/UX</div>
             <h3>E-commerce Cart Interface</h3>
-            <img src="certificates/sofa.png" class="mobile-project-img" loading="lazy" />
+            <img src="certificates/sofa.png" class="mobile-project-img" loading="lazy" alt="E-commerce Cart UI" />
             <p>A minimalist shopping cart screen design for a furniture app, featuring order summaries and intuitive checkout flows.</p>
             <div class="project-tech">
               <span class="tech">Figma</span><span class="tech">UI Design</span><span class="tech">E-commerce</span>
@@ -854,7 +890,7 @@
             <div class="org">Culture House</div>
             <div class="desc">Participated in cultural and organizational activities, assisting in event execution and outreach.</div>
           </div>
-          <div class="exp-date"></div>
+          <div class="exp-date">Dec 15, 2025</div>
         </div>
 
       </div>
@@ -974,7 +1010,7 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    // Smooth Scroll Reveal - تم تصحيح طريقة الرصد لضمان ظهور الانتقالة عند النزول بالفأرة
+    // Smooth Scroll Reveal
     const smoothElements = document.querySelectorAll('.smooth-reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -988,7 +1024,7 @@
     });
     smoothElements.forEach(el => observer.observe(el));
 
-    // Scramble Text Logic (للأرقام في قسم About)
+    // Scramble Text Logic
     const scrambleChars = "0123456789!@#$%^&*";
     function runScrambleEffect(element, finalValue, duration = 1200) {
       let startTime = Date.now();
@@ -1018,7 +1054,7 @@
     triggerAllScrambles();
     setInterval(triggerAllScrambles, 6000);
 
-    // Dynamic Skills Marquee Generator (كلها بروابط CDN رسمية ومضمونة الظهور)
+    // Dynamic Skills Marquee Generator
     const skillIcons = [
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
@@ -1047,7 +1083,6 @@
       img2.src = src;
       track2.appendChild(img2);
     });
-
   </script>
 </body>
 </html>
