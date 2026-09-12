@@ -270,18 +270,19 @@
     .project-link:hover { transform: translateX(5px); }
     
     /* Responsive Project Images with Consistent Aspect Ratio */
+   /* صور مشاريع الجوال وواجهات فيقما */
     .mobile-project-img { 
       display: none; 
       width: 100%; 
-      max-width: 420px;
-      aspect-ratio: 16 / 10;
-      object-fit: cover;
-      object-position: top center;
-      border-radius: 16px; 
-      margin: 18px 0;
-      border: 1px solid var(--line);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-      background: var(--hover-bg);
+      max-width: 280px; /* مقاس متناسق جداً مع شاشات الآيفون داخل الكرت */
+      height: auto;
+      max-height: 520px;
+      object-fit: contain; /* يضمن ظهور واجهة التصميم كاملة 100% بدون أي قص */
+      border-radius: 28px; /* تدوير ناعم ومطابق لزوايا الآيفون الحديثة */
+      margin: 20px auto 16px; /* توسيط الصورة في المنتصف بانسيابية */
+      border: none; /* إزالة الحدود لمنع ظهور أي خطوط سوداء جانبية */
+      background: transparent; /* إزالة أي لون خلفية داكن */
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12); /* ظل ناعم يعطي مظهر الهاتف الحقيقي */
       overflow: hidden;
       -webkit-mask-image: -webkit-radial-gradient(white, black);
     }
