@@ -239,7 +239,7 @@
     img.project-preview.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
     .projects { display: grid; gap: 0; }
-    .project { display: grid; grid-template-columns: 80px 1fr auto; gap: 30px; align-items: center; padding: 35px 0; border-top: 1px solid var(--line); transition: padding 0.3s ease, background 0.3s ease; cursor: default; }
+    .project { display: grid; grid-template-columns: 80px 1fr auto; gap: 30px; align-items: center; padding: 35px 0; border-top: 1px solid var(--line); transition: padding 0.3s ease, background 0.3s ease, opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1); cursor: default; }
     .project:last-child { border-bottom: 1px solid var(--line); }
     .project:hover { padding-left: 20px; padding-right: 15px; background: var(--hover-bg); }
     .project-number { font-family: "IBM Plex Mono", monospace; font-size: 12px; }
@@ -286,7 +286,7 @@
     @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
     .certificates-list { display: grid; gap: 0; }
-    .certificate-card { display: grid; grid-template-columns: 50px 70px 1fr 100px 100px; gap: 20px; align-items: center; padding: 24px 15px; border-top: 1px solid var(--line); transition: 0.3s ease; border-radius: 12px; }
+    .certificate-card { display: grid; grid-template-columns: 50px 70px 1fr 100px 100px; gap: 20px; align-items: center; padding: 24px 15px; border-top: 1px solid var(--line); transition: 0.3s ease, opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1); border-radius: 12px; }
     .certificate-card:last-child { border-bottom: 1px solid var(--line); }
     .certificate-card:hover { background: var(--hover-bg); transform: translateX(6px); }
     
@@ -303,7 +303,7 @@
     .cert-link:hover { transform: translateX(4px); }
 
     .experience-list { display: grid; gap: 0; }
-    .experience-item { display: grid; grid-template-columns: 80px 1fr auto; gap: 30px; align-items: center; padding: 30px 0; border-top: 1px solid var(--line); transition: padding 0.3s ease, background 0.3s ease; }
+    .experience-item { display: grid; grid-template-columns: 80px 1fr auto; gap: 30px; align-items: center; padding: 30px 0; border-top: 1px solid var(--line); transition: padding 0.3s ease, background 0.3s ease, opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1); }
     .experience-item:last-child { border-bottom: 1px solid var(--line); }
     .experience-item:hover { padding-left: 20px; background: var(--hover-bg); }
     .exp-num { font-family: "IBM Plex Mono", monospace; font-size: 12px; }
@@ -327,6 +327,21 @@
       will-change: opacity, transform;
     }
     .smooth-reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Per-item stagger reveal for list-style sections (projects, certificates, experience) */
+    .project,
+    .certificate-card,
+    .experience-item {
+      opacity: 0;
+      transform: translateY(35px);
+      will-change: opacity, transform;
+    }
+    .project.item-active,
+    .certificate-card.item-active,
+    .experience-item.item-active {
       opacity: 1;
       transform: translateY(0);
     }
@@ -455,7 +470,7 @@
         </div>
       </div>
 
-      <div class="about-stats smooth-reveal">
+      <div class="about-stats">
         <div class="stats-grid">
           <div class="stat-item">
             <h3><span class="scramble-text" data-target="8">0</span>+</h3>
@@ -963,18 +978,45 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
+    /* --- Scroll Reveal: sections fade/slide in earlier (before reaching mid-screen) --- */
     const smoothElements = document.querySelectorAll('.smooth-reveal');
-    const observer = new IntersectionObserver((entries) => {
+    const sectionObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('active');
         }
       });
     }, { 
-      threshold: 0.08,
-      rootMargin: "0px 0px -50px 0px"
+      threshold: 0,
+      rootMargin: "0px 0px -35% 0px"
     });
-    smoothElements.forEach(el => observer.observe(el));
+    smoothElements.forEach(el => sectionObserver.observe(el));
+
+    /* --- Scroll Reveal: individual list items (projects, certificates, experience) stagger in --- */
+    const itemGroups = [
+      document.querySelectorAll('.projects .project'),
+      document.querySelectorAll('.certificates-list .certificate-card'),
+      document.querySelectorAll('.experience-list .experience-item')
+    ];
+
+    const itemObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const target = entry.target;
+          // stagger based on position within its own list
+          const siblings = Array.from(target.parentElement.children);
+          const idx = siblings.indexOf(target);
+          target.style.transitionDelay = `${Math.min(idx, 8) * 60}ms`;
+          target.classList.add('item-active');
+          itemObserver.unobserve(target);
+        }
+      });
+    }, {
+      threshold: 0,
+      rootMargin: "0px 0px -15% 0px"
+    });
+
+    itemGroups.forEach(group => group.forEach(el => itemObserver.observe(el)));
 
     const scrambleChars = "0123456789!@#$%^&*";
     function runScrambleEffect(element, finalValue, duration = 1200) {
