@@ -94,7 +94,10 @@
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      scroll-snap-type: y proximity;
+    }
     body {
       background: var(--bg); color: var(--text);
       font-family: "Inter", sans-serif; overflow-x: hidden;
@@ -185,7 +188,7 @@
     #backToTop.show { opacity: 1; visibility: visible; transform: translateY(0); }
     #backToTop:hover { transform: translateY(-5px); }
 
-    .hero { min-height: 100vh; padding: 160px 6vw 80px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+    .hero { min-height: 100vh; padding: 160px 6vw 80px; display: flex; flex-direction: column; justify-content: center; position: relative; scroll-snap-align: start; }
     .hero-content { position: relative; z-index: 2; max-width: 1100px; }
     .eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 25px; }
     h1 { font-family: "Fraunces", serif; font-size: clamp(55px, 11vw, 130px); line-height: 0.92; font-weight: 600; letter-spacing: -0.03em; }
@@ -199,8 +202,12 @@
       scroll-margin-top: 80px; 
       position: relative; 
       z-index: 2;
+      scroll-snap-align: start;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
     }
-    .section-inner { max-width: 1200px; margin: auto; }
+    .section-inner { max-width: 1200px; margin: auto; width: 100%; }
     .section-label { font-family: "IBM Plex Mono", monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 40px; opacity: 0.9; }
     .section-title { font-family: "Fraunces", serif; font-size: clamp(40px, 6vw, 80px); font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin-bottom: 40px; }
 
@@ -322,13 +329,17 @@
 
     .smooth-reveal {
       opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(80px) scale(0.94);
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: opacity, transform;
     }
     .smooth-reveal.active {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
+    }
+    /* Hero always plays its entrance once on load, doesn't need to replay */
+    .hero.smooth-reveal {
+      transform: translateY(40px) scale(0.97);
     }
 
     /* Per-item stagger reveal for list-style sections (projects, certificates, experience) */
@@ -978,19 +989,25 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    /* --- Scroll Reveal: sections fade/slide in earlier (before reaching mid-screen) --- */
+    /* --- Presentation-style Scroll Reveal: each section fades/scales in as it becomes
+       the main focus of the viewport, and resets when it leaves — so scrolling up and
+       down replays the transition like moving between slides. --- */
     const smoothElements = document.querySelectorAll('.smooth-reveal');
     const sectionObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('active');
+        } else {
+          entry.target.classList.remove('active');
         }
       });
-    }, { 
-      threshold: 0,
-      rootMargin: "0px 0px -35% 0px"
+    }, {
+      threshold: 0.3
     });
     smoothElements.forEach(el => sectionObserver.observe(el));
+
+    // The hero should always be visible immediately on first load (no waiting on scroll)
+    document.querySelector('.hero.smooth-reveal')?.classList.add('active');
 
     /* --- Scroll Reveal: individual list items (projects, certificates, experience) stagger in --- */
     const itemGroups = [
@@ -1001,19 +1018,19 @@
 
     const itemObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
+        const target = entry.target;
+        const siblings = Array.from(target.parentElement.children);
+        const idx = siblings.indexOf(target);
         if (entry.isIntersecting) {
-          const target = entry.target;
-          // stagger based on position within its own list
-          const siblings = Array.from(target.parentElement.children);
-          const idx = siblings.indexOf(target);
           target.style.transitionDelay = `${Math.min(idx, 8) * 60}ms`;
           target.classList.add('item-active');
-          itemObserver.unobserve(target);
+        } else {
+          target.style.transitionDelay = '0ms';
+          target.classList.remove('item-active');
         }
       });
     }, {
-      threshold: 0,
-      rootMargin: "0px 0px -15% 0px"
+      threshold: 0.15
     });
 
     itemGroups.forEach(group => group.forEach(el => itemObserver.observe(el)));
