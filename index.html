@@ -7,7 +7,6 @@
   <title>Khawlah Portfolio</title>
   <meta name="description" content="Khawlah Alsudais - Artificial Intelligence student and developer based in Hail, building practical AI solutions, machine learning models, and UI/UX designs." />
   
-  <!-- Open Graph / Social Sharing -->
   <meta property="og:title" content="Khawlah Portfolio" />
   <meta property="og:description" content="Artificial Intelligence student and developer building practical AI solutions, machine learning models, and intuitive UI/UX designs." />
   <meta property="og:type" content="website" />
@@ -15,13 +14,11 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   
-  <!-- Twitter Cards -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Khawlah Portfolio" />
   <meta name="twitter:description" content="Artificial Intelligence student and developer building practical AI solutions, machine learning models, and UI/UX designs." />
   <meta name="twitter:image" content="https://ikhawlah.github.io/og-preview.png" />
   
-  <!-- Structured Data (Schema.org Person) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -106,7 +103,6 @@
     }
     a, button { color: inherit; text-decoration: none; outline: none; -webkit-tap-highlight-color: transparent; }
 
-    /* Page Wipe Transition on Load */
     .page-wipe {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       background: var(--bg); z-index: 99999;
@@ -118,7 +114,6 @@
       100% { transform: translateY(-100%); }
     }
 
-    /* Background Shapes */
     .bg-shapes { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; overflow: hidden; pointer-events: none; }
     .blob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.35; animation: float 20s infinite ease-in-out alternate; }
     .blob-1 { top: -10%; left: -10%; width: 40vw; height: 40vw; background: var(--blob-1); }
@@ -131,7 +126,6 @@
       100% { transform: translate(-5%, 5%) scale(0.9); }
     }
 
-    /* Transparent backgrounds helper */
     .transparent-bg-img {
       mix-blend-mode: multiply;
       filter: contrast(1.1);
@@ -142,7 +136,6 @@
       mix-blend-mode: screen;
     }
 
-    /* Long Floating Pill Header */
     .nav-container { position: fixed; top: 20px; left: 0; width: 100%; display: flex; justify-content: center; z-index: 1450; padding: 0 20px; pointer-events: none; }
     nav {
       pointer-events: auto; display: flex; align-items: center; justify-content: space-between; gap: 30px;
@@ -171,7 +164,6 @@
     .hamburger { display: none; background: none; border: none; cursor: pointer; width: 22px; height: 14px; position: relative; flex-direction: column; justify-content: space-between; }
     .hamburger span { display: block; width: 100%; height: 1.5px; background: var(--text); transition: 0.3s ease; }
 
-    /* Mobile Drawer */
     .nav-overlay { position: fixed; inset: 0; background: var(--overlay-bg); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: 0.3s ease; z-index: 1500; }
     .nav-overlay.active { opacity: 1; visibility: visible; }
     .nav-links {
@@ -182,7 +174,6 @@
     .nav-links a { color: var(--inv-muted); transition: 0.2s ease; }
     .nav-links a:hover { color: var(--inv-text); transform: translateX(6px); }
 
-    /* Back to Top Button */
     #backToTop {
       position: fixed; bottom: 30px; right: 30px; width: 45px; height: 45px;
       background: var(--text); color: var(--bg); border: none; border-radius: 50%;
@@ -195,7 +186,6 @@
     #backToTop.show { opacity: 1; visibility: visible; transform: translateY(0); }
     #backToTop:hover { transform: translateY(-5px); }
 
-    /* Hero Section */
     .hero { min-height: 100vh; padding: 160px 6vw 80px; display: flex; flex-direction: column; justify-content: center; position: relative; }
     .hero-content { position: relative; z-index: 2; max-width: 1100px; }
     .eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 25px; }
@@ -204,7 +194,6 @@
     .typewriter-cursor { display: inline-block; width: 2px; background-color: var(--text); animation: blink 0.8s infinite; margin-left: 4px; vertical-align: middle; height: 1.1em; }
     @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-    /* General Section Styles */
     section { 
       padding: 120px 6vw; 
       border-top: 1px solid var(--line); 
@@ -216,26 +205,22 @@
     .section-label { font-family: "IBM Plex Mono", monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 40px; opacity: 0.9; }
     .section-title { font-family: "Fraunces", serif; font-size: clamp(40px, 6vw, 80px); font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin-bottom: 40px; }
 
-    /* About */
     .about-grid { display: grid; grid-template-columns: 1fr 1.7fr; gap: 70px; align-items: start; }
     .about-text { font-size: 18px; line-height: 1.75; color: var(--muted); }
     .about-text strong { color: var(--text); }
     .about-text p + p { margin-top: 25px; }
 
-    /* About Stats */
     .about-stats { margin-top: 80px; padding-top: 60px; border-top: 1px solid var(--line); }
     .stats-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 70px; text-align: center; max-width: 1000px; margin: auto; }
     .stat-item { min-width: 100px; }
     .stat-item h3 { font-family: "IBM Plex Mono", monospace; font-size: clamp(28px, 4vw, 36px); margin-bottom: 6px; color: var(--text); }
     .stat-item p { font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; display: flex; align-items: center; justify-content: center; gap: 6px; }
     
-    /* Infinity SVG Animation */
     .inf-sign { display: inline-flex; align-items: center; justify-content: center; }
     .inf-sign svg { width: 45px; height: 30px; overflow: visible; }
     .inf-sign svg path { stroke-dasharray: 100; stroke-dashoffset: 100; animation: drawInfinity 3s ease-in-out infinite; }
     @keyframes drawInfinity { 0% { stroke-dashoffset: 100; } 45%, 55% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -100; } }
 
-    /* Education */
     .education-grid { display: grid; grid-template-columns: auto 1fr; gap: 50px; align-items: center; }
     .education-left { max-width: 650px; }
     .education-left h3 { font-family: "Fraunces", serif; font-size: clamp(24px, 3vw, 32px); font-weight: 500; margin-bottom: 12px; }
@@ -246,7 +231,6 @@
     .uni-logo-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; }
     .uni-logo-img { width: 240px; height: auto; transition: filter 0.3s ease; }
 
-    /* Projects Preview Logic */
     img.project-preview {
       position: fixed; width: auto; height: auto; max-width: 320px; max-height: 450px; border-radius: 36px;
       overflow: hidden; pointer-events: none; z-index: 9990; opacity: 0; transform: translate(-50%, -50%) scale(0.8);
@@ -255,7 +239,6 @@
     }
     img.project-preview.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
-    /* Projects List */
     .projects { display: grid; gap: 0; }
     .project { display: grid; grid-template-columns: 80px 1fr auto; gap: 30px; align-items: center; padding: 35px 0; border-top: 1px solid var(--line); transition: padding 0.3s ease, background 0.3s ease; cursor: default; }
     .project:last-child { border-bottom: 1px solid var(--line); }
@@ -269,32 +252,28 @@
     .project-link { font-family: "IBM Plex Mono", monospace; font-size: 11px; white-space: nowrap; transition: transform 0.2s ease; cursor: pointer; padding: 10px 0; display: inline-block;} 
     .project-link:hover { transform: translateX(5px); }
     
-    /* Responsive Project Images with Consistent Aspect Ratio */
-   /* صور مشاريع الجوال وواجهات فيقما */
     .mobile-project-img { 
       display: none; 
       width: 100%; 
-      max-width: 280px; /* مقاس متناسق جداً مع شاشات الآيفون داخل الكرت */
-      height: auto;
-      max-height: 520px;
-      object-fit: contain; /* يضمن ظهور واجهة التصميم كاملة 100% بدون أي قص */
-      border-radius: 70px; /* تدوير ناعم ومطابق لزوايا الآيفون الحديثة */
-      margin: 20px auto 16px; /* توسيط الصورة في المنتصف بانسيابية */
-      border: none; /* إزالة الحدود لمنع ظهور أي خطوط سوداء جانبية */
-      background: transparent; /* إزالة أي لون خلفية داكن */
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12); /* ظل ناعم يعطي مظهر الهاتف الحقيقي */
-      overflow: hidden;
-      -webkit-mask-image: -webkit-radial-gradient(white, black);
+      max-width: 280px; 
+      height: auto; 
+      max-height: 520px; 
+      object-fit: contain; 
+      border-radius: 70px; 
+      margin: 20px auto 16px; 
+      border: none; 
+      background: transparent; 
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12); 
+      overflow: hidden; 
+      -webkit-mask-image: -webkit-radial-gradient(white, black); 
     }
 
-    /* Skills Section */
     .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; }
     .skill-category h3 { font-family: "Fraunces", serif; font-size: 25px; font-weight: 500; margin-bottom: 20px; color: var(--text); transition: color 0.4s ease; }
     .skill-list { list-style: none; }
     .skill-list li { padding: 10px 0; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 14px; transition: 0.3s ease, color 0.4s ease, border-color 0.4s ease; }
     .skill-list li:hover { padding-left: 10px; color: var(--text); }
 
-    /* Marquee */
     .skills-marquee-wrapper {
       display: flex; overflow: hidden; width: 100%; margin-top: 80px; padding: 20px 0;
       mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
@@ -307,7 +286,6 @@
     .skills-marquee img:hover { filter: grayscale(0%) opacity(1) invert(0) brightness(1) !important; transform: scale(1.2); }
     @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-    /* Certificates List */
     .certificates-list { display: grid; gap: 0; }
     .certificate-card { display: grid; grid-template-columns: 50px 70px 1fr 100px 100px; gap: 20px; align-items: center; padding: 24px 15px; border-top: 1px solid var(--line); transition: 0.3s ease; border-radius: 12px; }
     .certificate-card:last-child { border-bottom: 1px solid var(--line); }
@@ -325,7 +303,6 @@
     .cert-link { font-family: "IBM Plex Mono", monospace; font-size: 11px; transition: transform 0.2s ease; white-space: nowrap; }
     .cert-link:hover { transform: translateX(4px); }
 
-    /* Experience List */
     .experience-list { display: grid; gap: 0; }
     .experience-item { display: grid; grid-template-columns: 80px 1fr auto; gap: 30px; align-items: center; padding: 30px 0; border-top: 1px solid var(--line); transition: padding 0.3s ease, background 0.3s ease; }
     .experience-item:last-child { border-bottom: 1px solid var(--line); }
@@ -336,7 +313,6 @@
     .exp-info .desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
     .exp-date { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); white-space: nowrap; }
 
-    /* Footer */
     footer { padding: 70px 6vw 35px; background: var(--inv-bg); color: var(--inv-text); position: relative; z-index: 2; }
     .footer-inner { max-width: 1200px; margin: auto; }
     .footer-title { font-family: "Fraunces", serif; font-size: clamp(34px, 5vw, 55px); font-weight: 500; margin-bottom: 25px; }
@@ -345,7 +321,6 @@
     .footer-links a:hover { color: var(--inv-text); transform: translateY(-2px); }
     .copyright { margin-top: 50px; font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--inv-muted); opacity: 0.8; }
 
-    /* Smooth Scroll Reveal */
     .smooth-reveal {
       opacity: 0;
       transform: translateY(50px);
@@ -357,7 +332,6 @@
       transform: translateY(0);
     }
 
-    /* Responsive adjustments */
     @media (max-width: 900px) {
       .nav-center-links { display: none; }
       .hamburger { display: flex; }
@@ -384,27 +358,22 @@
 </head>
 <body>
 
-  <!-- Page Wipe Transition -->
   <div class="page-wipe"></div>
 
-  <!-- Project Previews Popup Image -->
   <img class="project-preview" id="projectPreview" src="" alt="" />
 
-  <!-- Back to Top Button -->
   <button id="backToTop" aria-label="Back to top">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M18 15l-6-6-6 6"/>
     </svg>
   </button>
 
-  <!-- Background Animated Blobs -->
   <div class="bg-shapes">
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
     <div class="blob blob-3"></div>
   </div>
 
-  <!-- Navbar -->
   <div class="nav-container">
     <nav id="navbar">
       <div class="nav-name">Khawlah Portfolio</div>
@@ -442,7 +411,6 @@
     </nav>
   </div>
 
-  <!-- Mobile Drawer -->
   <div class="nav-overlay" id="navOverlay"></div>
   <div class="nav-links" id="navLinks">
     <a href="#about">About</a>
@@ -454,7 +422,6 @@
     <a href="#contact">Contact</a>
   </div>
 
-  <!-- Hero -->
   <header class="hero smooth-reveal">
     <div class="hero-content">
       <div class="eyebrow">Artificial Intelligence</div>
@@ -465,7 +432,6 @@
     </div>
   </header>
 
-  <!-- About -->
   <section id="about" class="smooth-reveal">
     <div class="section-inner">
       <div class="section-label">01. About</div>
@@ -490,7 +456,6 @@
         </div>
       </div>
 
-      <!-- About Stats -->
       <div class="about-stats smooth-reveal">
         <div class="stats-grid">
           <div class="stat-item">
@@ -525,7 +490,6 @@
     </div>
   </section>
 
-  <!-- Education -->
   <section id="education" class="smooth-reveal">
     <div class="section-inner">
       <div class="section-label">02. Education</div>
@@ -546,7 +510,6 @@
     </div>
   </section>
 
-  <!-- Projects -->
   <section id="projects" class="smooth-reveal">
     <div class="section-inner">
       <div class="section-label">03. Projects</div>
@@ -663,7 +626,6 @@
     </div>
   </section>
 
-  <!-- Skills -->
   <section id="skills" class="smooth-reveal">
     <div class="section-inner">
       <div class="section-label">04. Skills</div>
@@ -703,7 +665,6 @@
         </div>
       </div>
 
-      <!-- Marquee -->
       <div class="skills-marquee-wrapper">
         <div class="skills-marquee" id="marqueeTrack"></div>
         <div class="skills-marquee" id="marqueeTrack2" aria-hidden="true"></div>
@@ -712,7 +673,6 @@
     </div>
   </section>
 
-  <!-- Certificates -->
   <section id="certificates" class="smooth-reveal">
     <div class="section-inner">
       <div class="section-label">05. Certificates</div>
@@ -827,7 +787,6 @@
     </div>
   </section>
 
-  <!-- Experience -->
   <section id="experience" class="smooth-reveal">
     <div class="section-inner">
       <div class="section-label">06. Experience</div>
@@ -898,7 +857,6 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer id="contact" class="smooth-reveal">
     <div class="footer-inner">
       <div class="section-label">07. Contact</div>
@@ -914,7 +872,6 @@
   </footer>
 
   <script>
-    // Theme Management
     const themeToggle = document.getElementById('themeToggle');
     const root = document.documentElement;
     const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -927,7 +884,6 @@
       localStorage.setItem('theme', targetTheme);
     });
 
-    // Mobile Navigation Drawer
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
     const navOverlay = document.getElementById('navOverlay');
@@ -941,7 +897,6 @@
     navOverlay.addEventListener('click', toggleMenu);
     navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', toggleMenu));
 
-    // Typewriter Effect
     const typeStrings = [
       "Building practical AI solutions through machine learning, data, and intelligent applications.",
       "Developing intelligent recommenders, AI chatbots, and intuitive UI/UX designs."
@@ -972,7 +927,6 @@
     }
     typeWriter();
 
-    // Image Preview Follow Mouse for Projects
     const projectPreview = document.getElementById("projectPreview");
     let mouseX = 0, mouseY = 0;
     window.addEventListener("mousemove", (e) => {
@@ -998,7 +952,6 @@
       });
     });
 
-    // Back to Top Button Logic
     const backToTopBtn = document.getElementById("backToTop");
     window.addEventListener("scroll", () => {
       if (window.scrollY > 400) {
@@ -1011,7 +964,6 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    // Smooth Scroll Reveal
     const smoothElements = document.querySelectorAll('.smooth-reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -1025,7 +977,6 @@
     });
     smoothElements.forEach(el => observer.observe(el));
 
-    // Scramble Text Logic
     const scrambleChars = "0123456789!@#$%^&*";
     function runScrambleEffect(element, finalValue, duration = 1200) {
       let startTime = Date.now();
@@ -1055,7 +1006,6 @@
     triggerAllScrambles();
     setInterval(triggerAllScrambles, 6000);
 
-    // Dynamic Skills Marquee Generator
     const skillIcons = [
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
